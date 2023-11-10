@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Combat_TESTING : MonoBehaviour {
     public FloorGrid grid;
-
+    
     private void Start() {
         grid.generateEmpty();
 
@@ -14,6 +15,5 @@ public class Combat_TESTING : MonoBehaviour {
         grid.grid[0 , 0].hasPlayer = true;
         grid.grid[0 , 0].transform.GetChild(0).gameObject.SetActive(true);
     }
-
 
 }
