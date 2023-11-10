@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f623073c23ceb048975836a8f514c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 3
+  height: 4
   width: 3
   size: 2
   tile: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}

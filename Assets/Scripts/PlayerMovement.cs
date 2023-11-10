@@ -26,16 +26,12 @@ public class PlayerMovement : MonoBehaviour {
         int potentialY = playerTile.floorCord[1] + yMove;
         FloorGrid floor = playerTile.floorGrid;
 
-        Debug.Log("INPUT");
-
         if(potentialX < 0 || potentialX >= floor.width) {
             return;
         }
         if(potentialY < 0 || potentialY >= floor.height) {
             return;
         }
-
-        Debug.Log("Moving");
 
         playerTile.hasPlayer = false;
         playerTile.transform.GetChild(0).gameObject.SetActive(false);
