@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
         playerTile = floor.grid[potentialX , potentialY];
         playerTile.hasPlayer = true;
         playerTile.transform.GetChild(0).gameObject.SetActive(true);
-    }
 
+       GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+       cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
+    }
 }
