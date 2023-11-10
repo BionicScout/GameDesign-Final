@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 1787917066}
   - component: {fileID: 1787917065}
   - component: {fileID: 1787917067}
+  - component: {fileID: 1787917068}
   m_Layer: 0
   m_Name: Test Object
   m_TagString: Untagged
@@ -248,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1787917067}
+  roomGen: {fileID: 1787917068}
 --- !u!4 &1787917066
 Transform:
   m_ObjectHideFlags: 0
@@ -279,6 +281,19 @@ MonoBehaviour:
   width: 3
   size: 2
   tile: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
+--- !u!114 &1787917068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787917064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8764f14d883b7f445a1f5a8fd2b78493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSize: 21
 --- !u!1 &2128040328
 GameObject:
   m_ObjectHideFlags: 0
