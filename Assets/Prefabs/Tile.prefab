@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 850b3afe491aec049a3a8ecf779d2824, type: 2}
+  - {fileID: 2100000, guid: e1b4c2f32903a5244b64348a411d5fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -220,7 +220,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 850b3afe491aec049a3a8ecf779d2824, type: 2}
+  - {fileID: 2100000, guid: e1b4c2f32903a5244b64348a411d5fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 850b3afe491aec049a3a8ecf779d2824, type: 2}
+  - {fileID: 2100000, guid: e1b4c2f32903a5244b64348a411d5fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -505,7 +505,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 850b3afe491aec049a3a8ecf779d2824, type: 2}
+  - {fileID: 2100000, guid: e1b4c2f32903a5244b64348a411d5fe0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -566,9 +566,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2045311830281141446}
   - {fileID: 4126226670751125536}
   - {fileID: 899935492662464617}
+  - {fileID: 2045311830281141446}
   - {fileID: 8542886950323252858}
   - {fileID: 8572603211998229205}
   m_Father: {fileID: 8130650273475798341}
