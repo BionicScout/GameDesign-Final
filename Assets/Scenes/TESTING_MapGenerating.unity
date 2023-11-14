@@ -277,9 +277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f623073c23ceb048975836a8f514c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 4
-  width: 3
-  size: 2
+  height: 21
+  width: 21
+  size: 1
   tile: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
 --- !u!114 &1787917068
 MonoBehaviour:
@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 21
+  howManyRooms: 50
 --- !u!1 &2128040328
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +356,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.77
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -391,5 +392,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2128040331}
-  - {fileID: 1787917066}
   - {fileID: 158048693}
+  - {fileID: 1787917066}

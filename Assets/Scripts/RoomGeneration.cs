@@ -62,7 +62,7 @@ public class RoomGeneration : MonoBehaviour {
         int roomsToGen = howManyRooms;
 
         int fileText = 0;
-        print(fileText.ToString(), rooms);
+        //print(fileText.ToString(), rooms);
 
 
 
@@ -74,10 +74,8 @@ public class RoomGeneration : MonoBehaviour {
             //Debug.Log("Room Index: " + roomIndex);
 
             if(rooms[roomIndex].doorsLeft == 0) {
-                Debug.Log("Max Doors!");
-                Debug.Log("END LOOP -----------------------------");
                 fileText++;
-                print(fileText.ToString(), rooms);
+                //print(fileText.ToString(), rooms);
                 continue;
             }
 
@@ -90,10 +88,6 @@ public class RoomGeneration : MonoBehaviour {
                 direction = (direction + 1) % 4;
                 openDirection = rooms[roomIndex].directions[direction];
             }
-
-            Debug.Log("Direction: " + direction);
-            Debug.Log("Open: " + openDirection);
-
 
             //Place Room
             temp = new RoomInfo();
@@ -131,15 +125,10 @@ public class RoomGeneration : MonoBehaviour {
 
             rooms[rooms.Count - 1] = temp;
 
-
-
-            //Debug.Log(temp.x + " " + temp.y);
-            //roomLayout[temp.x , temp.y] = rooms.Count - 1;
             roomsToGen--;
-            Debug.Log("END LOOP -----------------------------");
 
             fileText++;
-            print(fileText.ToString() , rooms);
+            //print(fileText.ToString() , rooms);
         }
 
         
