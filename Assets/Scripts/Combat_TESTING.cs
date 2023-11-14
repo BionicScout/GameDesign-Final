@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Combat_TESTING : MonoBehaviour {
     public FloorGrid grid;
+
     
     private void Start() {
         grid.generateEmpty();
