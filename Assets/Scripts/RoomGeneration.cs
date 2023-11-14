@@ -11,6 +11,10 @@ public class RoomGeneration : MonoBehaviour {
 
     int[,] baseDirections = { {-1, 0} , {0, -1}, {1, 0}, {0, 1} }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
 
+    public GameObject roomTilePrefab;
+    public GameObject floorTilePrefab;
+    public FloorGrid grid;
+
     public struct RoomInfo {
         public int x, y;
         public bool[] directions; //0 Up, 1 Left, 2 Down, 3 Right. //True means room is in that direction
@@ -133,6 +137,30 @@ public class RoomGeneration : MonoBehaviour {
 
         
        
+    }
+
+    public void generatetiles() {
+        GameObject parent = new GameObject("Room Grid");
+        grid.size = 7;
+        grid.grid = new FloorTile[grid.width , grid.height];
+
+        for(int w = 0; w < grid.width; w++) {
+            for(int h = 0; h < grid.height; h++) {
+                if(roomLayout[w , h] != -1) {
+                    GameObject obj = Instantiate(roomTilePrefab , new Vector3((w - 11) * grid.size , (h - 11) * grid.size , 0) , Quaternion.identity);
+                    obj.transform.SetParent(parent.transform);
+                    obj.transform.localScale *= grid.size;
+
+                    obj.AddComponent<FloorGrid>();
+                    FloorGrid floor = obj.GetComponent<FloorGrid>();
+                    floor.width = 7;
+                    floor.height = 7;
+                    floor.size = 1;
+                    floor.tile = floorTilePrefab;
+                    floor.generateEmpty(obj);
+                }
+            }
+        }
     }
 
     public void setToNegative1() {

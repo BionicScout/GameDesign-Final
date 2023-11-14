@@ -31,4 +31,25 @@ public class FloorGrid : MonoBehaviour{
             }
         }
     }
+
+    public GameObject generateEmpty(GameObject parent) {
+        grid = new FloorTile[width , height];
+
+        for(int w = 0; w < width; w++) {
+            for(int h = 0; h < height; h++) {
+                GameObject obj = Instantiate(tile , new Vector3((w * size) -3 , (h * size) - 3 , 0) + parent.transform.position, Quaternion.identity);
+                obj.transform.SetParent(parent.transform);
+                obj.transform.localScale *= size;
+
+                obj.AddComponent<FloorTile>();
+                grid[w , h] = obj.GetComponent<FloorTile>();
+                grid[w , h].floorCord = new int[2];
+                grid[w , h].floorCord[0] = w;
+                grid[w , h].floorCord[1] = h;
+                grid[w , h].floorGrid = this;
+            }
+        }
+
+        return parent;
+    }
 }
