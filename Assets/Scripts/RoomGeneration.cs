@@ -4,9 +4,10 @@ using UnityEditor;
 using UnityEngine;
 
 public class RoomGeneration : MonoBehaviour {
-    public int[,] roomLayout;
+    int[,] roomLayout;
     public int gridSize;
     public int howManyRooms;
+    public int floorSize;
 
     int[,] baseDirections = { {-1, 0} , {0, -1}, {1, 0}, {0, 1} }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
 
@@ -62,19 +63,20 @@ public class RoomGeneration : MonoBehaviour {
     }
 
     public void generate() {
+        //Set Grid values to -1. This represents no room there
         roomLayout = new int[gridSize , gridSize];
         setToNegative1();
 
+        //Create List of Rooms that are generated and create a room in the middle of the map
+        List<RoomInfo> rooms = new List<RoomInfo>();
+
         int middle = Mathf.FloorToInt(gridSize / 2f);
-
-        //Generation
-        List<RoomInfo> rooms = new List<RoomInfo>(); //Tuple represents a rooms x, y, and doorWaysLeft
-
-        RoomInfo temp = new RoomInfo();
-        temp.set(middle, middle);
+        RoomInfo middleRoom = new RoomInfo();
+        middleRoom.set(middle, middle);
         roomLayout[middle , middle] = 0;
-        rooms.Add(temp);
+        rooms.Add(middleRoom);
 
+        //Generate Rooms
         int roomsToGen = howManyRooms;
 
         while(roomsToGen > 0) {
@@ -95,9 +97,6 @@ public class RoomGeneration : MonoBehaviour {
         }
 
         generatetiles(rooms);
-        print("", rooms);
-        
-       
     }
 
     public int pickDirection(RoomInfo room) {
@@ -156,20 +155,21 @@ public class RoomGeneration : MonoBehaviour {
 
     public void generatetiles(List<RoomInfo> rooms) {
         GameObject parent = new GameObject("Room Map");
-        grid.size = 7;
+        grid.size = floorSize;
         grid.grid = new FloorTile[grid.width , grid.height];
 
         for(int i = 0; i < rooms.Count; i++) {
             RoomInfo room = rooms[i];
 
-            GameObject obj = Instantiate(roomTilePrefab , new Vector3((room.x - 11) * grid.size , (room.y - 11) * grid.size , -1) , Quaternion.identity);
+            float middle = Mathf.FloorToInt(gridSize / 2f);
+            GameObject obj = Instantiate(roomTilePrefab , new Vector3((room.x - middle) * grid.size , (room.y - middle) * grid.size , -1) , Quaternion.identity);
             obj.transform.SetParent(parent.transform);
             obj.transform.localScale *= grid.size;
 
             obj.AddComponent<FloorGrid>();
             FloorGrid floor = obj.GetComponent<FloorGrid>();
-            floor.width = 7;
-            floor.height = 7;
+            floor.width = floorSize;
+            floor.height = floorSize;
             floor.size = 1;
             floor.tile = floorTilePrefab;
             floor.generateEmpty(obj);

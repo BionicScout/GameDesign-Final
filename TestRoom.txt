@@ -1,46 +1,46 @@
--1	-1	-1	-1	-1	191	177	194	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	196	162	164	171	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	172	140	148	168	176	198	199	174	182	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	195	151	132	137	130	120	163	133	160	152	193	-1	-1	-1	-1	-1	-1	-1	
--1	-1	200	129	139	104	98	87	117	81	115	124	138	145	-1	-1	-1	-1	-1	-1	-1	
--1	-1	135	72	109	80	66	69	83	51	54	103	116	159	-1	-1	-1	-1	-1	-1	-1	
-197	111	85	68	39	38	22	58	45	37	42	74	94	108	170	-1	-1	-1	-1	-1	-1	
-187	110	70	60	64	34	20	30	14	19	31	44	65	84	106	131	189	-1	-1	-1	-1	
-167	146	90	59	43	41	13	8	7	11	15	55	52	57	56	86	112	185	-1	-1	-1	
-186	173	147	89	47	36	35	16	5	2	17	21	28	33	48	114	122	158	-1	-1	-1	
--1	188	184	157	91	73	46	29	3	1	0	10	25	32	62	78	136	180	-1	-1	-1	
--1	179	169	149	142	93	79	49	4	6	9	18	27	75	67	118	126	-1	-1	-1	-1	
--1	-1	178	-1	156	155	95	40	26	24	12	23	50	97	82	165	-1	-1	-1	-1	-1	
--1	-1	-1	-1	192	107	100	99	61	53	63	71	92	105	183	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	113	150	76	77	102	88	119	127	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	166	141	134	123	121	96	101	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	153	125	128	144	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	161	154	143	190	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	-1	175	181	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	33	44	39	-1	49	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	48	31	12	25	26	32	46	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	50	22	15	7	2	3	8	40	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	41	30	21	19	4	1	6	27	34	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	37	28	20	17	5	0	14	29	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	24	18	11	9	10	35	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	43	38	42	13	23	47	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	16	36	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	45	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 -1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 -1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 
 
 
--1	-1	-1	-1	-1	2	1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	2	0	0	1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	1	0	0	0	1	1	1	1	2	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	2	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	-1	
--1	-1	2	0	0	0	0	0	0	0	0	0	0	1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	1	0	0	0	0	0	0	0	0	0	0	1	-1	-1	-1	-1	-1	-1	-1	
-2	1	0	0	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	
-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	2	-1	-1	-1	-1	
-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	
-2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	-1	-1	-1	
--1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	
--1	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	
--1	-1	3	-1	1	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	
--1	-1	-1	-1	2	1	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	1	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	2	1	0	0	0	0	2	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	1	0	0	1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	2	0	0	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	
--1	-1	-1	-1	-1	-1	-1	-1	-1	2	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	2	1	2	-1	3	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	2	0	0	0	1	0	3	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	2	1	0	0	0	0	0	1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	2	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	2	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	1	0	0	0	0	1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	2	1	1	0	0	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	2	1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	3	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
+-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 -1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 -1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	
 
@@ -52,1002 +52,252 @@ Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
 Room 1:
-X: 10	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 2:
-X: 9	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 3:
-X: 10	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 4:
-X: 11	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 5:
-X: 9	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 6:
-X: 11	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 7:
-X: 8	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 8:
-X: 8	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 9:
-X: 11	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 10:
-X: 10	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 11:
-X: 8	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 12:
-X: 12	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 13:
-X: 8	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 14:
-X: 7	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 15:
-X: 8	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 16:
-X: 9	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 17:
 X: 9	Y: 10
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 18:
-X: 11	Y: 11
+Room 2:
+X: 8	Y: 10
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 19:
-X: 7	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 20:
-X: 7	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 21:
-X: 9	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 22:
-X: 6	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 23:
-X: 12	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 24:
-X: 12	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 25:
-X: 10	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 26:
-X: 12	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 27:
-X: 11	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 28:
-X: 9	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 29:
-X: 10	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 30:
-X: 7	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 31:
-X: 7	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 32:
-X: 10	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 33:
-X: 9	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 34:
-X: 7	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 35:
-X: 9	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 36:
-X: 9	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 37:
-X: 6	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 38:
-X: 6	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 39:
-X: 6	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 40:
-X: 12	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 41:
-X: 8	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 42:
-X: 6	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 43:
-X: 8	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 44:
-X: 7	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 45:
-X: 6	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 46:
-X: 10	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 47:
-X: 9	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 48:
-X: 9	Y: 14
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 49:
-X: 11	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 50:
-X: 12	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 51:
-X: 5	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 52:
-X: 8	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 53:
-X: 13	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 54:
-X: 5	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 55:
+Room 3:
 X: 8	Y: 11
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 56:
-X: 8	Y: 14
+Room 4:
+X: 9	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 57:
-X: 8	Y: 13
+Room 5:
+X: 10	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 58:
-X: 6	Y: 7
+Room 6:
+X: 9	Y: 11
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 59:
-X: 8	Y: 3
+Room 7:
+X: 8	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 60:
-X: 7	Y: 3
+Room 8:
+X: 8	Y: 12
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 61:
-X: 13	Y: 8
+Room 9:
+X: 11	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 62:
-X: 10	Y: 14
+Room 10:
+X: 11	Y: 10
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 63:
-X: 13	Y: 10
+Room 11:
+X: 11	Y: 8
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 64:
-X: 7	Y: 4
+Room 12:
+X: 7	Y: 10
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 65:
-X: 7	Y: 12
+Room 13:
+X: 12	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 66:
-X: 5	Y: 6
+Room 14:
+X: 10	Y: 11
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 67:
-X: 11	Y: 14
+Room 15:
+X: 8	Y: 8
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 68:
-X: 6	Y: 3
+Room 16:
+X: 13	Y: 9
+Up: False	Left: True	Down: True	Right: False
+Doors Left: 2
+
+Room 17:
+X: 10	Y: 8
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 69:
-X: 5	Y: 7
+Room 18:
+X: 11	Y: 7
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 70:
-X: 7	Y: 2
+Room 19:
+X: 9	Y: 8
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 71:
-X: 13	Y: 11
+Room 20:
+X: 10	Y: 7
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 72:
-X: 5	Y: 3
+Room 21:
+X: 9	Y: 7
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 73:
-X: 10	Y: 5
+Room 22:
+X: 8	Y: 7
+Up: True	Left: False	Down: False	Right: False
+Doors Left: 1
+
+Room 23:
+X: 12	Y: 10
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 74:
-X: 6	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 75:
-X: 11	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 76:
-X: 14	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 77:
-X: 14	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 78:
-X: 10	Y: 15
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 79:
+Room 24:
 X: 11	Y: 6
+Up: False	Left: True	Down: False	Right: False
+Doors Left: 1
+
+Room 25:
+X: 7	Y: 11
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 80:
-X: 5	Y: 5
+Room 26:
+X: 7	Y: 12
+Up: True	Left: False	Down: False	Right: False
+Doors Left: 1
+
+Room 27:
+X: 9	Y: 12
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 81:
-X: 4	Y: 9
+Room 28:
+X: 10	Y: 6
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 82:
-X: 12	Y: 14
+Room 29:
+X: 10	Y: 12
+Up: False	Left: False	Down: True	Right: True
+Doors Left: 2
+
+Room 30:
+X: 9	Y: 6
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 83:
-X: 5	Y: 8
+Room 31:
+X: 7	Y: 9
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 84:
+Room 32:
 X: 7	Y: 13
 Up: False	Left: False	Down: False	Right: False
 Doors Left: 0
 
-Room 85:
-X: 6	Y: 2
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
+Room 33:
+X: 6	Y: 9
+Up: True	Left: True	Down: False	Right: False
+Doors Left: 2
 
-Room 86:
-X: 8	Y: 15
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 87:
-X: 4	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 88:
-X: 14	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 89:
-X: 9	Y: 3
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 90:
-X: 8	Y: 2
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 91:
-X: 10	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 92:
-X: 13	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 93:
-X: 11	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 94:
-X: 6	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 95:
-X: 12	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 96:
-X: 15	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 97:
-X: 12	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 98:
-X: 4	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 99:
-X: 13	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 100:
-X: 13	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 101:
-X: 15	Y: 12
+Room 34:
+X: 9	Y: 13
 Up: False	Left: False	Down: True	Right: True
 Doors Left: 2
 
-Room 102:
-X: 14	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 103:
-X: 5	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 104:
-X: 4	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 105:
-X: 13	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 106:
-X: 7	Y: 14
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 107:
-X: 13	Y: 5
-Up: False	Left: False	Down: True	Right: False
-Doors Left: 1
-
-Room 108:
-X: 6	Y: 13
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 109:
-X: 5	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 110:
-X: 7	Y: 1
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 111:
-X: 6	Y: 1
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 112:
-X: 8	Y: 16
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 113:
-X: 14	Y: 6
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 114:
-X: 9	Y: 15
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 115:
-X: 4	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 116:
-X: 5	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 117:
-X: 4	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 118:
-X: 11	Y: 15
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 119:
-X: 14	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 120:
-X: 3	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 121:
-X: 15	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 122:
-X: 9	Y: 16
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 123:
-X: 15	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 124:
-X: 4	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 125:
-X: 16	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 126:
-X: 11	Y: 16
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 127:
-X: 14	Y: 13
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 128:
-X: 16	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 129:
-X: 4	Y: 3
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 130:
-X: 3	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 131:
-X: 7	Y: 15
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 132:
-X: 3	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 133:
-X: 3	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 134:
-X: 15	Y: 8
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 135:
-X: 5	Y: 2
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 136:
-X: 10	Y: 16
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 137:
-X: 3	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 138:
-X: 4	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 139:
-X: 4	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 140:
-X: 2	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 141:
-X: 15	Y: 7
-Up: False	Left: False	Down: True	Right: False
-Doors Left: 1
-
-Room 142:
-X: 11	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 143:
-X: 17	Y: 10
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 144:
-X: 16	Y: 11
+Room 35:
+X: 11	Y: 11
 Up: False	Left: False	Down: False	Right: True
 Doors Left: 1
 
-Room 145:
-X: 4	Y: 13
+Room 36:
+X: 13	Y: 10
 Up: False	Left: False	Down: False	Right: True
 Doors Left: 1
 
-Room 146:
-X: 8	Y: 1
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 147:
-X: 9	Y: 2
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 148:
-X: 2	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 149:
-X: 11	Y: 3
-Up: False	Left: False	Down: True	Right: False
-Doors Left: 1
-
-Room 150:
-X: 14	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 151:
-X: 3	Y: 4
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 152:
-X: 3	Y: 12
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 153:
-X: 16	Y: 8
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 154:
-X: 17	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 155:
-X: 12	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 156:
-X: 12	Y: 4
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 157:
-X: 10	Y: 3
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 158:
-X: 9	Y: 17
-Up: False	Left: False	Down: False	Right: True
-Doors Left: 1
-
-Room 159:
-X: 5	Y: 13
-Up: False	Left: False	Down: False	Right: True
-Doors Left: 1
-
-Room 160:
-X: 3	Y: 11
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 161:
-X: 17	Y: 8
+Room 37:
+X: 10	Y: 5
 Up: False	Left: True	Down: True	Right: False
 Doors Left: 2
 
-Room 162:
-X: 1	Y: 5
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 163:
-X: 3	Y: 9
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 164:
-X: 1	Y: 6
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 165:
-X: 12	Y: 15
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 166:
-X: 15	Y: 6
-Up: False	Left: True	Down: True	Right: False
-Doors Left: 2
-
-Room 167:
-X: 8	Y: 0
-Up: False	Left: True	Down: False	Right: False
+Room 38:
+X: 12	Y: 7
+Up: False	Left: False	Down: True	Right: False
 Doors Left: 1
 
-Room 168:
-X: 2	Y: 7
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 169:
-X: 11	Y: 2
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 170:
-X: 6	Y: 14
+Room 39:
+X: 6	Y: 11
 Up: True	Left: False	Down: False	Right: True
 Doors Left: 2
 
-Room 171:
-X: 1	Y: 7
+Room 40:
+X: 8	Y: 13
 Up: False	Left: False	Down: False	Right: True
 Doors Left: 1
 
-Room 172:
-X: 2	Y: 4
-Up: False	Left: True	Down: False	Right: False
+Room 41:
+X: 9	Y: 5
+Up: True	Left: True	Down: False	Right: False
+Doors Left: 2
+
+Room 42:
+X: 12	Y: 8
+Up: False	Left: False	Down: True	Right: False
 Doors Left: 1
 
-Room 173:
-X: 9	Y: 1
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 174:
-X: 2	Y: 11
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 175:
-X: 18	Y: 9
+Room 43:
+X: 12	Y: 6
 Up: False	Left: True	Down: True	Right: False
 Doors Left: 2
 
-Room 176:
-X: 2	Y: 8
+Room 44:
+X: 6	Y: 10
 Up: True	Left: False	Down: False	Right: False
 Doors Left: 1
 
-Room 177:
-X: 0	Y: 6
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 178:
-X: 12	Y: 2
+Room 45:
+X: 14	Y: 10
 Up: False	Left: True	Down: True	Right: True
 Doors Left: 3
 
-Room 179:
-X: 11	Y: 1
-Up: False	Left: True	Down: True	Right: False
-Doors Left: 2
+Room 46:
+X: 7	Y: 14
+Up: True	Left: False	Down: True	Right: True
+Doors Left: 3
 
-Room 180:
-X: 10	Y: 17
+Room 47:
+X: 12	Y: 11
 Up: False	Left: False	Down: True	Right: True
 Doors Left: 2
 
-Room 181:
-X: 18	Y: 10
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 182:
-X: 2	Y: 12
-Up: True	Left: False	Down: False	Right: True
-Doors Left: 2
-
-Room 183:
-X: 13	Y: 14
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 184:
-X: 10	Y: 2
-Up: False	Left: False	Down: False	Right: False
-Doors Left: 0
-
-Room 185:
-X: 8	Y: 17
-Up: True	Left: False	Down: False	Right: True
-Doors Left: 2
-
-Room 186:
-X: 9	Y: 0
-Up: False	Left: True	Down: True	Right: False
-Doors Left: 2
-
-Room 187:
-X: 7	Y: 0
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 188:
-X: 10	Y: 1
-Up: False	Left: True	Down: False	Right: False
-Doors Left: 1
-
-Room 189:
-X: 7	Y: 16
-Up: True	Left: False	Down: False	Right: True
-Doors Left: 2
-
-Room 190:
-X: 17	Y: 11
-Up: False	Left: False	Down: True	Right: True
-Doors Left: 2
-
-Room 191:
-X: 0	Y: 5
+Room 48:
+X: 7	Y: 8
 Up: True	Left: True	Down: False	Right: False
 Doors Left: 2
 
-Room 192:
-X: 13	Y: 4
-Up: False	Left: True	Down: True	Right: False
-Doors Left: 2
+Room 49:
+X: 6	Y: 13
+Up: True	Left: True	Down: False	Right: True
+Doors Left: 3
 
-Room 193:
-X: 3	Y: 13
-Up: True	Left: False	Down: False	Right: True
-Doors Left: 2
-
-Room 194:
-X: 0	Y: 7
-Up: True	Left: False	Down: False	Right: True
-Doors Left: 2
-
-Room 195:
-X: 3	Y: 3
-Up: True	Left: True	Down: False	Right: False
-Doors Left: 2
-
-Room 196:
-X: 1	Y: 4
-Up: True	Left: True	Down: False	Right: False
-Doors Left: 2
-
-Room 197:
-X: 6	Y: 0
-Up: True	Left: True	Down: False	Right: False
-Doors Left: 2
-
-Room 198:
-X: 2	Y: 9
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 199:
-X: 2	Y: 10
-Up: True	Left: False	Down: False	Right: False
-Doors Left: 1
-
-Room 200:
-X: 4	Y: 2
+Room 50:
+X: 8	Y: 6
 Up: True	Left: True	Down: False	Right: False
 Doors Left: 2
 
