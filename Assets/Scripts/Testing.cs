@@ -16,7 +16,6 @@ public class Testing : MonoBehaviour {
         //grid.grid[0, 0].transform.GetChild(0).gameObject.SetActive(true);
 
         roomGen.generate();
-        roomGen.generatetiles();
 
       
 

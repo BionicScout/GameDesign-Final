@@ -248,7 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7561c968fc38f34485d35609f1b1e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 1787917067}
   roomGen: {fileID: 1787917068}
 --- !u!4 &1787917066
 Transform:
@@ -295,6 +294,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: 21
   howManyRooms: 50
+  roomTilePrefab: {fileID: 5866771556132973551, guid: 76572eb4161952644957ee9b60c56900, type: 3}
+  floorTilePrefab: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
+  grid: {fileID: 1787917067}
+  doorMat: {fileID: 2100000, guid: 862c5e0a31051c248b83d59190c141bb, type: 2}
 --- !u!1 &2128040328
 GameObject:
   m_ObjectHideFlags: 0

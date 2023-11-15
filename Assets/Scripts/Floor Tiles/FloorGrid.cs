@@ -37,7 +37,7 @@ public class FloorGrid : MonoBehaviour{
 
         for(int w = 0; w < width; w++) {
             for(int h = 0; h < height; h++) {
-                GameObject obj = Instantiate(tile , new Vector3((w * size) -3 , (h * size) - 3 , 0) + parent.transform.position, Quaternion.identity);
+                GameObject obj = Instantiate(tile , new Vector3((w * size) -3 , (h * size) - 3 , 1) + parent.transform.position, Quaternion.identity);
                 obj.transform.SetParent(parent.transform);
                 obj.transform.localScale *= size;
 
