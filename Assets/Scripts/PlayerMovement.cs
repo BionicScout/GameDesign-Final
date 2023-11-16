@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public FloorTile playerTile;
-    //GameObject Instrument;
+    GameObject Instrument;
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.W)) {
@@ -58,11 +58,4 @@ public class PlayerMovement : MonoBehaviour {
        cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
     }
 
-    void TileHasInstru(FloorTile aPlayerTile) 
-    {
-        if(aPlayerTile.hasInstru == false)
-        {
-
-        }
-    }
 }
