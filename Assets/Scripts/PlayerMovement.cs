@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public FloorTile playerTile;
+    public float crankPerMove;
+
     private void Update() {
         if(Input.GetKeyDown(KeyCode.W)) {
             MoveIfAvialable(0, 1);
@@ -50,6 +52,8 @@ public class PlayerMovement : MonoBehaviour {
             playerTile.hasPlayer = true;
             playerTile.transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        MainManager.instance.addCrank(crankPerMove);
 
        //gets the camera and set it position to the players
        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
