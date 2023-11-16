@@ -12,7 +12,8 @@ public class SceneSwitcher : MonoBehaviour {
         if(instance == null)
             instance = this;
         else {
-            Destroy(gameObject);
+            Destroy(SceneSwitcher.instance.gameObject);
+            instance = this;
             return;
         }
 
