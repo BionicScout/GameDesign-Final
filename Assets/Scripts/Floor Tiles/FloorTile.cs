@@ -21,12 +21,12 @@ public class FloorTile : MonoBehaviour {
         transform.GetChild(3).gameObject.SetActive(!hide);
         transform.GetChild(4).gameObject.SetActive(!hide);
 
-        //if(!hide) {
+        if(!hide) {
 
-        //    transform.GetChild(1).gameObject.SetActive(!hide && hasPlayer);
-        //    transform.GetChild(2).gameObject.SetActive(!hide && HasInstru);
-        //    transform.GetChild(3).gameObject.SetActive(!hide && HasEnemy);
-        //    transform.GetChild(4).gameObject.SetActive(!hide && hasOswald);
-        //}
+            transform.GetChild(1).gameObject.SetActive(!hide && hasPlayer);
+            transform.GetChild(2).gameObject.SetActive(!hide && HasInstru);
+            transform.GetChild(3).gameObject.SetActive(!hide && HasEnemy);
+            transform.GetChild(4).gameObject.SetActive(!hide && hasOswald);
+        }
     }
 }
