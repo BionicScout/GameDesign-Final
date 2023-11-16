@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Fali-Death.unity
     guid: 4f4a77d14f086d84792c674ac91afeaf
+  - enabled: 1
+    path: Assets/Scenes/TESTING_MapGenerating.unity
+    guid: 4a30563bf66096b4c802a139e7ae08c1
   m_configObjects: {}
