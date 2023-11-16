@@ -29,19 +29,26 @@ public class PlayerMovement : MonoBehaviour {
         int potentialY = playerTile.floorCord[1] + yMove;
         FloorGrid floor = playerTile.floorGrid;
 
-        bool offBoard = false;
-        if(playerTile.HasEnemy == false)
+        if (playerTile.HasInstru)
         {
-            if (potentialX < 0 || potentialX >= floor.width)
-            {
-                offBoard = true;
-            }
-            if (potentialY < 0 || potentialY >= floor.height)
-            {
-                offBoard = true;
-            }
+            playerHasInstru = true;
+            playerTile.transform.GetChild(2).gameObject.SetActive(false);
+        }
 
-            if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
+        bool offBoard = false;
+        if (potentialX < 0 || potentialX >= floor.width)
+        {
+            offBoard = true;
+        }
+        if (potentialY < 0 || potentialY >= floor.height)
+        {
+            offBoard = true;
+        }
+
+        if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
+        {
+            ///checks if there is an enemy
+            if(floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false )
             {
                 playerTile.hasPlayer = false;
                 playerTile.transform.GetChild(1).gameObject.SetActive(false);
@@ -49,9 +56,19 @@ public class PlayerMovement : MonoBehaviour {
                 playerTile.hasPlayer = true;
                 playerTile.transform.GetChild(1).gameObject.SetActive(true);
             }
-            else if (offBoard)
-                return;
-            else
+            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false && playerHasInstru == true))
+            {
+                floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
+            }
+
+
+        }
+        else if (offBoard)
+            return;
+        else
+        {
+            ///checks if there is an enemy
+            if(floor.grid[potentialX, potentialY].HasEnemy == false)
             {
                 playerTile.hasPlayer = false;
                 playerTile.transform.GetChild(1).gameObject.SetActive(false);
@@ -59,22 +76,18 @@ public class PlayerMovement : MonoBehaviour {
                 playerTile.hasPlayer = true;
                 playerTile.transform.GetChild(1).gameObject.SetActive(true);
             }
-
-            MainManager.instance.addCrank(crankPerMove);
-
-            if (playerTile.HasInstru)
+            if(floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == true)
             {
-                playerHasInstru = true;
-                playerTile.transform.GetChild(2).gameObject.SetActive(false);
+                floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
             }
-            //gets the camera and set it position to the players
-            GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-            cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
-        }
-        else if(playerHasInstru) 
-        {
 
         }
+
+        MainManager.instance.addCrank(crankPerMove);
+
+        //gets the camera and set it position to the players
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
        
     }
     
