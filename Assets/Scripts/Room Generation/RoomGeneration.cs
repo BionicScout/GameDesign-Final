@@ -122,6 +122,7 @@ public class RoomGeneration : MonoBehaviour {
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
             Tile.transform.GetChild(3).gameObject.SetActive(true);
             Tile.HasEnemy = true;
+            FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
         }
 
     }
