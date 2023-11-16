@@ -122,4 +122,12 @@ public class FloorGrid : MonoBehaviour{
         Debug.Log(temp.floorCord[0] + " " + temp.floorCord[1]);
         return temp;
     }
+
+    public void hide(bool hide) {
+        for(int w = 0; w < width; w++) {
+            for(int h = 0; h < height; h++) {
+                grid[h , w].hide(hide);
+            }
+        }
+    }
 }
