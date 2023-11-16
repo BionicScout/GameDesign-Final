@@ -77,6 +77,11 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             ///checks if there is an enemy
+            if(floor.grid[potentialX, potentialY].hasOswald && playerHasInstru)
+            {
+                playerHasInstru = false;
+                MainManager.instance.addScore(1);
+            }
             if(floor.grid[potentialX, potentialY].HasEnemy == false)
             {
                 playerTile.hasPlayer = false;
@@ -99,10 +104,14 @@ public class PlayerMovement : MonoBehaviour {
         MainManager.instance.addCrank(crankPerMove);
 
         //gets the camera and set it position to the players
-        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-        cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
+        setCamera();
 
         moveEnemies();
+    }
+
+    public void setCamera() {
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cam.transform.position = new Vector3(playerTile.transform.position.x , playerTile.transform.position.y , -10);
     }
 
 

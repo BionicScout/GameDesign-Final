@@ -108,6 +108,7 @@ public class FloorGrid : MonoBehaviour{
         grid[0, 0].hasPlayer = true;
         grid[0,0].transform.GetChild(1).gameObject.SetActive(true);
         FindObjectOfType<PlayerMovement>().playerTile = grid[0, 0];
+        FindObjectOfType<PlayerMovement>().setCamera();
     }
 
     public void addOswald() {
