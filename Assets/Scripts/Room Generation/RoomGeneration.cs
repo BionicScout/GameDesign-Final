@@ -82,17 +82,7 @@ public class RoomGeneration : MonoBehaviour {
         //Generate Rooms
         int roomsToGen = howManyRooms;
         int instruNeedSpawn = 3;
-        for (int i = 0; i < instruNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            if (rooms[roomRan].roomHasInstru == false) 
-            {
-                //rooms[roomRan].roomHasInstru = true;
-                float x = gameObject.transform.position.x;
-                float y = gameObject.transform.position.y;
-                Instantiate(Instru, new Vector2(x, y), Quaternion.identity);
-            }
-        }
+
 
         while (roomsToGen > 0) {
         //Get Room with doors
@@ -109,6 +99,20 @@ public class RoomGeneration : MonoBehaviour {
             rooms = createRoom(rooms, roomIndex, newRoomDirection);
 
             roomsToGen--;
+        }
+
+        for (int i = 0; i < instruNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            if (rooms[roomRan].roomHasInstru == false)
+            {
+                RoomInfo roomInfo = rooms[roomRan];
+                roomInfo.roomHasInstru = true;
+                float x = floorTilePrefab.transform.position.x;
+                float y = floorTilePrefab.transform.position.y;
+                Instantiate(Instru, new Vector2(x, y), Quaternion.identity);
+                rooms[roomRan] = roomInfo;
+            }
         }
 
         rooms = reduceGrid(rooms);

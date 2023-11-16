@@ -18,13 +18,7 @@ public class SpawnInstruments : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //check if the player collided with a instrument
-        if (player.transform.position.x == gameObject.transform.position.x &&
-            player.transform.position.y == gameObject.transform.position.y)
-        {
-            playerHasInstru = true;
-            Destroy(gameObject);
-        }
+
     }
     void TileHasInstru()
     {

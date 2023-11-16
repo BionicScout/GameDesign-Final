@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FloorTile : MonoBehaviour {
     public bool hasPlayer;
+    public bool HasInstru;
 
     public FloorGrid floorGrid;
     public int[] floorCord;
