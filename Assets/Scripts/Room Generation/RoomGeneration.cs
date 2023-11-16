@@ -114,6 +114,15 @@ public class RoomGeneration : MonoBehaviour {
             Tile.transform.GetChild(2).gameObject.SetActive(true);
             Tile.HasInstru = true;
         }
+        //spawns an enimies
+        int enimiesNeedSpawn = 3;
+        for (int i = 0; i < enimiesNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.transform.GetChild(3).gameObject.SetActive(true);
+            Tile.HasEnemy = true;
+        }
 
     }
 

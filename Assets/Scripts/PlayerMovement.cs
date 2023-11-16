@@ -30,42 +30,52 @@ public class PlayerMovement : MonoBehaviour {
         FloorGrid floor = playerTile.floorGrid;
 
         bool offBoard = false;
-
-        if(potentialX < 0 || potentialX >= floor.width) {
-            offBoard = true;
-        }
-        if(potentialY < 0 || potentialY >= floor.height) {
-            offBoard = true;
-        }
-
-        if(offBoard && floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence != null) {
-            playerTile.hasPlayer = false;
-            playerTile.transform.GetChild(1).gameObject.SetActive(false);
-            playerTile = floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence;
-            playerTile.hasPlayer = true;
-            playerTile.transform.GetChild(1).gameObject.SetActive(true);
-        }
-        else if(offBoard)
-            return;
-        else {
-            playerTile.hasPlayer = false;
-            playerTile.transform.GetChild(1).gameObject.SetActive(false);
-            playerTile = floor.grid[potentialX , potentialY];
-            playerTile.hasPlayer = true;
-            playerTile.transform.GetChild(1).gameObject.SetActive(true);
-        }
-
-        MainManager.instance.addCrank(crankPerMove);
-
-        if(playerTile.HasInstru == true) 
+        if(playerTile.HasEnemy == false)
         {
-            playerHasInstru = true;
-            playerTile.transform.GetChild(2).gameObject.SetActive(false);
-        }
+            if (potentialX < 0 || potentialX >= floor.width)
+            {
+                offBoard = true;
+            }
+            if (potentialY < 0 || potentialY >= floor.height)
+            {
+                offBoard = true;
+            }
 
-       //gets the camera and set it position to the players
-       GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-       cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
+            if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
+            {
+                playerTile.hasPlayer = false;
+                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
+                playerTile.hasPlayer = true;
+                playerTile.transform.GetChild(1).gameObject.SetActive(true);
+            }
+            else if (offBoard)
+                return;
+            else
+            {
+                playerTile.hasPlayer = false;
+                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile = floor.grid[potentialX, potentialY];
+                playerTile.hasPlayer = true;
+                playerTile.transform.GetChild(1).gameObject.SetActive(true);
+            }
+
+            MainManager.instance.addCrank(crankPerMove);
+
+            if (playerTile.HasInstru)
+            {
+                playerHasInstru = true;
+                playerTile.transform.GetChild(2).gameObject.SetActive(false);
+            }
+            //gets the camera and set it position to the players
+            GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+            cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
+        }
+        else if(playerHasInstru) 
+        {
+
+        }
+       
     }
     
 }
