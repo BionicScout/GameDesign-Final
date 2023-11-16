@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveIfAvialable(int xMove, int yMove)
     {
+        
         int potentialX = playerTile.floorCord[0] + xMove;
         int potentialY = playerTile.floorCord[1] + yMove;
         FloorGrid floor = playerTile.floorGrid;
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerHasInstru = true;
             playerTile.transform.GetChild(2).gameObject.SetActive(false);
-            MainManager.instance.addScore(1);
+            //MainManager.instance.addScore(1);
         }
 
         bool offBoard = false;
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
             }
-            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false) && playerHasInstru == false)
+            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false)
             {
                 SceneSwitcher.instance.A_LoadScene("Fail-Death");
             }
@@ -123,9 +124,17 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = 0; i < enemyTiles.Count; i++)
         {
-            int potentialX = playerTile.floorCord[0];
-            int potentialY = playerTile.floorCord[1];
-            FloorGrid floor = playerTile.floorGrid;
+
+            //if (enemyTiles[i].transform.GetChild(3).gameObject.active)
+            //{
+            //    return;
+            //}
+
+            Vector2 vec = pickDirection();
+            int potentialX = enemyTiles[i].floorCord[0] + (int)vec.x;
+            int potentialY = enemyTiles[i].floorCord[1] + (int)vec.y;
+            FloorGrid floor = enemyTiles[i].floorGrid;
+
 
             bool offBoard = false;
             if (potentialX < 0 || potentialX >= floor.width)
@@ -140,24 +149,37 @@ public class PlayerMovement : MonoBehaviour
                 return;
             else
             {
-                ///checks if there is a player
-                if (floor.grid[potentialX, potentialY].hasPlayer == false)
+                ///checks if there is a player on potential tile
+                if (floor.grid[potentialX, potentialY].HasEnemy == false)
                 {
-                    playerTile.HasEnemy = false;
-                    playerTile.transform.GetChild(3).gameObject.SetActive(false);
-                    playerTile = floor.grid[potentialX, potentialY];
-                    playerTile.HasEnemy = true;
-                    playerTile.transform.GetChild(3).gameObject.SetActive(true);
-                }
-                if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
-                {
-                    SceneSwitcher.instance.A_LoadScene("Fail-Death");
+                    enemyTiles[i].hasPlayer = false;
+                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(false);
+                    enemyTiles[i] = floor.grid[potentialX, potentialY];
+                    enemyTiles[i].hasPlayer = true;
+                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
                 }
 
+                //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
+                //{
+                //   floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
+                //}
+
+                //if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
+                //{
+                //    SceneSwitcher.instance.A_LoadScene("Fail-Death");
+                //}
             }
+
         }
     }
+    public Vector2 pickDirection()
+    {
+        int[,] baseDirections = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
+        int direction = Random.Range(0, 4) % 4;
 
+
+        return new Vector2(baseDirections[direction, 0], baseDirections[direction, 1]);
+    }
 }
 
 
