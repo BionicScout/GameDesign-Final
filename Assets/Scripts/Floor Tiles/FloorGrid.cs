@@ -109,4 +109,10 @@ public class FloorGrid : MonoBehaviour{
         grid[0,0].transform.GetChild(1).gameObject.SetActive(true);
         FindObjectOfType<PlayerMovement>().playerTile = grid[0, 0];
     }
+    public FloorTile GetRandTile()
+    {
+        FloorTile temp = grid[Random.Range(0, width), Random.Range(0, height)];
+        Debug.Log(temp.floorCord[0] + " " + temp.floorCord[1]);
+        return temp;
+    }
 }

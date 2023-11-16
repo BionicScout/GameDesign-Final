@@ -9,7 +9,6 @@ public class RoomGeneration : MonoBehaviour {
     public int gridSize;
     public int howManyRooms;
     public int floorSize;
-    [SerializeField] public GameObject Instru;
 
     int[,] baseDirections = { {-1, 0} , {0, -1}, {1, 0}, {0, 1} }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
 
@@ -17,6 +16,8 @@ public class RoomGeneration : MonoBehaviour {
     public GameObject floorTilePrefab;
     //public FloorGrid grid;
     public Material doorMat;
+
+    RoomManager roomManager;
 
     public struct RoomInfo {
         public int x, y;
@@ -100,23 +101,33 @@ public class RoomGeneration : MonoBehaviour {
 
             roomsToGen--;
         }
-        int instruNeedSpawn = 3;
-        while (instruNeedSpawn != 0)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            RoomInfo roomInfo = rooms[roomRan];
-            int tileNum = Random.Range(1, floorSize);
-            if (rooms[roomRan].roomHasInstru == false)
-            {
-                floorTilePrefab.transform.GetChild(2).gameObject.SetActive(true);
-                roomInfo.roomHasInstru = true;
-            }
-            rooms[roomRan] = roomInfo;
-            instruNeedSpawn--;
-        }
 
         rooms = reduceGrid(rooms);
         generatetiles(rooms);
+
+        int instruNeedSpawn = 3;
+        for(int i = 0; i < instruNeedSpawn; i++)
+        {
+        int roomRan = Random.Range(0, rooms.Count);
+        FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+        Tile.transform.GetChild(2).gameObject.SetActive(true);
+
+        }
+
+        //while (instruNeedSpawn <= 0)
+        //{
+        //    int roomRan = Random.Range(0, rooms.Count);
+        //    RoomInfo roomInfo = rooms[roomRan];
+        //    FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+        //    if (Tile.HasInstru == false)
+        //    {
+        //        Tile.transform.GetChild(2).gameObject.SetActive(true);
+        //        roomInfo.roomHasInstru = true;
+        //        Tile.HasInstru = true;
+        //        instruNeedSpawn--;
+        //    }
+        //    rooms[roomRan] = roomInfo;
+        //}
     }
 
     public void setToNegative1() {
@@ -279,7 +290,7 @@ public class RoomGeneration : MonoBehaviour {
     public void generatetiles(List<RoomInfo> rooms) {
         GameObject parent = new GameObject("Room Manager");
         parent.transform.AddComponent<RoomManager>();
-        RoomManager roomManager = parent.GetComponent<RoomManager>();
+        roomManager = parent.GetComponent<RoomManager>();
 
 
         //Define Grid to generate rooms
