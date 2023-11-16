@@ -81,7 +81,7 @@ public class RoomGeneration : MonoBehaviour {
 
         //Generate Rooms
         int roomsToGen = howManyRooms;
-        int instruNeedSpawn = 3;
+        
 
 
         while (roomsToGen > 0) {
@@ -100,19 +100,19 @@ public class RoomGeneration : MonoBehaviour {
 
             roomsToGen--;
         }
-
-        for (int i = 0; i < instruNeedSpawn; i++)
+        int instruNeedSpawn = 3;
+        while (instruNeedSpawn != 0)
         {
             int roomRan = Random.Range(0, rooms.Count);
+            RoomInfo roomInfo = rooms[roomRan];
+            int tileNum = Random.Range(1, floorSize);
             if (rooms[roomRan].roomHasInstru == false)
             {
-                RoomInfo roomInfo = rooms[roomRan];
+                floorTilePrefab.transform.GetChild(2).gameObject.SetActive(true);
                 roomInfo.roomHasInstru = true;
-                float x = floorTilePrefab.transform.position.x;
-                float y = floorTilePrefab.transform.position.y;
-                Instantiate(Instru, new Vector2(x, y), Quaternion.identity);
-                rooms[roomRan] = roomInfo;
             }
+            rooms[roomRan] = roomInfo;
+            instruNeedSpawn--;
         }
 
         rooms = reduceGrid(rooms);
