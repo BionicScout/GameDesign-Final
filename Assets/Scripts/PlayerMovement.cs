@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour {
                 playerTile.hasPlayer = true;
                 playerTile.transform.GetChild(1).gameObject.SetActive(true);
             }
-            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false && playerHasInstru == true))
+            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == true && playerHasInstru == true))
             {
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
             }
