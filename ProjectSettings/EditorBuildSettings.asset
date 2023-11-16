@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Win.unity
     guid: c162a1e43db0016439784624129de4a9
   - enabled: 1
-    path: Assets/Scenes/Menu/Fali-Cranky.unity
+    path: Assets/Scenes/Menu/Fail-Cranky.unity
     guid: c854938a219a2a245a0632d93d5e174e
   - enabled: 1
-    path: Assets/Scenes/Menu/Fali-Death.unity
+    path: Assets/Scenes/Menu/Fail-Death.unity
     guid: 4f4a77d14f086d84792c674ac91afeaf
   - enabled: 1
     path: Assets/Scenes/TESTING_MapGenerating.unity

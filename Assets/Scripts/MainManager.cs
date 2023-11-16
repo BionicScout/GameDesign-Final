@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour {
         crankiness += num;
 
         if(crankiness >= maxCrankiness) {
-            //Trigger Game Over
+            SceneSwitcher.instance.A_LoadScene("Fail-Cranky");         
         }
         UI.updateCrank(crankiness);
     }
@@ -42,7 +42,7 @@ public class MainManager : MonoBehaviour {
         score += num;
 
         if(score >= maxScore) {
-            //Trigger Game Win
+            SceneSwitcher.instance.A_LoadScene("Win");
         }
         UI.updateScore(score);
     }
