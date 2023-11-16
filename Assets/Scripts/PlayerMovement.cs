@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         //gets the camera and set it position to the players
         setCamera();
 
-        //moveEnemies();
+        moveEnemies();
     }
 
     public void setCamera()
@@ -124,8 +124,15 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = 0; i < enemyTiles.Count; i++)
         {
-            int potentialX = enemyTiles[i].floorCord[0];
-            int potentialY = enemyTiles[i].floorCord[1];
+
+            if (enemyTiles[i].transform.GetChild(3).gameObject.active)
+            {
+                return;
+            }
+
+            Vector2 vec = pickDirection();
+            int potentialX = enemyTiles[i].floorCord[0] + (int)vec.x;
+            int potentialY = enemyTiles[i].floorCord[1] + (int)vec.y;
             FloorGrid floor = enemyTiles[i].floorGrid;
 
 
@@ -143,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 ///checks if there is a player on potential tile
-                if (floor.grid[potentialX, potentialY].hasPlayer == false)
+                if (floor.grid[potentialX, potentialY].HasEnemy == false)
                 {
                     enemyTiles[i].hasPlayer = false;
                     enemyTiles[i].transform.GetChild(3).gameObject.SetActive(false);
@@ -165,14 +172,14 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    //public int[] pickDirection()
-    //{
-    //    int[,] baseDirections = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
-    //    int direction = Random.Range(0, 4) % 4;
+    public Vector2 pickDirection()
+    {
+        int[,] baseDirections = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
+        int direction = Random.Range(0, 4) % 4;
 
 
-    //    return [baseDirections[direction, 0] , baseDirections[direction, 0]];
-    //}
+        return new Vector2(baseDirections[direction, 0], baseDirections[direction, 1]);
+    }
 }
 
 
