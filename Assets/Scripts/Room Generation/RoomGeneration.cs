@@ -9,6 +9,7 @@ public class RoomGeneration : MonoBehaviour {
     public int gridSize;
     public int howManyRooms;
     public int floorSize;
+    [SerializeField] public GameObject Instru;
 
     int[,] baseDirections = { {-1, 0} , {0, -1}, {1, 0}, {0, 1} }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
 
@@ -23,6 +24,7 @@ public class RoomGeneration : MonoBehaviour {
         public int doorsLeft;
         public int previousRoom; //The id of the room used to generate this one. This determines door ways
         public bool[] doorDirections; //True when door is in direction
+        public bool roomHasInstru;
 
         public void set(int xCoord, int yCoord) {
             x = xCoord; 
@@ -43,6 +45,8 @@ public class RoomGeneration : MonoBehaviour {
             doorDirections[1] = false;
             doorDirections[2] = false;
             doorDirections[3] = false;
+
+            roomHasInstru = false;
         }
 
         public string print() {
@@ -77,8 +81,20 @@ public class RoomGeneration : MonoBehaviour {
 
         //Generate Rooms
         int roomsToGen = howManyRooms;
+        int instruNeedSpawn = 3;
+        for (int i = 0; i < instruNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            if (rooms[roomRan].roomHasInstru == false) 
+            {
+                //rooms[roomRan].roomHasInstru = true;
+                float x = gameObject.transform.position.x;
+                float y = gameObject.transform.position.y;
+                Instantiate(Instru, new Vector2(x, y), Quaternion.identity);
+            }
+        }
 
-        while(roomsToGen > 0) {
+        while (roomsToGen > 0) {
         //Get Room with doors
             int roomIndex = Random.Range(0, rooms.Count);
 

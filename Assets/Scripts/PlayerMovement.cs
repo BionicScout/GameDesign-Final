@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public FloorTile playerTile;
-    GameObject Instrument;
-
     private void Update() {
         if(Input.GetKeyDown(KeyCode.W)) {
             MoveIfAvialable(0, 1);
@@ -57,5 +55,5 @@ public class PlayerMovement : MonoBehaviour {
        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
        cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
     }
-
+    
 }
