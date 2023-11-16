@@ -2175,7 +2175,6 @@ MonoBehaviour:
   gridSize: 21
   howManyRooms: 9
   floorSize: 7
-  Instru: {fileID: 5233328050577375460, guid: 6beea8a01c47809458c21ca97251471e, type: 3}
   roomTilePrefab: {fileID: 5866771556132973551, guid: 76572eb4161952644957ee9b60c56900, type: 3}
   floorTilePrefab: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
   doorMat: {fileID: 2100000, guid: 862c5e0a31051c248b83d59190c141bb, type: 2}
@@ -2224,7 +2223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCrankiness: 100
   maxScore: 3
-  UI: {fileID: 0}
+  UI: {fileID: 1898543223}
 --- !u!4 &1898543225
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,9 +2232,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898543222}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -61.275566, y: -60.058113, z: -4.3278995}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2271,7 +2270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTile: {fileID: 0}
-  crankPerMove: 1
+  playerHasInstru: 0
+  crankPerMove: 3
 --- !u!4 &1921425142
 Transform:
   m_ObjectHideFlags: 0
@@ -2604,10 +2604,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2128040331}
-  - {fileID: 1898543225}
   - {fileID: 158048693}
   - {fileID: 1787917066}
   - {fileID: 1921425142}
   - {fileID: 469105114}
+  - {fileID: 1898543225}
   - {fileID: 917603206}
   - {fileID: 336575719}
