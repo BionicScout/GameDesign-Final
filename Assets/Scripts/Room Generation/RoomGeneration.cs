@@ -105,29 +105,16 @@ public class RoomGeneration : MonoBehaviour {
         rooms = reduceGrid(rooms);
         generatetiles(rooms);
 
+        //generates one instrument in a room
         int instruNeedSpawn = 3;
         for(int i = 0; i < instruNeedSpawn; i++)
         {
-        int roomRan = Random.Range(0, rooms.Count);
-        FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-        Tile.transform.GetChild(2).gameObject.SetActive(true);
-
+            int roomRan = Random.Range(0, rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.transform.GetChild(2).gameObject.SetActive(true);
+            Tile.HasInstru = true;
         }
 
-        //while (instruNeedSpawn <= 0)
-        //{
-        //    int roomRan = Random.Range(0, rooms.Count);
-        //    RoomInfo roomInfo = rooms[roomRan];
-        //    FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-        //    if (Tile.HasInstru == false)
-        //    {
-        //        Tile.transform.GetChild(2).gameObject.SetActive(true);
-        //        roomInfo.roomHasInstru = true;
-        //        Tile.HasInstru = true;
-        //        instruNeedSpawn--;
-        //    }
-        //    rooms[roomRan] = roomInfo;
-        //}
     }
 
     public void setToNegative1() {

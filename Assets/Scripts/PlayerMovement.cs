@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public FloorTile playerTile;
+    public bool playerHasInstru;
     private void Update() {
         if(Input.GetKeyDown(KeyCode.W)) {
             MoveIfAvialable(0, 1);
@@ -49,6 +50,11 @@ public class PlayerMovement : MonoBehaviour {
             playerTile = floor.grid[potentialX , potentialY];
             playerTile.hasPlayer = true;
             playerTile.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if(playerTile.HasInstru == true) 
+        {
+            playerHasInstru = true;
+            playerTile.transform.GetChild(2).gameObject.SetActive(false);
         }
 
        //gets the camera and set it position to the players
