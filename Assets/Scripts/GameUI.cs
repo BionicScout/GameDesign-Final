@@ -13,6 +13,9 @@ public class GameUI : MonoBehaviour {
     private void Start() {
         slider = UI_Obj.transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
         text = UI_Obj.transform.GetChild(1).GetComponent<TMP_Text>();
+
+        updateCrank(0);
+        updateScore(0);
     }
 
     public void updateCrank(float currentCrank) {

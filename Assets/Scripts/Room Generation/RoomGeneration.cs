@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
@@ -124,6 +125,15 @@ public class RoomGeneration : MonoBehaviour {
             Tile.HasEnemy = true;
             FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
         }
+
+
+
+
+
+
+
+
+        roomManager.hide(true);
 
     }
 
@@ -323,8 +333,6 @@ public class RoomGeneration : MonoBehaviour {
                 //Debug.Log(dirIndex + " " + roomInfo.doorDirections[dirIndex] + "++++++++++++++++++++++++++++++++=");
                 if(roomInfo.doorDirections[dirIndex]) {
                     int adjRoomIndex = roomLayout[roomInfo.x + baseDirections[dirIndex , 0] , roomInfo.y + baseDirections[dirIndex , 1]];
-                    Debug.Log(i + " -----------------------------------------");
-                    Debug.Log("Direction: " + dirIndex);
 
                     if(adjRoomIndex < i && adjRoomIndex != -1) {
                         floor.addDoor((dirIndex + 1) % 4 , doorMat , roomManager.roomList[adjRoomIndex].GetComponent<Room>().floor);
@@ -333,7 +341,6 @@ public class RoomGeneration : MonoBehaviour {
                         floor.addDoor((dirIndex + 1) % 4 , doorMat);
                     }
 
-                    Debug.Log("DOOR ADDED --------------------------------");
                 }
             }
 
@@ -345,7 +352,6 @@ public class RoomGeneration : MonoBehaviour {
 
             roomManager.roomList.Add(room.gameObject);
         }
-
     }
 
     public void print(string fileName, List<RoomInfo> rooms) {
