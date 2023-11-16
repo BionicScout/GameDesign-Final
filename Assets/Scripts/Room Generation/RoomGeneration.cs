@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class RoomGeneration : MonoBehaviour {
 
     public GameObject roomTilePrefab;
     public GameObject floorTilePrefab;
-    public FloorGrid grid;
+    //public FloorGrid grid;
     public Material doorMat;
 
     public struct RoomInfo {
@@ -21,7 +22,6 @@ public class RoomGeneration : MonoBehaviour {
         public bool[] directions; //0 Up, 1 Left, 2 Down, 3 Right. //True means room is in that direction
         public int doorsLeft;
         public int previousRoom; //The id of the room used to generate this one. This determines door ways
-        public int previousRoomDir; //Base Directions
         public bool[] doorDirections; //True when door is in direction
 
         public void set(int xCoord, int yCoord) {
@@ -37,7 +37,6 @@ public class RoomGeneration : MonoBehaviour {
             doorsLeft = 4;
 
             previousRoom = -1;
-            previousRoomDir = -1;
 
             doorDirections = new bool[4];
             doorDirections[0] = false;
@@ -96,7 +95,16 @@ public class RoomGeneration : MonoBehaviour {
             roomsToGen--;
         }
 
+        rooms = reduceGrid(rooms);
         generatetiles(rooms);
+    }
+
+    public void setToNegative1() {
+        for(int x = 0; x < gridSize; x++) {
+            for(int y = 0; y < gridSize; y++) {
+                roomLayout[x , y] = -1;
+            }
+        }
     }
 
     public int pickDirection(RoomInfo room) {
@@ -117,7 +125,6 @@ public class RoomGeneration : MonoBehaviour {
 
         newRoom.set(rooms[baseRoomIndex].x + baseDirections[newRoomDir , 0] , rooms[baseRoomIndex].y + baseDirections[newRoomDir , 1]);
         newRoom.previousRoom = baseRoomIndex;
-        newRoom.previousRoomDir = (newRoomDir + 2) % 4;
         newRoom.doorDirections[(newRoomDir + 2) % 4] = true;
         rooms.Add(newRoom);
         roomLayout[newRoom.x , newRoom.y] = rooms.Count - 1;
@@ -153,52 +160,170 @@ public class RoomGeneration : MonoBehaviour {
         return rooms;
     }
 
-    public void generatetiles(List<RoomInfo> rooms) {
-        GameObject parent = new GameObject("Room Map");
-        grid.size = floorSize;
-        grid.grid = new FloorTile[grid.width , grid.height];
+    public List<RoomInfo> reduceGrid(List<RoomInfo> rooms) {
+        //
+        int minWidth = 0, maxWidth = gridSize;
+        int minHeight = 0, maxHeight = gridSize;
 
-        for(int i = 0; i < rooms.Count; i++) {
-            RoomInfo room = rooms[i];
+        //Find min width
+        for(int x = 0; x < gridSize; x++) {
+            bool trigger = false;
 
-            float middle = Mathf.FloorToInt(gridSize / 2f);
-            GameObject obj = Instantiate(roomTilePrefab , new Vector3((room.x - middle) * grid.size , (room.y - middle) * grid.size , -1) , Quaternion.identity);
-            obj.transform.SetParent(parent.transform);
-            obj.transform.localScale *= grid.size;
-
-            obj.AddComponent<FloorGrid>();
-            FloorGrid floor = obj.GetComponent<FloorGrid>();
-            floor.width = floorSize;
-            floor.height = floorSize;
-            floor.size = 1;
-            floor.tile = floorTilePrefab;
-            floor.generateEmpty(obj);
-
-            for(int dirIndex = 0; dirIndex < baseDirections.GetLength(0); dirIndex++) {
-                if(room.doorDirections[dirIndex]) {
-                    Renderer doorEdge = obj.transform.GetChild(1).GetChild(dirIndex).gameObject.GetComponent<Renderer>();
-                    doorEdge.material = doorMat;
+            for(int y = 0; y < gridSize; y++) {
+                if(roomLayout[x, y] != -1) {
+                    trigger = true;
+                    break;
                 }
             }
 
-
-
-        }
-    }
-
-    public void setToNegative1() {
-        for(int x = 0; x < gridSize; x++) {
-            for(int y = 0; y < gridSize; y++) {
-                roomLayout[x , y] = -1;
+            if(trigger) {
+                minWidth = x;
+                break;
             }
         }
+
+        //Find max width
+        for(int x = gridSize - 1; gridSize > 0; x--) {
+            bool trigger = false;
+
+            for(int y = 0; y < gridSize; y++) {
+                if(roomLayout[x , y] != -1) {
+                    trigger = true;
+                    break;
+                }
+            }
+
+            if(trigger) {
+                maxWidth = x + 1;
+                break;
+            }
+        }
+
+        //Find min height
+        for(int y = 0; y < gridSize; y++) {
+            bool trigger = false;
+
+            for(int x = 0; x < gridSize; x++) {
+                if(roomLayout[x , y] != -1) {
+                    trigger = true;
+                    break;
+                }
+            }
+
+            if(trigger) {
+                minHeight = y;
+                break;
+            }
+        }
+
+        //Find max width
+        for(int y = gridSize - 1; gridSize > 0; y--) {
+            bool trigger = false;
+
+            for(int x = 0; x < gridSize; x++) {
+                if(roomLayout[x , y] != -1) {
+                    trigger = true;
+                    break;
+                }
+            }
+
+            if(trigger) {
+                maxHeight = y + 1;
+                break;
+            }
+        }
+
+        //Reduce
+        int[,] reduced = new int[maxWidth - minWidth, maxHeight - minHeight];
+
+        for(int x = 0; x < reduced.GetLength(0); x++) {
+            for(int y = 0; y < reduced.GetLength(1); y++) {
+                //Debug.Log(x + " " + y + "\n" + (x + minWidth) + " " + (y + minHeight));
+                reduced[x, y] = roomLayout[x + minWidth, y + minHeight];
+
+                int roomId = reduced[x , y];
+
+                if(roomId != -1) {
+                    RoomInfo room = rooms[roomId];
+                    room.x = x;
+                    room.y = y;
+                    rooms[roomId] = room;
+                }
+            }
+        }
+
+        roomLayout = reduced;
+        return rooms;
+    }
+
+    public void generatetiles(List<RoomInfo> rooms) {
+        GameObject parent = new GameObject("Room Manager");
+        parent.transform.AddComponent<RoomManager>();
+        RoomManager roomManager = parent.GetComponent<RoomManager>();
+
+
+        //Define Grid to generate rooms
+        Room[,] roomGrid = new Room[roomLayout.GetLength(0) , roomLayout.GetLength(1)];
+
+        for(int i = 0; i < rooms.Count; i++) {
+            RoomInfo roomInfo = rooms[i];
+
+            //Gerate object of Room, set the parent, and add Room Component
+            float middle = Mathf.FloorToInt(gridSize / 2f);
+            GameObject obj = Instantiate(roomTilePrefab , new Vector3((roomInfo.x - middle) * floorSize, 
+                (roomInfo.y - middle) * floorSize , -1) , Quaternion.identity);
+            obj.transform.localScale *= floorSize;
+
+            obj.transform.SetParent(parent.transform);
+
+            obj.transform.AddComponent<Room>();
+            Room room = obj.transform.GetComponent<Room>();
+
+            //Generate Floor
+            obj.AddComponent<FloorGrid>();
+
+            FloorGrid floor = obj.GetComponent<FloorGrid>();
+            floor.set(floorSize , floorSize , 1);
+            floor.tile = floorTilePrefab;
+
+            floor.generateEmpty(obj);
+
+            room.floor = floor;
+
+            //Define Doors
+            for(int dirIndex = 0; dirIndex < baseDirections.GetLength(0); dirIndex++) {
+                //Debug.Log(dirIndex + " " + roomInfo.doorDirections[dirIndex] + "++++++++++++++++++++++++++++++++=");
+                if(roomInfo.doorDirections[dirIndex]) {
+                    int adjRoomIndex = roomLayout[roomInfo.x + baseDirections[dirIndex , 0] , roomInfo.y + baseDirections[dirIndex , 1]];
+                    Debug.Log(i + " -----------------------------------------");
+                    Debug.Log("Direction: " + dirIndex);
+
+                    if(adjRoomIndex < i && adjRoomIndex != -1) {
+                        floor.addDoor((dirIndex + 1) % 4 , doorMat , roomManager.roomList[adjRoomIndex].GetComponent<Room>().floor);
+                    }
+                    else {
+                        floor.addDoor((dirIndex + 1) % 4 , doorMat);
+                    }
+
+                    Debug.Log("DOOR ADDED --------------------------------");
+                }
+            }
+
+            //Add Player to first room
+            if(i == 0) {
+                floor.addPlayer();
+            }
+
+            roomManager.roomList.Add(room.gameObject);
+        }
+
     }
 
     public void print(string fileName, List<RoomInfo> rooms) {
         string text = "";
 
-        for(int x = 0; x < gridSize; x++) {
-            for(int y = 0; y < gridSize; y++) {
+        for(int x = 0; x < roomLayout.GetLength(0); x++) {
+            for(int y = 0; y < roomLayout.GetLength(1); y++) {
                 text += roomLayout[x , y].ToString() + "\t";
             }
             text += "\n";
@@ -206,8 +331,8 @@ public class RoomGeneration : MonoBehaviour {
 
         text += "\n\n\n";
 
-        for(int x = 0; x < gridSize; x++) {
-            for(int y = 0; y < gridSize; y++) {
+        for(int x = 0; x < roomLayout.GetLength(0); x++) {
+            for(int y = 0; y < roomLayout.GetLength(1); y++) {
                 if(roomLayout[x, y] != -1)
                     text += rooms[roomLayout[x , y]].doorsLeft.ToString() + "\t";
                 else

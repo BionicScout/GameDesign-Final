@@ -27,18 +27,31 @@ public class PlayerMovement : MonoBehaviour {
         int potentialY = playerTile.floorCord[1] + yMove;
         FloorGrid floor = playerTile.floorGrid;
 
+        bool offBoard = false;
+
         if(potentialX < 0 || potentialX >= floor.width) {
-            return;
+            offBoard = true;
         }
         if(potentialY < 0 || potentialY >= floor.height) {
-            return;
+            offBoard = true;
         }
 
-        playerTile.hasPlayer = false;
-        playerTile.transform.GetChild(0).gameObject.SetActive(false);
-        playerTile = floor.grid[potentialX , potentialY];
-        playerTile.hasPlayer = true;
-        playerTile.transform.GetChild(0).gameObject.SetActive(true);
+        if(offBoard && floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence != null) {
+            playerTile.hasPlayer = false;
+            playerTile.transform.GetChild(1).gameObject.SetActive(false);
+            playerTile = floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence;
+            playerTile.hasPlayer = true;
+            playerTile.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else if(offBoard)
+            return;
+        else {
+            playerTile.hasPlayer = false;
+            playerTile.transform.GetChild(1).gameObject.SetActive(false);
+            playerTile = floor.grid[potentialX , potentialY];
+            playerTile.hasPlayer = true;
+            playerTile.transform.GetChild(1).gameObject.SetActive(true);
+        }
 
        //gets the camera and set it position to the players
        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");

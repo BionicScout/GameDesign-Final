@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour {
-    FloorGrid grid;
+    public FloorGrid floor;
 
+    private void Start() {
+        floor = GetComponent<FloorGrid>();
+    }
 }

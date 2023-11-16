@@ -7,5 +7,8 @@ public class FloorTile : MonoBehaviour {
     public bool hasInstru;
 
     public FloorGrid floorGrid;
-    public int[] floorCord;  
+    public int[] floorCord;
+
+    public FloorTile doorRefrence = null;
+    public int doorRefrenceDir = -1;
 }
