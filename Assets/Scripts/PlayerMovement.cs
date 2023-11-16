@@ -13,15 +13,19 @@ public class PlayerMovement : MonoBehaviour {
     private void Update() {
         if(Input.GetKeyDown(KeyCode.W)) {
             MoveIfAvialable(0, 1);
+            moveEnemies();
         }
         if(Input.GetKeyDown(KeyCode.A)) {
             MoveIfAvialable(-1, 0);
+            moveEnemies();
         }
         if(Input.GetKeyDown(KeyCode.S)) {
             MoveIfAvialable(0, -1);
+            moveEnemies();
         }
         if(Input.GetKeyDown(KeyCode.D)) {
             MoveIfAvialable(1, 0);
+            moveEnemies();
         }
     }
 
@@ -104,18 +108,13 @@ public class PlayerMovement : MonoBehaviour {
 
     public void moveEnemies()
     {
-        foreach ()
+        for(int i = 0; i < enemyTiles.Count; i++)
         {
-            int potentialX = playerTile.floorCord[0] + xMove;
-            int potentialY = playerTile.floorCord[1] + yMove;
+            int addX = Random.Range(-1, 1);
+            int addY = Random.Range(-1, 1);
+            int potentialX = playerTile.floorCord[0] + addX;
+            int potentialY = playerTile.floorCord[1] + addY;
             FloorGrid floor = playerTile.floorGrid;
-
-            if (playerTile.HasInstru)
-            {
-                playerHasInstru = true;
-                playerTile.transform.GetChild(2).gameObject.SetActive(false);
-                MainManager.instance.addScore(1);
-            }
 
             bool offBoard = false;
             if (potentialX < 0 || potentialX >= floor.width)
@@ -130,18 +129,18 @@ public class PlayerMovement : MonoBehaviour {
             if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
             {
                 ///checks if there is an enemy
-                if (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false)
+                if (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.hasPlayer == false)
                 {
-                    playerTile.hasPlayer = false;
-                    playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                    playerTile.HasEnemy = false;
+                    playerTile.transform.GetChild(3).gameObject.SetActive(false);
                     playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
-                    playerTile.hasPlayer = true;
-                    playerTile.transform.GetChild(1).gameObject.SetActive(true);
+                    playerTile.HasEnemy = true;
+                    playerTile.transform.GetChild(3).gameObject.SetActive(true);
                 }
-                if (playerHasInstru == true && (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false))
-                {
-                    floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
-                }
+                //if (playerHasInstru == true && (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false))
+                //{
+                //    floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
+                //}
                 if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false) && playerHasInstru == false)
                 {
                     SceneSwitcher.instance.A_LoadScene("Fail-Death");
@@ -153,18 +152,18 @@ public class PlayerMovement : MonoBehaviour {
             else
             {
                 ///checks if there is an enemy
-                if (floor.grid[potentialX, potentialY].HasEnemy == false)
+                if (floor.grid[potentialX, potentialY].hasPlayer == false)
                 {
-                    playerTile.hasPlayer = false;
-                    playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                    playerTile.HasEnemy = false;
+                    playerTile.transform.GetChild(3).gameObject.SetActive(false);
                     playerTile = floor.grid[potentialX, potentialY];
-                    playerTile.hasPlayer = true;
-                    playerTile.transform.GetChild(1).gameObject.SetActive(true);
+                    playerTile.HasEnemy = true;
+                    playerTile.transform.GetChild(3).gameObject.SetActive(true);
                 }
-                if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
-                {
-                    floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
-                }
+                //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
+                //{
+                //    floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
+                //}
                 if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
                 {
                     SceneSwitcher.instance.A_LoadScene("Fail-Death");
