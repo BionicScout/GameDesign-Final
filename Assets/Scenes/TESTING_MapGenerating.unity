@@ -2173,7 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 21
-  howManyRooms: 9
+  howManyRooms: 50
   floorSize: 7
   roomTilePrefab: {fileID: 5866771556132973551, guid: 76572eb4161952644957ee9b60c56900, type: 3}
   floorTilePrefab: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
@@ -2271,7 +2271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTile: {fileID: 0}
   playerHasInstru: 0
-  crankPerMove: 3
+  crankPerMove: 0.25
+  enemyTiles: []
 --- !u!4 &1921425142
 Transform:
   m_ObjectHideFlags: 0

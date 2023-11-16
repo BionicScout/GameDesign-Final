@@ -107,7 +107,7 @@ public class RoomGeneration : MonoBehaviour {
         generatetiles(rooms);
 
         //generates one instrument in a room
-        int instruNeedSpawn = 3;
+        int instruNeedSpawn = 10;
         for(int i = 0; i < instruNeedSpawn; i++)
         {
             int roomRan = Random.Range(0, rooms.Count);
@@ -116,7 +116,7 @@ public class RoomGeneration : MonoBehaviour {
             Tile.HasInstru = true;
         }
         //spawns an enimies
-        int enimiesNeedSpawn = 3;
+        int enimiesNeedSpawn = 15;
         for (int i = 0; i < enimiesNeedSpawn; i++)
         {
             int roomRan = Random.Range(0, rooms.Count);

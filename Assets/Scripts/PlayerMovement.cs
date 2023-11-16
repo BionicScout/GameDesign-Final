@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerHasInstru = true;
             playerTile.transform.GetChild(2).gameObject.SetActive(false);
-            MainManager.instance.addScore(1);
+            //MainManager.instance.addScore(1);
         }
 
         bool offBoard = false;
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
             }
-            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false) && playerHasInstru == false)
+            if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false)
             {
                 SceneSwitcher.instance.A_LoadScene("Fail-Death");
             }
@@ -125,10 +125,10 @@ public class PlayerMovement : MonoBehaviour
         for (int i = 0; i < enemyTiles.Count; i++)
         {
 
-            if (enemyTiles[i].transform.GetChild(3).gameObject.active)
-            {
-                return;
-            }
+            //if (enemyTiles[i].transform.GetChild(3).gameObject.active)
+            //{
+            //    return;
+            //}
 
             Vector2 vec = pickDirection();
             int potentialX = enemyTiles[i].floorCord[0] + (int)vec.x;
