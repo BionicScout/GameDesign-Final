@@ -340,6 +340,7 @@ public class RoomGeneration : MonoBehaviour {
             //Add Player to first room
             if(i == 0) {
                 floor.addPlayer();
+                floor.addOswald();
             }
 
             roomManager.roomList.Add(room.gameObject);

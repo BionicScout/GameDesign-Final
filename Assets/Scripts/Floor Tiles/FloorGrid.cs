@@ -109,6 +109,12 @@ public class FloorGrid : MonoBehaviour{
         grid[0,0].transform.GetChild(1).gameObject.SetActive(true);
         FindObjectOfType<PlayerMovement>().playerTile = grid[0, 0];
     }
+
+    public void addOswald() {
+        grid[width - 1 , height - 1].hasOswald = true;
+        grid[width - 1 , height - 1].transform.GetChild(4).gameObject.SetActive(true);
+    }
+
     public FloorTile GetRandTile()
     {
         FloorTile temp = grid[Random.Range(0, width), Random.Range(0, height)];
