@@ -21,22 +21,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        while (Input.GetKeyDown(KeyCode.W))
         {
             MoveIfAvialable(0, 1);
+            yield return new WaitForSeconds(2);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             MoveIfAvialable(-1, 0);
+            StartCoroutine(MoveDelay());
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             MoveIfAvialable(0, -1);
+            StartCoroutine(MoveDelay());
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             MoveIfAvialable(1, 0);
+            StartCoroutine(MoveDelay());
         }
+    }
+
+    private IEnumerator MoveDelay()
+    {
+        yield return new WaitForSeconds(2);
     }
 
     void MoveIfAvialable(int xMove, int yMove)
