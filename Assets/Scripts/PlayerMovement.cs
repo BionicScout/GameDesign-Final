@@ -15,12 +15,18 @@ public class PlayerMovement : MonoBehaviour
     public List<FloorTile> enemyTiles = new List<FloorTile>();
     public HealthBar healthBar;
     public TextMeshProUGUI instruTxt;
+    public TextMeshProUGUI healTxt;
+    public TextMeshProUGUI crankTxt;
+    public TextMeshProUGUI teleportTxt;
     public float timeSinceMove;
     public float timeDelay;
 
     public void Awake()
     {
         instruTxt.gameObject.SetActive(false);
+        healTxt.gameObject.SetActive(false);
+        crankTxt.gameObject.SetActive(false);
+        teleportTxt.gameObject.SetActive(false);
         timeSinceMove = 0;
     }
 
@@ -100,29 +106,29 @@ public class PlayerMovement : MonoBehaviour
             //MainManager.instance.addScore(1);
         }
         //checks if tile has a potion
-        if (playerTile.hasHealPotion)
+        if (playerTile.hasHealPotion && playerHasHeal == false)
         {
             playerTile.transform.GetChild(6).gameObject.SetActive(false);
             playerHasHeal = true;
             Debug.Log("Player got a health potion");
-            //instruTxt.gameObject.SetActive(true);
+            healTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
-        if (playerTile.hasCrankPotion)
+        if (playerTile.hasCrankPotion && playerHasCrank == false)
         {
             playerTile.transform.GetChild(7).gameObject.SetActive(false);
             playerHasCrank = true;
             Debug.Log("Player got a crank potion");
-            //instruTxt.gameObject.SetActive(true);
+            crankTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
         //check if tile has a teleport item
-        if (playerTile.hasTeleport)
+        if (playerTile.hasTeleport && playerHasTeleport == false)
         {
             playerTile.transform.GetChild(5).gameObject.SetActive(false);
             playerHasTeleport = true;
             Debug.Log("Player got a Teleport item");
-            //instruTxt.gameObject.SetActive(true);
+            teleportTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
 
