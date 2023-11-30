@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -145,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = 0; i < enemyTiles.Count; i++) {
         //if enemey is in a room that is not discover, don't move
-            if(enemyTiles[i].floorGrid.GetComponent<Room>().isHidden) {
+            if(enemyTiles[i].floorGrid.GetComponent<Room>().isHidden || !enemyTiles[i].floorGrid.GetComponent<Room>().hasPlayer) {
                 continue;
             }
 
@@ -200,7 +201,133 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void DijkstraSnakeMovement() {
+    struct DijkstraTile {
+        public int x;
+        public int y;
+
+        public bool visted;
+        public bool hasPlayer;
+
+        public int distance;
+
+        public int previousX;
+        public int previousY;
+    }
+
+    public Vector2Int DijkstraSnakeMovement(FloorGrid floorGrid, Vector2Int snakePos) {
+        int[,] baseDirections = { { -1 , 0 } , { 0 , -1 } , { 1 , 0 } , { 0 , 1 } };
+        DijkstraTile[,] tiles = new DijkstraTile[floorGrid.grid.GetLength(0), floorGrid.grid.GetLength(1)];
+        Vector2Int playCord = new Vector2Int();
+
+        //Set all tiles to -1 and snake tile to 0
+        for(int x = 0; x < tiles.GetLength(0); x++) {
+            for(int y = 0; y < tiles.GetLength(1); y++) {
+                DijkstraTile tile = new DijkstraTile();
+
+                tile.x = x;
+                tile.y = y;
+
+                tile.visted = false;
+                tile.hasPlayer = floorGrid.grid[x , y].hasPlayer;
+                if(tile.hasPlayer ) { playCord = new Vector2Int(); }
+
+                tile.distance = -1;
+
+                tile.previousX = -1;
+                tile.previousY = -1;
+
+                tiles[x , y] = tile;
+            }
+        }
+
+        tiles[snakePos.x, snakePos.y].distance = 0;
+
+        //Loop through all unvisted nodes
+        Queue<DijkstraTile> unvistedTiles = new Queue<DijkstraTile>();
+        unvistedTiles.Enqueue(tiles[snakePos.x , snakePos.y]);
+
+        int failSafe = 50;
+
+        while(unvistedTiles.Count == 0) {
+            //Get Observed Tile
+            DijkstraTile temp = unvistedTiles.Dequeue();
+            DijkstraTile currentTile = tiles[temp.x, temp.y];
+
+        //Check all adjasint tiles
+            for(int i = 0; i < baseDirections.GetLength(0); i++) {
+                Vector2Int direction = new Vector2Int(baseDirections[i, 0] + currentTile.x, baseDirections[i , 1] + currentTile.y);
+
+                //If Wall, no Tile to check
+                if(direction.x < 0 || direction.x >= tiles.GetLength(0)|| direction.y < 0 || direction.y >= tiles.GetLength(1))
+                    continue;
+
+                //If Unvisted, update and add to list, if visted, skip
+                DijkstraTile adjTile = tiles[direction.x, direction.y];
+
+                if(adjTile.visted)
+                    continue;
+
+                unvistedTiles.Enqueue(adjTile);
+
+                //Update Tile Distance if Needed
+                int distanceUsingCurrent = currentTile.distance + 1;
+
+                if(distanceUsingCurrent > adjTile.distance || adjTile.distance == -1) {
+                    adjTile.distance = distanceUsingCurrent;
+                    adjTile.previousX = currentTile.x;
+                    adjTile.previousY = currentTile.y;
+                }
+                else if(distanceUsingCurrent == adjTile.distance) { //Distances are the same, so pick a random tile to be prvious
+                    int prevTile = Random.Range(0 , 100);
+
+                    if(prevTile >= 50) { //50% chace to switch previous tile to the current 
+                        adjTile.previousX = currentTile.x;
+                        adjTile.previousY = currentTile.y;
+                    }
+                }
+            }
+
+            currentTile.visted = true;
+
+            if(currentTile.hasPlayer) {
+                break;
+            }
+
+
+
+
+
+
+
+
+
+
+            failSafe--;
+
+            if(failSafe == 0) {
+                Debug.Log("Fail safe!!!!!!");
+                break;
+            }
+        }
+
+        //Get PLayer Route
+        DijkstraTile temp = tiles[playCord.x , playCord.y];
+        Stack<DijkstraTile> path = new Stack<DijkstraTile>();
+
+        while(temp.previousX != -1) { //Pushes tiles until snake tile
+            path.Push(temp);
+            temp = tiles[temp.previousX, temp.previousY];
+        }
+
+        temp = path.Pop();
+        return new Vector2Int(temp.x, temp.y);
+
+
+
+
+
+
+
         /*
         function dijkstra(G, S)
             for each vertex V in G
@@ -218,6 +345,8 @@ public class PlayerMovement : MonoBehaviour
                         previous[V] <- U
             return distance[], previous[]
          */
+
+
     }
 
     public Vector2 pickDirection()
