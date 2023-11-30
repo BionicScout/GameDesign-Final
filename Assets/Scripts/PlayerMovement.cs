@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool playerHasInstru;
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
+    public HealthBar healthBar;
 
 
     private void Update()
@@ -40,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerTile.HasInstru)
         {
-            playerHasInstru = true;
             playerTile.transform.GetChild(2).gameObject.SetActive(false);
+            playerHasInstru = true;
             //MainManager.instance.addScore(1);
         }
 
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if ((floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false)
             {
-                SceneSwitcher.instance.A_LoadScene("Fail-Death");
+                healthBar.SetHealth(1);
             }
 
         }
@@ -101,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
             {
-                SceneSwitcher.instance.A_LoadScene("Fail-Death");
+                healthBar.SetHealth(1);
             }
 
         }

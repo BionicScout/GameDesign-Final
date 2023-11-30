@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour {
     //Oswald
@@ -10,6 +11,10 @@ public class MainManager : MonoBehaviour {
 
     int score;
     public int maxScore;
+
+    public int curHealth;
+    public int maxHealth = 10;
+    public HealthBar healthBar;
 
     public GameUI UI; 
 
@@ -23,6 +28,8 @@ public class MainManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+        curHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     public void addCrank(float num) {
@@ -50,4 +57,15 @@ public class MainManager : MonoBehaviour {
     public int getScore() {
         return score;
     }
+
+    public void takeDamage(int dmg)
+    {
+        if(dmg >= curHealth)
+        {
+            SceneSwitcher.instance.A_LoadScene("Fail-Death");
+        }
+        curHealth -= dmg;
+        healthBar.SetHealth(curHealth);
+    }
+
 }

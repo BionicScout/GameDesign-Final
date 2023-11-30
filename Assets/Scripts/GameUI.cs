@@ -10,12 +10,14 @@ public class GameUI : MonoBehaviour {
     UnityEngine.UI.Slider slider;
     TMP_Text text;
 
+
     private void Start() {
         slider = UI_Obj.transform.GetChild(0).GetComponent<UnityEngine.UI.Slider>();
         text = UI_Obj.transform.GetChild(1).GetComponent<TMP_Text>();
 
         updateCrank(0);
         updateScore(0);
+
     }
 
     public void updateCrank(float currentCrank) {
@@ -25,4 +27,5 @@ public class GameUI : MonoBehaviour {
     public void updateScore(int score) {
         text.text = "Score: " + score + "/" + MainManager.instance.maxScore;
     }
+
 }
