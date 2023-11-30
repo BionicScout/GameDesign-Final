@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
             ///checks if there is an enemy
             if (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false)
             {
+                   
                 playerTile.hasPlayer = false;
                 playerTile.transform.GetChild(1).gameObject.SetActive(false);
                 playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
@@ -131,14 +132,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveEnemies()
     {
-        for (int i = 0; i < enemyTiles.Count; i++)
-        {
+        for (int i = 0; i < enemyTiles.Count; i++) {
+        //if enemey is in a room that is not discover, don't move
+            if(enemyTiles[i].floorGrid.GetComponent<Room>().isHidden) {
+                continue;
+            }
 
-            //if (enemyTiles[i].transform.GetChild(3).gameObject.active)
-            //{
-            //    return;
-            //}
-
+        //Get Direction of snake
             Vector2 vec = pickDirection();
             int potentialX = enemyTiles[i].floorCord[0] + (int)vec.x;
             int potentialY = enemyTiles[i].floorCord[1] + (int)vec.y;
@@ -167,10 +167,8 @@ public class PlayerMovement : MonoBehaviour
                     enemyTiles[i].transform.GetChild(3).gameObject.SetActive(false);
                     enemyTiles[i] = floor.grid[potentialX, potentialY];
                     enemyTiles[i].HasEnemy = true;
+                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
 
-                    if(! enemyTiles[i].floorGrid.GetComponent<Room>().isHidden) {
-                        enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
-                    }
                 }
 
                 //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
@@ -186,6 +184,31 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
+    public void snakeMovement() {
+
+    }
+
+    public void DijkstraSnakeMovement() {
+        /*
+        function dijkstra(G, S)
+            for each vertex V in G
+                distance[V] <- infinite
+                previous[V] <- NULL
+                If V != S, add V to Priority Queue Q
+            distance[S] <- 0
+
+            while Q IS NOT EMPTY
+                U <- Extract MIN from Q
+                for each unvisited neighbour V of U
+                    tempDistance <- distance[U] + edge_weight(U, V)
+                    if tempDistance < distance[V]
+                        distance[V] <- tempDistance
+                        previous[V] <- U
+            return distance[], previous[]
+         */
+    }
+
     public Vector2 pickDirection()
     {
         int[,] baseDirections = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Room : MonoBehaviour {
     public FloorGrid floor;
     public bool isHidden;
+    public bool hasPlayer;
 
     private void Start() {
         floor = GetComponent<FloorGrid>();
