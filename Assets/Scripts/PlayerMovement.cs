@@ -154,18 +154,23 @@ public class PlayerMovement : MonoBehaviour
             {
                 offBoard = true;
             }
+
+
             if (offBoard)
                 return;
             else
             {
                 ///checks if there is a player on potential tile
-                if (floor.grid[potentialX, potentialY].HasEnemy == false)
+                if (floor.grid[potentialX, potentialY].hasPlayer == false)
                 {
-                    enemyTiles[i].hasPlayer = false;
+                    enemyTiles[i].HasEnemy = false;
                     enemyTiles[i].transform.GetChild(3).gameObject.SetActive(false);
                     enemyTiles[i] = floor.grid[potentialX, potentialY];
-                    enemyTiles[i].hasPlayer = true;
-                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
+                    enemyTiles[i].HasEnemy = true;
+
+                    if(! enemyTiles[i].floorGrid.GetComponent<Room>().isHidden) {
+                        enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
+                    }
                 }
 
                 //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
