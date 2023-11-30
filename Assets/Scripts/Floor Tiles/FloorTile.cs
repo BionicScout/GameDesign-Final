@@ -7,6 +7,9 @@ public class FloorTile : MonoBehaviour {
     public bool HasInstru;
     public bool HasEnemy;
     public bool hasOswald;
+    public bool hasHealPotion;
+    public bool hasCrankPotion;
+    public bool hasTeleport;
 
     public FloorGrid floorGrid;
     public int[] floorCord;

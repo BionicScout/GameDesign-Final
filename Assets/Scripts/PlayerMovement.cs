@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public FloorTile playerTile;
     public bool playerHasInstru;
+    public bool playerHasHeal;
+    public bool playerHasCrank;
+    public bool playerHasTeleport;
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
     public HealthBar healthBar;
@@ -96,6 +99,32 @@ public class PlayerMovement : MonoBehaviour
             instruTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
+        //checks if tile has a potion
+        if (playerTile.hasHealPotion)
+        {
+            playerTile.transform.GetChild(6).gameObject.SetActive(false);
+            playerHasHeal = true;
+            Debug.Log("Player got a health potion");
+            //instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
+        if (playerTile.hasCrankPotion)
+        {
+            playerTile.transform.GetChild(7).gameObject.SetActive(false);
+            playerHasCrank = true;
+            Debug.Log("Player got a crank potion");
+            //instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
+        //check if tile has a teleport item
+        if (playerTile.hasTeleport)
+        {
+            playerTile.transform.GetChild(5).gameObject.SetActive(false);
+            playerHasTeleport = true;
+            Debug.Log("Player got a Teleport item");
+            //instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
 
         bool offBoard = false;
         if (potentialX < 0 || potentialX >= floor.width)
@@ -140,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
             if (floor.grid[potentialX, potentialY].hasOswald && playerHasInstru)
             {
                 playerHasInstru = false;
+                instruTxt.gameObject.SetActive(false);
                 MainManager.instance.addScore(1);
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == false)
