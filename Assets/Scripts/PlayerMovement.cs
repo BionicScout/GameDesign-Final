@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,6 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
     public HealthBar healthBar;
+    public TextMeshProUGUI instruTxt;
+
+    public void Awake()
+    {
+        instruTxt.gameObject.SetActive(false);
+    }
 
 
     private void Update()
@@ -43,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerTile.transform.GetChild(2).gameObject.SetActive(false);
             playerHasInstru = true;
+            instruTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
 
