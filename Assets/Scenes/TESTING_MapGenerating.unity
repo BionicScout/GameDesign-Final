@@ -3233,12 +3233,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTile: {fileID: 0}
   playerHasInstru: 0
+  playerHasHeal: 0
+  playerHasCrank: 0
+  playerHasTeleport: 0
   crankPerMove: 0.25
   enemyTiles: []
   healthBar: {fileID: 701465930}
   instruTxt: {fileID: 908009667}
   timeSinceMove: 0
-  timeDelay: 1
+  timeDelay: 0.3
 --- !u!4 &1921425142
 Transform:
   m_ObjectHideFlags: 0
