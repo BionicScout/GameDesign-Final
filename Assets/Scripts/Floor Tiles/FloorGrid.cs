@@ -58,6 +58,7 @@ public class FloorGrid : MonoBehaviour{
                 grid[w , h].floorCord[0] = w;
                 grid[w , h].floorCord[1] = h;
                 grid[w , h].floorGrid = this;
+                grid[w , h].gridPos = new Vector2Int(w, h);
             }
         }
 
@@ -73,8 +74,6 @@ public class FloorGrid : MonoBehaviour{
 
         adjDoor.doorRefrence = doorTile;
         adjDoor.doorRefrenceDir = (direction + 2) % 4;
-
-        Debug.Log("REFRENCE ADDED");
     }
 
     public FloorTile addDoor(int direction, Material doorMat) {
@@ -119,7 +118,7 @@ public class FloorGrid : MonoBehaviour{
     public FloorTile GetRandTile()
     {
         FloorTile temp = grid[Random.Range(0, width), Random.Range(0, height)];
-        Debug.Log(temp.floorCord[0] + " " + temp.floorCord[1]);
+        //Debug.Log(temp.floorCord[0] + " " + temp.floorCord[1]);
         return temp;
     }
 

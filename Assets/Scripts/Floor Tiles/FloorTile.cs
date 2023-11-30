@@ -17,12 +17,17 @@ public class FloorTile : MonoBehaviour {
     public FloorTile doorRefrence = null;
     public int doorRefrenceDir = -1;
 
+    public Vector2Int gridPos;
+
     public void hide(bool hide) {
         transform.GetChild(0).gameObject.SetActive(!hide); //Hide tile
         transform.GetChild(1).gameObject.SetActive(!hide);
         transform.GetChild(2).gameObject.SetActive(!hide);
         transform.GetChild(3).gameObject.SetActive(!hide);
         transform.GetChild(4).gameObject.SetActive(!hide);
+        transform.GetChild(5).gameObject.SetActive(!hide);
+        transform.GetChild(6).gameObject.SetActive(!hide);
+        transform.GetChild(7).gameObject.SetActive(!hide);
 
         if(!hide) {
 
@@ -30,6 +35,9 @@ public class FloorTile : MonoBehaviour {
             transform.GetChild(2).gameObject.SetActive(!hide && HasInstru);
             transform.GetChild(3).gameObject.SetActive(!hide && HasEnemy);
             transform.GetChild(4).gameObject.SetActive(!hide && hasOswald);
+            transform.GetChild(5).gameObject.SetActive(!hide && hasHealPotion);
+            transform.GetChild(6).gameObject.SetActive(!hide && hasCrankPotion);
+            transform.GetChild(7).gameObject.SetActive(!hide && hasTeleport);
         }
     }
 }
