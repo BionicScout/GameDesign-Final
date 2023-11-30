@@ -9,45 +9,82 @@ public class PlayerMovement : MonoBehaviour
 {
     public FloorTile playerTile;
     public bool playerHasInstru;
+    public bool playerHasHeal;
+    public bool playerHasCrank;
+    public bool playerHasTeleport;
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
     public HealthBar healthBar;
     public TextMeshProUGUI instruTxt;
+    public float timeSinceMove;
+    public float timeDelay;
 
     public void Awake()
     {
         instruTxt.gameObject.SetActive(false);
+        timeSinceMove = 0;
     }
 
 
     private void Update()
     {
-        while (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            MoveIfAvialable(0, 1);
-            yield return new WaitForSeconds(2);
+            timeSinceMove += Time.deltaTime;
+            if(timeSinceMove > timeDelay)
+            {
+                MoveIfAvialable(0, 1);
+                timeSinceMove = 0;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyUp(KeyCode.W)) 
         {
-            MoveIfAvialable(-1, 0);
-            StartCoroutine(MoveDelay());
+            timeSinceMove = timeDelay;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+
+        if (Input.GetKey(KeyCode.A))
         {
-            MoveIfAvialable(0, -1);
-            StartCoroutine(MoveDelay());
+            timeSinceMove += Time.deltaTime;
+            if (timeSinceMove > timeDelay)
+            {
+                MoveIfAvialable(-1, 0);
+                timeSinceMove = 0;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.A))
         {
-            MoveIfAvialable(1, 0);
-            StartCoroutine(MoveDelay());
+            timeSinceMove = timeDelay;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            timeSinceMove += Time.deltaTime;
+            if (timeSinceMove > timeDelay)
+            {
+                MoveIfAvialable(0, -1);
+                timeSinceMove = 0;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            timeSinceMove = timeDelay;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            timeSinceMove += Time.deltaTime;
+            if (timeSinceMove > timeDelay)
+            {
+                MoveIfAvialable(1, 0);
+                timeSinceMove = 0;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            timeSinceMove = timeDelay;
         }
     }
 
-    private IEnumerator MoveDelay()
-    {
-        yield return new WaitForSeconds(2);
-    }
 
     void MoveIfAvialable(int xMove, int yMove)
     {
@@ -61,6 +98,32 @@ public class PlayerMovement : MonoBehaviour
             playerTile.transform.GetChild(2).gameObject.SetActive(false);
             playerHasInstru = true;
             instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
+        //checks if tile has a potion
+        if (playerTile.hasHealPotion)
+        {
+            playerTile.transform.GetChild(6).gameObject.SetActive(false);
+            playerHasHeal = true;
+            Debug.Log("Player got a health potion");
+            //instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
+        if (playerTile.hasCrankPotion)
+        {
+            playerTile.transform.GetChild(7).gameObject.SetActive(false);
+            playerHasCrank = true;
+            Debug.Log("Player got a crank potion");
+            //instruTxt.gameObject.SetActive(true);
+            //MainManager.instance.addScore(1);
+        }
+        //check if tile has a teleport item
+        if (playerTile.hasTeleport)
+        {
+            playerTile.transform.GetChild(5).gameObject.SetActive(false);
+            playerHasTeleport = true;
+            Debug.Log("Player got a Teleport item");
+            //instruTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
         }
 
@@ -107,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
             if (floor.grid[potentialX, potentialY].hasOswald && playerHasInstru)
             {
                 playerHasInstru = false;
+                instruTxt.gameObject.SetActive(false);
                 MainManager.instance.addScore(1);
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == false)

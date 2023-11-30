@@ -27,6 +27,9 @@ public class RoomGeneration : MonoBehaviour {
         public int previousRoom; //The id of the room used to generate this one. This determines door ways
         public bool[] doorDirections; //True when door is in direction
         public bool roomHasInstru;
+        public bool roomHasHealPotion;
+        public bool roomHasCrankPotion;
+        public bool roomHasTeleport;
 
         public void set(int xCoord, int yCoord) {
             x = xCoord; 
@@ -125,7 +128,33 @@ public class RoomGeneration : MonoBehaviour {
             Tile.HasEnemy = true;
             FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
         }
-
+        //spawns health potions
+        int healPotionNeedSpawn = 5;
+        for (int i = 0; i < healPotionNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.transform.GetChild(6).gameObject.SetActive(true);
+            Tile.hasHealPotion= true;
+        }
+        //spawns Crank reduce potions
+        int crankPotionNeedSpawn = 5;
+        for (int i = 0; i < crankPotionNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.transform.GetChild(7).gameObject.SetActive(true);
+            Tile.hasCrankPotion = true;
+        }
+        //spawns teleport 
+        int teleportNeedSpawn = 3;
+        for (int i = 0; i < teleportNeedSpawn; i++)
+        {
+            int roomRan = Random.Range(0, rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.transform.GetChild(5).gameObject.SetActive(true);
+            Tile.hasTeleport = true;
+        }
 
 
 

@@ -3237,6 +3237,8 @@ MonoBehaviour:
   enemyTiles: []
   healthBar: {fileID: 701465930}
   instruTxt: {fileID: 908009667}
+  timeSinceMove: 0
+  timeDelay: 1
 --- !u!4 &1921425142
 Transform:
   m_ObjectHideFlags: 0
