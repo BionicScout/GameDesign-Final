@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI teleportTxt;
     public float timeSinceMove;
     public float timeDelay;
+    public int damage;
+    public int healAmt;
+    public int crankReduceAmt;
+
 
     public void Awake()
     {
@@ -87,6 +91,26 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D))
         {
             timeSinceMove = timeDelay;
+        }
+        if((Input.GetKeyDown(KeyCode.E) && playerHasHeal))
+        {
+            MainManager.instance.Heal(healAmt);
+            playerHasHeal = false;
+            healTxt.gameObject.SetActive(false);
+
+        }
+        if((Input.GetKeyDown(KeyCode.Q)) && playerHasCrank)
+        {
+            MainManager.instance.removeCrank(crankReduceAmt);
+            playerHasCrank = false;
+            crankTxt.gameObject.SetActive(false);
+
+        }
+        if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
+        {
+            //need to figure out
+            playerHasTeleport = false;
+            teleportTxt.gameObject.SetActive(false);
         }
     }
 
@@ -165,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
             }
             if((floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false) {
-                MainManager.instance.takeDamage(1);
+                MainManager.instance.takeDamage(damage);
             }
 
         }
@@ -194,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
             {
-                MainManager.instance.takeDamage(1);
+                MainManager.instance.takeDamage(damage);
             }
 
         }

@@ -40,6 +40,11 @@ public class MainManager : MonoBehaviour {
         }
         UI.updateCrank(crankiness);
     }
+    public void removeCrank(float num)
+    {
+        crankiness -= num;
+        UI.updateCrank(crankiness);
+    }
 
     public float getCrank() {
         return crankiness;
@@ -66,6 +71,15 @@ public class MainManager : MonoBehaviour {
         }
         curHealth -= dmg;
         healthBar.SetHealth(curHealth);
+    }
+    public void Heal(int dmg)
+    {
+        curHealth += dmg;
+        healthBar.SetHealth(curHealth);
+        if(curHealth >= maxHealth) 
+        {
+            healthBar.SetHealth(maxHealth);
+        }
     }
 
 }

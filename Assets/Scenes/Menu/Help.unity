@@ -182,11 +182,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Goal: Gather instruments and bring them to Oswald.\nMove into instruments
     to pick up. Move into enemies with an instrument to attack it. \nIf you attack
-    an enemy without an instrument or they attack you, you die. \nIf you move into
-    Oswald with an Instrument, you play it and score a point. \nIf you score enough
-    points, you win.\nAs you move, the cranky meter goes up. If it gets too high,
-    you lose. \nYou can move through doors (yellow dashes) to explore a new room.
-    \n\nMovement: WASD"
+    an enemy without an instrument or they attack you, you take damage. \nIf you
+    move into Oswald with an Instrument, you play it and score a point. \nIf you
+    score enough points, you win.\nAs you move, the cranky meter goes up. If it gets
+    too high, you lose. \nYou can move through doors (yellow dashes) to explore a
+    new room. \n\nMovement: WASD\nUse Health potion: E\nUse Crankyness reducer: Q\nUse
+    teleport: F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4f47720d0e2a904f91d211b84d0470d, type: 2}
   m_sharedMaterial: {fileID: 136177968996019467, guid: e4f47720d0e2a904f91d211b84d0470d, type: 2}
@@ -249,7 +250,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -527.4545, y: -192.72374, z: -568.02795, w: -65.93182}
+  m_margin: {x: -527.4545, y: -192.72374, z: -568.02795, w: -82.632324}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
