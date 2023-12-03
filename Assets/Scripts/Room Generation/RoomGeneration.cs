@@ -134,7 +134,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(6).gameObject.SetActive(true);
+            Tile.transform.GetChild(5).gameObject.SetActive(true);
             Tile.hasHealPotion= true;
         }
         //spawns Crank reduce potions
@@ -143,7 +143,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(7).gameObject.SetActive(true);
+            Tile.transform.GetChild(6).gameObject.SetActive(true);
             Tile.hasCrankPotion = true;
         }
         //spawns teleport 
@@ -152,7 +152,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(5).gameObject.SetActive(true);
+            Tile.transform.GetChild(7).gameObject.SetActive(true);
             Tile.hasTeleport = true;
         }
 

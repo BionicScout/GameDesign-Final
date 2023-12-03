@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public bool playerHasTeleport;
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
-    public HealthBar healthBar;
     public TextMeshProUGUI instruTxt;
     public TextMeshProUGUI healTxt;
     public TextMeshProUGUI crankTxt;
@@ -109,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         //checks if tile has a potion
         if (playerTile.hasHealPotion && playerHasHeal == false)
         {
-            playerTile.transform.GetChild(6).gameObject.SetActive(false);
+            playerTile.transform.GetChild(5).gameObject.SetActive(false);
             playerHasHeal = true;
             Debug.Log("Player got a health potion");
             healTxt.gameObject.SetActive(true);
@@ -117,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerTile.hasCrankPotion && playerHasCrank == false)
         {
-            playerTile.transform.GetChild(7).gameObject.SetActive(false);
+            playerTile.transform.GetChild(6).gameObject.SetActive(false);
             playerHasCrank = true;
             Debug.Log("Player got a crank potion");
             crankTxt.gameObject.SetActive(true);
@@ -126,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         //check if tile has a teleport item
         if (playerTile.hasTeleport && playerHasTeleport == false)
         {
-            playerTile.transform.GetChild(5).gameObject.SetActive(false);
+            playerTile.transform.GetChild(7).gameObject.SetActive(false);
             playerHasTeleport = true;
             Debug.Log("Player got a Teleport item");
             teleportTxt.gameObject.SetActive(true);
@@ -166,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
             }
             if((floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false) {
-                healthBar.SetHealth(1);
+                MainManager.instance.takeDamage(1);
             }
 
         }
@@ -195,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
             {
-                healthBar.SetHealth(1);
+                MainManager.instance.takeDamage(1);
             }
 
         }
@@ -280,7 +279,8 @@ public class PlayerMovement : MonoBehaviour
 
                 //if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
                 //{
-                //    SceneSwitcher.instance.A_LoadScene("Fail-Death");
+                //    MainManager.instance.takeDamage(1);
+                //    //SceneSwitcher.instance.A_LoadScene("Fail-Death");
                 //}
             }
 
