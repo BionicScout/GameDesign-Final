@@ -231,14 +231,14 @@ public class PlayerMovement : MonoBehaviour
             healTxt.gameObject.SetActive(true);
         }
         if(playerTile.item == 1 && playerHasCrank == false) {
-            playerTile.transform.GetChild(8).gameObject.SetActive(false);
+            playerTile.removeItem();
             playerHasCrank = true;
 
             Debug.Log("Player got a crank potion");
             crankTxt.gameObject.SetActive(true);
         }
         if(playerTile.item == 2 && playerHasTeleport == false) {
-            playerTile.transform.GetChild(9).gameObject.SetActive(false);
+            playerTile.removeItem();
             playerHasTeleport = true;
 
             Debug.Log("Player got a Teleport item");
