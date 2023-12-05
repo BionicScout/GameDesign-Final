@@ -48,21 +48,21 @@ MonoBehaviour:
   - name: Move
     clip: {fileID: 8300000, guid: 865eff59c7b78c64e8b76c93a63985ef, type: 3}
     volume: 0.727
-    pitch: 0.13
+    pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
   - name: Knife
     clip: {fileID: 8300000, guid: 1e52a981f43078a499e9f2a1f8ef0dfc, type: 3}
     volume: 0.762
-    pitch: 0.13
+    pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
   - name: Flute
     clip: {fileID: 8300000, guid: 2a4f4a8c24970c049b9565974a2d092a, type: 3}
-    volume: 0.71
-    pitch: 0.13
+    volume: 0.23
+    pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
