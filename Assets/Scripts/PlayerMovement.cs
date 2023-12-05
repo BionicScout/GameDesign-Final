@@ -126,16 +126,7 @@ public class PlayerMovement : MonoBehaviour
         int potentialY = playerTile.gridPos.y + yMove;
         floor = playerTile.floorGrid;
 
-        if(playerTile.instrument != -1) {
-            playerInstrument = playerTile.instrument;
-            playerTile.removeInstrument();
 
-            instruTxt.gameObject.SetActive(true);
-        }
-        //Pick Up Item
-        if (playerTile.item != -1) {
-            pickUpItem();
-        }
 
 
         bool offBoard = false;
@@ -187,6 +178,8 @@ public class PlayerMovement : MonoBehaviour
 
                 instruTxt.gameObject.SetActive(false);
                 MainManager.instance.addScore(1);
+
+                AudioManager.instance.Play("Flute");
             }
             //If no enemy, move player
             if (floor.grid[potentialX, potentialY].enemy == -1)
@@ -213,6 +206,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         MainManager.instance.addCrank(crankPerMove);
+
+        //Pick up instrument
+        if(playerTile.instrument != -1) {
+            playerInstrument = playerTile.instrument;
+            playerTile.removeInstrument();
+
+            instruTxt.gameObject.SetActive(true);
+        }
+        //Pick Up Item
+        if(playerTile.item != -1) {
+            pickUpItem();
+        }
 
         //gets the camera and set it position to the players
         setCamera();

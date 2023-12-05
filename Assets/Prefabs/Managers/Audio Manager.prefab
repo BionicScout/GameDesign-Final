@@ -59,5 +59,12 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
+  - name: Flute
+    clip: {fileID: 8300000, guid: 2a4f4a8c24970c049b9565974a2d092a, type: 3}
+    volume: 0.71
+    pitch: 0.13
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
