@@ -112,7 +112,7 @@ public class FloorGrid : MonoBehaviour{
 
     public void addOswald() {
         grid[width - 1 , height - 1].hasOswald = true;
-        grid[width - 1 , height - 1].transform.GetChild(4).gameObject.SetActive(true);
+        grid[width - 1 , height - 1].transform.GetChild(6).gameObject.SetActive(true);
     }
 
     public FloorTile GetRandTile()

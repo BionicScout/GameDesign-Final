@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public FloorTile playerTile;
+    public RoomGeneration roomGen;
     public bool playerHasInstru;
     public bool playerHasHeal;
     public bool playerHasCrank;
@@ -42,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if(timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(0, 1);
+                MoveIfAvialable(0, 1, 3);
                 timeSinceMove = 0;
             }
         }
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(-1, 0);
+                MoveIfAvialable(-1, 0, 2);
                 timeSinceMove = 0;
             }
         }
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(0, -1);
+                MoveIfAvialable(0, -1, 4);
                 timeSinceMove = 0;
             }
         }
@@ -84,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(1, 0);
+                MoveIfAvialable(1, 0, 1);
                 timeSinceMove = 0;
             }
         }
@@ -115,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void MoveIfAvialable(int xMove, int yMove)
+    void MoveIfAvialable(int xMove, int yMove, int pSprite)
     {
         
         int potentialX = playerTile.floorCord[0] + xMove;
@@ -124,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerTile.HasInstru)
         {
-            playerTile.transform.GetChild(2).gameObject.SetActive(false);
+            playerTile.transform.GetChild(10).gameObject.SetActive(false);
             playerHasInstru = true;
             instruTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
@@ -173,20 +174,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 
                 playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile.transform.GetChild(pSprite).gameObject.SetActive(false);
                 playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
                 playerTile.floorGrid.GetComponent<Room>().hide(true);
 
                 playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
 
                 playerTile.hasPlayer = true;
-                playerTile.transform.GetChild(1).gameObject.SetActive(true);
+                playerTile.transform.GetChild(pSprite).gameObject.SetActive(true);
                 playerTile.floorGrid.GetComponent<Room>().hide(false);
                 playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
             }
             if (playerHasInstru == true && (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false))
             {
-                floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(3).gameObject.SetActive(false);
+                floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
             }
             if((floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false) {
                 MainManager.instance.takeDamage(damage);
@@ -207,14 +208,14 @@ public class PlayerMovement : MonoBehaviour
             if (floor.grid[potentialX, potentialY].HasEnemy == false)
             {
                 playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile.transform.GetChild(pSprite).gameObject.SetActive(false);
                 playerTile = floor.grid[potentialX, potentialY];
                 playerTile.hasPlayer = true;
-                playerTile.transform.GetChild(1).gameObject.SetActive(true);
+                playerTile.transform.GetChild(pSprite).gameObject.SetActive(true);
             }
             if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
             {
-                floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
+                floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
             }
             if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
             {
@@ -289,16 +290,16 @@ public class PlayerMovement : MonoBehaviour
                 ///checks if there is a player on potential tile
                 if(floor.grid[potentialX , potentialY].hasPlayer == false) {
                     enemyTiles[i].HasEnemy = false;
-                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(false);
+                    enemyTiles[i].transform.GetChild(5).gameObject.SetActive(false);
                     enemyTiles[i] = floor.grid[potentialX , potentialY];
                     enemyTiles[i].HasEnemy = true;
-                    enemyTiles[i].transform.GetChild(3).gameObject.SetActive(true);
+                    enemyTiles[i].transform.GetChild(5).gameObject.SetActive(true);
 
                 }
 
                 //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
                 //{
-                //   floor.grid[potentialX, potentialY].transform.GetChild(3).gameObject.SetActive(false);
+                //   floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
                 //}
 
                 //if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
