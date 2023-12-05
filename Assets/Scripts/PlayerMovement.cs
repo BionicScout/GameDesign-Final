@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public FloorTile playerTile;
     public RoomGeneration roomGen;
+    public FloorGrid floor;
     public bool playerHasInstru;
     public bool playerHasHeal;
     public bool playerHasCrank;
@@ -109,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
         {
-            
+            //floor.grid[playerTile.floorCord[0], playerTile.floorCord[0]].doorRefrence.transform.GetChild(1).gameObject.SetActive(true);
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
         }
@@ -121,11 +122,14 @@ public class PlayerMovement : MonoBehaviour
         
         int potentialX = playerTile.floorCord[0] + xMove;
         int potentialY = playerTile.floorCord[1] + yMove;
-        FloorGrid floor = playerTile.floorGrid;
+        floor = playerTile.floorGrid;
 
         if (playerTile.HasInstru)
         {
             playerTile.transform.GetChild(10).gameObject.SetActive(false);
+            playerTile.transform.GetChild(11).gameObject.SetActive(false);
+            playerTile.transform.GetChild(12).gameObject.SetActive(false);
+            playerTile.transform.GetChild(13).gameObject.SetActive(false);
             playerHasInstru = true;
             instruTxt.gameObject.SetActive(true);
             //MainManager.instance.addScore(1);
