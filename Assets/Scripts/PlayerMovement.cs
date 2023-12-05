@@ -216,6 +216,16 @@ public class PlayerMovement : MonoBehaviour
             instruTxt.gameObject.SetActive(false);
             MainManager.instance.addScore(1);
         }
+        //Player Attack Enemy
+        if(playerInstrument != -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
+            playerTile.InstrumentSound(playerInstrument);
+            floor.grid[potentialCoord.x , potentialCoord.y].removeEnemy();
+        }
+        if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
+            MainManager.instance.takeDamage(damage);
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+        }
+
         //If no enemy, move player
         if(floor.grid[potentialCoord.x , potentialCoord.y].enemy == -1) {
             //Update Current Tile
@@ -228,15 +238,6 @@ public class PlayerMovement : MonoBehaviour
             playerTile.addPlayer(playerDirection);
 
             AudioManager.instance.Play("Move"); //Move Sound
-        }
-        //Player Attack Enemy
-        if(playerInstrument != -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
-            floor.grid[potentialCoord.x , potentialCoord.y].transform.GetChild(5).gameObject.SetActive(false);
-            playerTile.InstrumentSound(playerInstrument);
-        }
-        if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
-            MainManager.instance.takeDamage(damage);
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
         }
     }
 
