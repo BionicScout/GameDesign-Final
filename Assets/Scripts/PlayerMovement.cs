@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
         {
-            //need to figure out
+            
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
         }
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         //checks if tile has a potion
         if (playerTile.hasHealPotion && playerHasHeal == false)
         {
-            playerTile.transform.GetChild(5).gameObject.SetActive(false);
+            playerTile.transform.GetChild(7).gameObject.SetActive(false);
             playerHasHeal = true;
             Debug.Log("Player got a health potion");
             healTxt.gameObject.SetActive(true);
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerTile.hasCrankPotion && playerHasCrank == false)
         {
-            playerTile.transform.GetChild(6).gameObject.SetActive(false);
+            playerTile.transform.GetChild(8).gameObject.SetActive(false);
             playerHasCrank = true;
             Debug.Log("Player got a crank potion");
             crankTxt.gameObject.SetActive(true);
@@ -150,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         //check if tile has a teleport item
         if (playerTile.hasTeleport && playerHasTeleport == false)
         {
-            playerTile.transform.GetChild(7).gameObject.SetActive(false);
+            playerTile.transform.GetChild(9).gameObject.SetActive(false);
             playerHasTeleport = true;
             Debug.Log("Player got a Teleport item");
             teleportTxt.gameObject.SetActive(true);
@@ -174,7 +174,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 
                 playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(pSprite).gameObject.SetActive(false);
+                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile.transform.GetChild(2).gameObject.SetActive(false);
+                playerTile.transform.GetChild(3).gameObject.SetActive(false);
+                playerTile.transform.GetChild(4).gameObject.SetActive(false);
                 playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
                 playerTile.floorGrid.GetComponent<Room>().hide(true);
 
@@ -208,7 +211,10 @@ public class PlayerMovement : MonoBehaviour
             if (floor.grid[potentialX, potentialY].HasEnemy == false)
             {
                 playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(pSprite).gameObject.SetActive(false);
+                playerTile.transform.GetChild(1).gameObject.SetActive(false);
+                playerTile.transform.GetChild(2).gameObject.SetActive(false);
+                playerTile.transform.GetChild(3).gameObject.SetActive(false);
+                playerTile.transform.GetChild(4).gameObject.SetActive(false);
                 playerTile = floor.grid[potentialX, potentialY];
                 playerTile.hasPlayer = true;
                 playerTile.transform.GetChild(pSprite).gameObject.SetActive(true);
