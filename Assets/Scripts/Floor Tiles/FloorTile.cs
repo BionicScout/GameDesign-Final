@@ -11,16 +11,12 @@ public class FloorTile : MonoBehaviour {
     public bool hasItem = false; // True if any of the above are true or > -1
 
     public FloorGrid floorGrid;
-    public int[] floorCord;
     public Vector2Int gridPos;
 
     public FloorTile doorRefrence = null;
     public int doorRefrenceDir = -1;
 
     public void set(int w, int h, FloorGrid parent) {
-        floorCord = new int[2];
-        floorCord[0] = w;
-        floorCord[1] = h;
         floorGrid = parent;
         gridPos = new Vector2Int(w , h);
     }

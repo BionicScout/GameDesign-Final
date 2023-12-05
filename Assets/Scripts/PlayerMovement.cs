@@ -123,8 +123,8 @@ public class PlayerMovement : MonoBehaviour
     void MoveIfAvialable(int xMove, int yMove, int playerDirection) //PlayerDirection = 0 Up, 1 Left, 2 Down, 3 Right 
     {
         //Get Direction of movement
-        int potentialX = playerTile.floorCord[0] + xMove;
-        int potentialY = playerTile.floorCord[1] + yMove;
+        int potentialX = playerTile.gridPos.x + xMove;
+        int potentialY = playerTile.gridPos.y + yMove;
         floor = playerTile.floorGrid;
 
         if(playerTile.instrument != -1) {
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             offBoard = true;
         }
 
-        if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
+        if (offBoard && floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence != null)
         {
             //Update Current Tile
             playerTile.removePlayer();
@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
             playerTile.floorGrid.GetComponent<Room>().hide(true);
 
             //Swap Tiles
-            playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
+            playerTile = floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence;
 
             //Update New Tile
             playerTile.addPlayer(playerDirection);
@@ -167,10 +167,10 @@ public class PlayerMovement : MonoBehaviour
             playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
 
             //Check for enemy
-            bool hasEnemy = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.enemy != -1; 
+            bool hasEnemy = floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.enemy != -1; 
 
             if (playerInstrument != -1 && hasEnemy) {
-                floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
+                floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
             }
             if(playerInstrument == -1 && hasEnemy) {
                 MainManager.instance.takeDamage(damage);
@@ -285,8 +285,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-            int potentialX = enemyTiles[i].floorCord[0] + vec.x;
-            int potentialY = enemyTiles[i].floorCord[1] + vec.y;
+            int potentialX = enemyTiles[i].gridPos.x + vec.x;
+            int potentialY = enemyTiles[i].gridPos.y + vec.y;
             FloorGrid floor = enemyTiles[i].floorGrid;
 
 
