@@ -113,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
         {
-            //floor.grid[playerTile.floorCord[0], playerTile.floorCord[0]].doorRefrence.transform.GetChild(1).gameObject.SetActive(true);
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
         }
