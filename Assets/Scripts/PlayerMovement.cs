@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public FloorTile playerTile;
     public RoomGeneration roomGen;
     public FloorGrid floor;
-    public RoomManager roomManager;
+
     public bool playerHasInstru;
     public bool playerHasHeal;
     public bool playerHasCrank;
@@ -115,10 +115,13 @@ public class PlayerMovement : MonoBehaviour
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
 
-            GameObject ogRoom = roomManager.roomList[1];
-            //ogRoom.GetComponent < FloorTile >;
-            floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(1).gameObject.SetActive(true);
-            //setCamera();
+            roomManager.roomList[1].GetComponent<Room>().hide(false);
+            transform.GetChild(2).GetChild(1).gameObject.SetActive(true);
+
+            playerTile.transform.GetChild(10).gameObject.SetActive(false);
+            playerTile.transform.GetChild(11).gameObject.SetActive(false);
+            playerTile.transform.GetChild(12).gameObject.SetActive(false);
+            playerTile.transform.GetChild(13).gameObject.SetActive(false);
 
         }
     }
