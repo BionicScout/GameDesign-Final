@@ -33,189 +33,216 @@ public class PlayerMovement : MonoBehaviour
         healTxt.gameObject.SetActive(false);
         crankTxt.gameObject.SetActive(false);
         teleportTxt.gameObject.SetActive(false);
-        timeSinceMove = 0;
+        timeSinceMove = timeDelay;
     }
 
+    /***** User Input *****/
 
-    private void Update()
-    {
+    private void Update() {
+        moveKeys();
+        useItem();
+    }
+
+    public void moveKeys() {
         //Movemet
-        if (Input.GetKey(KeyCode.W))
-        {
+
+        //If a movment key is being held down, build up Time
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) {
             timeSinceMove += Time.deltaTime;
-            if(timeSinceMove > timeDelay)
-            {
-                MoveIfAvialable(0, 1, 0);
-                timeSinceMove = 0;
-            }
         }
-        if(Input.GetKeyUp(KeyCode.W)) 
-        {
+
+        //If time is built up, move charcter and reset time
+        if(timeSinceMove > timeDelay) {
+            if(Input.GetKey(KeyCode.W)) {
+                MoveIfAvialable(0 , 1 , 0);
+            }
+            else if(Input.GetKey(KeyCode.A)) {
+                MoveIfAvialable(-1 , 0 , 1);
+            }
+            else if(Input.GetKey(KeyCode.S)) {
+                MoveIfAvialable(0 , -1 , 2);
+            }
+            else if(Input.GetKey(KeyCode.D)) {
+                MoveIfAvialable(1 , 0 , 3);
+            }
+
+            timeSinceMove = 0;
+        }
+
+        //If key goes up, set move time to time Delay
+        if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D)) {
             timeSinceMove = timeDelay;
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
+
+        /*
+        if(Input.GetKey(KeyCode.W)) {
             timeSinceMove += Time.deltaTime;
-            if (timeSinceMove > timeDelay)
-            {
-                MoveIfAvialable(-1, 0, 1);
+            if(timeSinceMove > timeDelay) {
+                MoveIfAvialable(0 , 1 , 0);
                 timeSinceMove = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
+        if(Input.GetKeyUp(KeyCode.W)) {
             timeSinceMove = timeDelay;
         }
 
-        if(Input.GetKey(KeyCode.S))
-        {
+        if(Input.GetKey(KeyCode.A)) {
             timeSinceMove += Time.deltaTime;
-            if (timeSinceMove > timeDelay)
-            {
-                MoveIfAvialable(0, -1, 2);
+            if(timeSinceMove > timeDelay) {
+                MoveIfAvialable(-1 , 0 , 1);
                 timeSinceMove = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.S))
-        {
+        if(Input.GetKeyUp(KeyCode.A)) {
             timeSinceMove = timeDelay;
         }
 
-        if (Input.GetKey(KeyCode.D))
-        {
+        if(Input.GetKey(KeyCode.S)) {
             timeSinceMove += Time.deltaTime;
-            if (timeSinceMove > timeDelay)
-            {
-                MoveIfAvialable(1, 0, 3);
+            if(timeSinceMove > timeDelay) {
+                MoveIfAvialable(0 , -1 , 2);
                 timeSinceMove = 0;
             }
         }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
+        if(Input.GetKeyUp(KeyCode.S)) {
             timeSinceMove = timeDelay;
         }
 
-        //Item Use
-        if((Input.GetKeyDown(KeyCode.E) && playerHasHeal))
-        {
+        if(Input.GetKey(KeyCode.D)) {
+            timeSinceMove += Time.deltaTime;
+            if(timeSinceMove > timeDelay) {
+                MoveIfAvialable(1 , 0 , 3);
+                timeSinceMove = 0;
+            }
+        }
+        if(Input.GetKeyUp(KeyCode.D)) {
+            timeSinceMove = timeDelay;
+        }*/
+    }
+
+    public void useItem() {
+        if((Input.GetKeyDown(KeyCode.E) && playerHasHeal)) {
             MainManager.instance.Heal(healAmt);
             playerHasHeal = false;
             healTxt.gameObject.SetActive(false);
 
-            playerTile.InstrumentSound(playerInstrument);
-
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
         }
-        if((Input.GetKeyDown(KeyCode.Q)) && playerHasCrank)
-        {
+        if((Input.GetKeyDown(KeyCode.Q)) && playerHasCrank) {
             MainManager.instance.removeCrank(crankReduceAmt);
             playerHasCrank = false;
             crankTxt.gameObject.SetActive(false);
 
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
         }
-        if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
-        {
+        if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport) {
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
+
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
         }
     }
+
+    /***** Player Movement *****/
 
 
     void MoveIfAvialable(int xMove, int yMove, int playerDirection) //PlayerDirection = 0 Up, 1 Left, 2 Down, 3 Right 
     {
         //Get Direction of movement
-        int potentialX = playerTile.gridPos.x + xMove;
-        int potentialY = playerTile.gridPos.y + yMove;
+        Vector2Int potentialCoord = new Vector2Int(playerTile.gridPos.x , playerTile.gridPos.y) + getDirection(playerDirection);
         floor = playerTile.floorGrid;
 
+        //Check if the player move goes of the board
+        bool offBoard = movingOffBoard(potentialCoord);
 
-
-
-        bool offBoard = false;
-        if (potentialX < 0 || potentialX >= floor.width)
-        {
-            offBoard = true;
-        }
-        if (potentialY < 0 || potentialY >= floor.height)
-        {
-            offBoard = true;
-        }
-
-        if (offBoard && floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence != null)
-        {
-            //Update Current Tile
-            playerTile.removePlayer();
-
-            playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
-            playerTile.floorGrid.GetComponent<Room>().hide(true);
-
-            //Swap Tiles
-            playerTile = floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence;
-
-            //Update New Tile
-            playerTile.addPlayer(playerDirection);
-
-            playerTile.floorGrid.GetComponent<Room>().hide(false);
-            playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Move Sound
-
-            //Check for enemy
-            bool hasEnemy = floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.enemy != -1; 
-
-            if (playerInstrument != -1 && hasEnemy) {
-                floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
-                playerTile.InstrumentSound(playerInstrument);
-            }
-            if(playerInstrument == -1 && hasEnemy) {
-                MainManager.instance.takeDamage(damage);
-                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
-            }
-
+        if (offBoard && floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence != null) {
+            betweenRoomMovement(playerDirection);
         }
         else if (offBoard)
             return;
-        else
-        {
-            //Return instrument to oswald
-            if (floor.grid[potentialX, potentialY].hasOswald && playerInstrument != -1)
-            {
-                playerTile.InstrumentSound(playerInstrument);
-                playerInstrument = -1;
-
-                instruTxt.gameObject.SetActive(false);
-                MainManager.instance.addScore(1);
-            }
-            //If no enemy, move player
-            if (floor.grid[potentialX, potentialY].enemy == -1)
-            {
-                //Update Current Tile
-                playerTile.removePlayer();
-
-                //Swap Tiles
-                playerTile = floor.grid[potentialX , potentialY];
-
-                //Update New Tile
-                playerTile.addPlayer(playerDirection);
-
-                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Move Sound
-            }
-            //Player Attack Enemy
-            if (playerInstrument != -1 && floor.grid[potentialX, potentialY].enemy != -1)
-            {
-                floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
-                playerTile.InstrumentSound(playerInstrument);
-            }
-            if (playerInstrument == -1 && floor.grid[potentialX , potentialY].enemy != -1)
-            {
-                MainManager.instance.takeDamage(damage);
-                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
-            }
-
+        else {
+            inRoomMovement(playerDirection, potentialCoord);
         }
 
         MainManager.instance.addCrank(crankPerMove);
 
         //Pick up instrument
+        if(playerTile.hasItem)
+            pickUpTile();
+
+        //gets the camera and set it position to the players
+        setCamera();
+
+        moveEnemies();
+    }
+
+    public void betweenRoomMovement(int playerDirection) {
+        //Update Current Tile
+        playerTile.removePlayer();
+
+        playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
+        playerTile.floorGrid.GetComponent<Room>().hide(true);
+
+        //Swap Tiles
+        playerTile = floor.grid[playerTile.gridPos.x , playerTile.gridPos.y].doorRefrence;
+
+        //Update New Tile
+        playerTile.addPlayer(playerDirection);
+
+        playerTile.floorGrid.GetComponent<Room>().hide(false);
+        playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
+        AudioManager.instance.Play("Move"); //Move Sound
+
+        //Check for enemy
+        bool hasEnemy = floor.grid[playerTile.gridPos.x , playerTile.gridPos.y].doorRefrence.enemy != -1;
+
+        if(playerInstrument != -1 && hasEnemy) {
+            floor.grid[playerTile.gridPos.x , playerTile.gridPos.y].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
+            playerTile.InstrumentSound(playerInstrument);
+        }
+        if(playerInstrument == -1 && hasEnemy) {
+            MainManager.instance.takeDamage(damage);
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+        }
+    }
+
+    public void inRoomMovement(int playerDirection, Vector2Int potentialCoord) {
+        //Return instrument to oswald
+        if(floor.grid[potentialCoord.x , potentialCoord.y].hasOswald && playerInstrument != -1) {
+            playerTile.InstrumentSound(playerInstrument);
+            playerInstrument = -1;
+
+            instruTxt.gameObject.SetActive(false);
+            MainManager.instance.addScore(1);
+        }
+        //If no enemy, move player
+        if(floor.grid[potentialCoord.x , potentialCoord.y].enemy == -1) {
+            //Update Current Tile
+            playerTile.removePlayer();
+
+            //Swap Tiles
+            playerTile = floor.grid[potentialCoord.x , potentialCoord.y];
+
+            //Update New Tile
+            playerTile.addPlayer(playerDirection);
+
+            AudioManager.instance.Play("Move"); //Move Sound
+        }
+        //Player Attack Enemy
+        if(playerInstrument != -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
+            floor.grid[potentialCoord.x , potentialCoord.y].transform.GetChild(5).gameObject.SetActive(false);
+            playerTile.InstrumentSound(playerInstrument);
+        }
+        if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
+            MainManager.instance.takeDamage(damage);
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+        }
+    }
+
+    /***** PLAYER MOVEMENT UTILITY *****/
+
+    public void pickUpTile() {
         if(playerTile.instrument != -1) {
             playerInstrument = playerTile.instrument;
             playerTile.InstrumentSound(playerInstrument);
@@ -224,22 +251,9 @@ public class PlayerMovement : MonoBehaviour
             instruTxt.gameObject.SetActive(true);
             playerTile.InstrumentSound(playerInstrument);
         }
-        //Pick Up Item
-        if(playerTile.item != -1) {
-            pickUpItem();
-            playerTile.InstrumentSound(playerInstrument); //Pick Up Noise
-        }
 
-        //gets the camera and set it position to the players
-        setCamera();
-
-        moveEnemies();
-    }
-
-    public void pickUpItem() {
         //0 Heal Potion, 1 Crank Potion, 2 Hourglass
-
-        if(playerTile.item == 0 && playerHasHeal == false) {
+        else if(playerTile.item == 0 && playerHasHeal == false) {
             playerTile.removeItem();
             playerHasHeal = true;
 
@@ -248,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
 
             AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Pick Up
         }
-        if(playerTile.item == 1 && playerHasCrank == false) {
+        else if(playerTile.item == 1 && playerHasCrank == false) {
             playerTile.removeItem();
             playerHasCrank = true;
 
@@ -257,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
 
             AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Pick Up
         }
-        if(playerTile.item == 2 && playerHasTeleport == false) {
+        else if(playerTile.item == 2 && playerHasTeleport == false) {
             playerTile.removeItem();
             playerHasTeleport = true;
             
@@ -273,6 +287,8 @@ public class PlayerMovement : MonoBehaviour
         GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
         cam.transform.position = new Vector3(playerTile.transform.position.x, playerTile.transform.position.y, -10);
     }
+
+    /***** ENEMY MOVEMENT *****/
 
     public void moveEnemies() {
         for(int i = 0; i < enemyTiles.Count; i++) {
@@ -323,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
             if(offBoard)
                 return;
             else {
-                ///checks if there is a player on potential tile
+                //checks if there is a player on potential tile
                 if(floor.grid[potentialX , potentialY].playerDir == -1) {
                     int enemyType = enemyTiles[i].enemy;
 
@@ -346,6 +362,35 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
+    /***** UTILITY *****/
+
+    public Vector2Int pickDirection() {
+        int[,] baseDirections = { { 0 , 1 }, { -1 , 0 } , { 0 , -1 } , { 1 , 0 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
+        int direction = Random.Range(0 , 4) % 4;
+
+
+        return new Vector2Int(baseDirections[direction , 0] , baseDirections[direction , 1]);
+    }
+
+    public Vector2Int getDirection(int id) {
+        int[,] baseDirections = { { 0 , 1 }, { -1 , 0 } , { 0 , -1 } , { 1 , 0 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
+        return new Vector2Int(baseDirections[id , 0] , baseDirections[id, 1]);
+    }
+
+    public bool movingOffBoard(Vector2Int tile) {
+        bool offBoard = false;
+        if(tile.x < 0 || tile.x >= floor.width) {
+            offBoard = true;
+        }
+        if(tile.y < 0 || tile.y >= floor.height) {
+            offBoard = true;
+        }
+
+        return offBoard;
+    }
+
+    /***** OTHER *****/
 
     /*struct DijkstraTile {
         public int x;
@@ -458,15 +503,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
             }
 
-
-
-
-
-
-
-
-
-
             failSafe--;
 
             if(failSafe <= 0) {
@@ -507,12 +543,6 @@ public class PlayerMovement : MonoBehaviour
         //temp = path.Pop();
         return new Vector2Int(temp.x , temp.y);
 
-
-
-
-
-
-
         /*
         function dijkstra(G, S)
             for each vertex V in G
@@ -530,17 +560,5 @@ public class PlayerMovement : MonoBehaviour
                         previous[V] <- U
             return distance[], previous[]
          * /
-
-
     }*/
-
-
-    public Vector2Int pickDirection()
-    {
-        int[,] baseDirections = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } }; //[0 Up, 1 Left, 2 Down, 3 Right   ,   0 x, 1 y]
-        int direction = Random.Range(0, 4) % 4;
-
-
-        return new Vector2Int(baseDirections[direction, 0], baseDirections[direction, 1]);
-    }
 }

@@ -101,8 +101,9 @@ public class FloorTile : MonoBehaviour {
             AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
         }
         if(id == 3) { //Flute
-            AudioManager.instance.Play("Flute");
+            //AudioManager.instance.Play("Flute");
         }
+        AudioManager.instance.Play("Flute");
     }
 
     public void EnemySound(int id) {

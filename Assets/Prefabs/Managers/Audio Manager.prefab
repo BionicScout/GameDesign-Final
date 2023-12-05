@@ -47,8 +47,8 @@ MonoBehaviour:
   sounds:
   - name: Move
     clip: {fileID: 8300000, guid: 865eff59c7b78c64e8b76c93a63985ef, type: 3}
-    volume: 0.727
-    pitch: 1
+    volume: 0.15
+    pitch: 0.29
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
-  - name: SOUND_EFFECT_NEEDED
+  - name: SOUND_EFFECT_NEEDE
     clip: {fileID: 8300000, guid: 750a7d2deadedf54aa40125e3037abfb, type: 3}
     volume: 0.58
     pitch: 1
