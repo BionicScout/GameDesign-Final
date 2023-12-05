@@ -92,8 +92,8 @@ public class FloorGrid : MonoBehaviour{
 
     //Spawn Oswald in top right of room
     public void addOswald() {
-        grid[width - 1 , height - 1].hasOswald = true;
-        grid[width - 1 , height - 1].transform.GetChild(6).gameObject.SetActive(true);
+        grid[width - 4 , height - 4].hasOswald = true;
+        grid[width - 4 , height - 4].transform.GetChild(6).gameObject.SetActive(true);
     }
 
     //Get Random tile in this room that is not in front of a door

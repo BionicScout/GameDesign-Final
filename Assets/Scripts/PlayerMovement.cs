@@ -4,12 +4,14 @@ using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
     public FloorTile playerTile;
     public RoomGeneration roomGen;
     public FloorGrid floor;
+    public RoomManager roomManager;
     public bool playerHasInstru;
     public bool playerHasHeal;
     public bool playerHasCrank;
@@ -108,12 +110,21 @@ public class PlayerMovement : MonoBehaviour
             crankTxt.gameObject.SetActive(false);
 
         }
-        if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
+        if ((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport)
         {
-            //floor.grid[playerTile.floorCord[0], playerTile.floorCord[0]].doorRefrence.transform.GetChild(1).gameObject.SetActive(true);
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
+
+            GameObject ogRoom = roomManager.roomList[1];
+            //ogRoom.GetComponent < FloorTile >;
+            floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(1).gameObject.SetActive(true);
+            //setCamera();
+
         }
+    }
+    public void Teleport()
+    {
+
     }
 
 
