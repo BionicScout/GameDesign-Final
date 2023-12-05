@@ -84,8 +84,7 @@ public class FloorGrid : MonoBehaviour{
 
     //Spawn player in bottom left of a room
     public void addPlayer() {
-        grid[0, 0].hasPlayer = true;
-        grid[0,0].transform.GetChild(1).gameObject.SetActive(true);
+        grid[0 , 0].addPlayer(2);
         FindObjectOfType<PlayerMovement>().playerTile = grid[0, 0];
         FindObjectOfType<PlayerMovement>().setCamera();
     }
@@ -93,7 +92,7 @@ public class FloorGrid : MonoBehaviour{
     //Spawn Oswald in top right of room
     public void addOswald() {
         grid[width - 1 , height - 1].hasOswald = true;
-        grid[width - 1 , height - 1].transform.GetChild(6).gameObject.SetActive(true);
+        grid[width - 1 , height - 1].transform.GetChild(5).gameObject.SetActive(true);
     }
 
     //Get Random tile in this room that is not in front of a door
@@ -104,6 +103,11 @@ public class FloorGrid : MonoBehaviour{
 
         //If on a potential door tile, pick another
         if(temp.doorRefrenceDir != -1) {
+            temp = GetRandTile();
+        }
+
+        //If item on tile, pick another
+        if(temp.hasItem) {
             temp = GetRandTile();
         }
 

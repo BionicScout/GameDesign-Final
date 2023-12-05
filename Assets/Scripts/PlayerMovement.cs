@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public FloorTile playerTile;
     public RoomGeneration roomGen;
     public FloorGrid floor;
-    public bool playerHasInstru;
+    public int playerInstrument; //-1 no instrument, 0 Guitar, 2 Wind Pipes, 3 Harp, 4 Flute
     public bool playerHasHeal;
     public bool playerHasCrank;
     public bool playerHasTeleport;
@@ -39,12 +39,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //Movemet
         if (Input.GetKey(KeyCode.W))
         {
             timeSinceMove += Time.deltaTime;
             if(timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(0, 1, 3);
+                MoveIfAvialable(0, 1, 0);
                 timeSinceMove = 0;
             }
         }
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(-1, 0, 2);
+                MoveIfAvialable(-1, 0, 1);
                 timeSinceMove = 0;
             }
         }
@@ -67,12 +68,12 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove = timeDelay;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if(Input.GetKey(KeyCode.S))
         {
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(0, -1, 4);
+                MoveIfAvialable(0, -1, 2);
                 timeSinceMove = 0;
             }
         }
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             timeSinceMove += Time.deltaTime;
             if (timeSinceMove > timeDelay)
             {
-                MoveIfAvialable(1, 0, 1);
+                MoveIfAvialable(1, 0, 3);
                 timeSinceMove = 0;
             }
         }
@@ -94,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
         {
             timeSinceMove = timeDelay;
         }
+
+        //Item Use
         if((Input.GetKeyDown(KeyCode.E) && playerHasHeal))
         {
             MainManager.instance.Heal(healAmt);
@@ -117,49 +120,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void MoveIfAvialable(int xMove, int yMove, int pSprite)
+    void MoveIfAvialable(int xMove, int yMove, int playerDirection) //PlayerDirection = 0 Up, 1 Left, 2 Down, 3 Right 
     {
-        
+        //Get Direction of movement
         int potentialX = playerTile.floorCord[0] + xMove;
         int potentialY = playerTile.floorCord[1] + yMove;
         floor = playerTile.floorGrid;
 
-        if (playerTile.HasInstru)
-        {
-            playerTile.transform.GetChild(10).gameObject.SetActive(false);
-            playerTile.transform.GetChild(11).gameObject.SetActive(false);
-            playerTile.transform.GetChild(12).gameObject.SetActive(false);
-            playerTile.transform.GetChild(13).gameObject.SetActive(false);
-            playerHasInstru = true;
+        if(playerTile.instrument != -1) {
+            playerInstrument = playerTile.instrument;
+            playerTile.removeInstrument();
+
             instruTxt.gameObject.SetActive(true);
-            //MainManager.instance.addScore(1);
         }
-        //checks if tile has a potion
-        if (playerTile.hasHealPotion && playerHasHeal == false)
-        {
-            playerTile.transform.GetChild(7).gameObject.SetActive(false);
-            playerHasHeal = true;
-            Debug.Log("Player got a health potion");
-            healTxt.gameObject.SetActive(true);
-            //MainManager.instance.addScore(1);
+        //Pick Up Item
+        if (playerTile.item != -1) {
+            pickUpItem();
         }
-        if (playerTile.hasCrankPotion && playerHasCrank == false)
-        {
-            playerTile.transform.GetChild(8).gameObject.SetActive(false);
-            playerHasCrank = true;
-            Debug.Log("Player got a crank potion");
-            crankTxt.gameObject.SetActive(true);
-            //MainManager.instance.addScore(1);
-        }
-        //check if tile has a teleport item
-        if (playerTile.hasTeleport && playerHasTeleport == false)
-        {
-            playerTile.transform.GetChild(9).gameObject.SetActive(false);
-            playerHasTeleport = true;
-            Debug.Log("Player got a Teleport item");
-            teleportTxt.gameObject.SetActive(true);
-            //MainManager.instance.addScore(1);
-        }
+
 
         bool offBoard = false;
         if (potentialX < 0 || potentialX >= floor.width)
@@ -173,30 +151,28 @@ public class PlayerMovement : MonoBehaviour
 
         if (offBoard && floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence != null)
         {
-            ///checks if there is an enemy
-            if (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false)
-            {
-                
-                playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(1).gameObject.SetActive(false);
-                playerTile.transform.GetChild(2).gameObject.SetActive(false);
-                playerTile.transform.GetChild(3).gameObject.SetActive(false);
-                playerTile.transform.GetChild(4).gameObject.SetActive(false);
-                playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
-                playerTile.floorGrid.GetComponent<Room>().hide(true);
+            //Update Current Tile
+            playerTile.removePlayer();
 
-                playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
+            playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
+            playerTile.floorGrid.GetComponent<Room>().hide(true);
 
-                playerTile.hasPlayer = true;
-                playerTile.transform.GetChild(pSprite).gameObject.SetActive(true);
-                playerTile.floorGrid.GetComponent<Room>().hide(false);
-                playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
-            }
-            if (playerHasInstru == true && (floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.HasEnemy == false))
-            {
+            //Swap Tiles
+            playerTile = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence;
+
+            //Update New Tile
+            playerTile.addPlayer(playerDirection);
+
+            playerTile.floorGrid.GetComponent<Room>().hide(false);
+            playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
+
+            //Check for enemy
+            bool hasEnemy = floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.enemy != -1; 
+
+            if (playerInstrument != -1 && hasEnemy) {
                 floor.grid[playerTile.floorCord[0], playerTile.floorCord[1]].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
             }
-            if((floor.grid[playerTile.floorCord[0] , playerTile.floorCord[1]].doorRefrence.HasEnemy == true) && playerHasInstru == false) {
+            if(playerInstrument == -1 && hasEnemy) {
                 MainManager.instance.takeDamage(damage);
             }
 
@@ -205,29 +181,32 @@ public class PlayerMovement : MonoBehaviour
             return;
         else
         {
-            ///checks if there is an enemy
-            if (floor.grid[potentialX, potentialY].hasOswald && playerHasInstru)
+            //Return instrument to oswald
+            if (floor.grid[potentialX, potentialY].hasOswald && playerInstrument != -1)
             {
-                playerHasInstru = false;
+                playerInstrument = -1;
+
                 instruTxt.gameObject.SetActive(false);
                 MainManager.instance.addScore(1);
             }
-            if (floor.grid[potentialX, potentialY].HasEnemy == false)
+            //If no enemy, move player
+            if (floor.grid[potentialX, potentialY].enemy == -1)
             {
-                playerTile.hasPlayer = false;
-                playerTile.transform.GetChild(1).gameObject.SetActive(false);
-                playerTile.transform.GetChild(2).gameObject.SetActive(false);
-                playerTile.transform.GetChild(3).gameObject.SetActive(false);
-                playerTile.transform.GetChild(4).gameObject.SetActive(false);
-                playerTile = floor.grid[potentialX, potentialY];
-                playerTile.hasPlayer = true;
-                playerTile.transform.GetChild(pSprite).gameObject.SetActive(true);
+                //Update Current Tile
+                playerTile.removePlayer();
+
+                //Swap Tiles
+                playerTile = floor.grid[potentialX , potentialY];
+
+                //Update New Tile
+                playerTile.addPlayer(playerDirection);
             }
-            if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
+            //Player Attack Enemy
+            if (playerInstrument != -1 && floor.grid[potentialX, potentialY].enemy != -1)
             {
                 floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
             }
-            if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
+            if (playerInstrument == -1 && floor.grid[potentialX , potentialY].enemy != -1)
             {
                 MainManager.instance.takeDamage(damage);
             }
@@ -240,6 +219,32 @@ public class PlayerMovement : MonoBehaviour
         setCamera();
 
         moveEnemies();
+    }
+
+    public void pickUpItem() {
+        //0 Heal Potion, 1 Crank Potion, 2 Hourglass
+
+        if(playerTile.item == 0 && playerHasHeal == false) {
+            playerTile.removeItem();
+            playerHasHeal = true;
+
+            Debug.Log("Player got a health potion");
+            healTxt.gameObject.SetActive(true);
+        }
+        if(playerTile.item == 1 && playerHasCrank == false) {
+            playerTile.transform.GetChild(8).gameObject.SetActive(false);
+            playerHasCrank = true;
+
+            Debug.Log("Player got a crank potion");
+            crankTxt.gameObject.SetActive(true);
+        }
+        if(playerTile.item == 2 && playerHasTeleport == false) {
+            playerTile.transform.GetChild(9).gameObject.SetActive(false);
+            playerHasTeleport = true;
+
+            Debug.Log("Player got a Teleport item");
+            teleportTxt.gameObject.SetActive(true);
+        }
     }
 
     public void setCamera()
@@ -298,13 +303,12 @@ public class PlayerMovement : MonoBehaviour
                 return;
             else {
                 ///checks if there is a player on potential tile
-                if(floor.grid[potentialX , potentialY].hasPlayer == false) {
-                    enemyTiles[i].HasEnemy = false;
-                    enemyTiles[i].transform.GetChild(5).gameObject.SetActive(false);
-                    enemyTiles[i] = floor.grid[potentialX , potentialY];
-                    enemyTiles[i].HasEnemy = true;
-                    enemyTiles[i].transform.GetChild(5).gameObject.SetActive(true);
+                if(floor.grid[potentialX , potentialY].playerDir == -1) {
+                    int enemyType = enemyTiles[i].enemy;
 
+                    enemyTiles[i].removeEnemy();
+                    enemyTiles[i] = floor.grid[potentialX , potentialY];
+                    enemyTiles[i].addEnemy(enemyType);
                 }
 
                 //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
@@ -322,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    struct DijkstraTile {
+    /*struct DijkstraTile {
         public int x;
         public int y;
 
@@ -504,10 +508,10 @@ public class PlayerMovement : MonoBehaviour
                         distance[V] <- tempDistance
                         previous[V] <- U
             return distance[], previous[]
-         */
+         * /
 
 
-    }
+    }*/
 
 
     public Vector2Int pickDirection()
@@ -519,7 +523,3 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2Int(baseDirections[direction, 0], baseDirections[direction, 1]);
     }
 }
-
-
-
-
