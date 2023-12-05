@@ -19,6 +19,14 @@ public class FloorTile : MonoBehaviour {
 
     public Vector2Int gridPos;
 
+    public void set(int w, int h, FloorGrid parent) {
+        floorCord = new int[2];
+        floorCord[0] = w;
+        floorCord[1] = h;
+        floorGrid = parent;
+        gridPos = new Vector2Int(w , h);
+    }
+
     public void hide(bool hide) {
         transform.GetChild(0).gameObject.SetActive(!hide); //Hide tile
         transform.GetChild(1).gameObject.SetActive(!hide);

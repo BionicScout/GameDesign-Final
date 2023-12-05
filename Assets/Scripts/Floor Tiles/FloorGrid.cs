@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class FloorGrid : MonoBehaviour{
@@ -8,12 +9,6 @@ public class FloorGrid : MonoBehaviour{
     public GameObject tile;
     List<FloorTile> doorTiles;
 
-    public FloorGrid(int h, int w, int s) {
-        height = h;
-        width = w;
-        grid = new FloorTile[h, w];
-    }
-
     public void set(int h , int w , int s) {
         height = h;
         width = w;
@@ -21,54 +16,36 @@ public class FloorGrid : MonoBehaviour{
         size = s;
     }
 
-    public void generateEmpty() {
-        GameObject parent = new GameObject("Grid");
-        grid = new FloorTile[width , height];
-
-        for(int w  = 0; w < width; w++) {
-            for(int h = 0; h < height; h++) {
-                GameObject obj = Instantiate(tile, new Vector3(w * size , h * size , 0), Quaternion.identity);
-                obj.transform.SetParent(parent.transform);
-                obj.transform.localScale *= size;
-
-                obj.AddComponent<FloorTile>();
-                grid[w, h] = obj.GetComponent<FloorTile>();
-                grid[w , h].floorCord = new int[2];
-                grid[w , h].floorCord[0] = w;
-                grid[w , h].floorCord[1] = h;
-                grid[w , h].floorGrid = this;
-            }
-        }
-    }
-
+    //Create Room with all Room Tiles
     public GameObject generateEmpty(GameObject parent) {
         grid = new FloorTile[width , height];
 
         for(int w = 0; w < width; w++) {
             for(int h = 0; h < height; h++) {
+                //Instantiate tile and adjust properties
                 float middle = Mathf.FloorToInt(width / 2f) + (((width+1)%2) * -0.5f);
 
                 GameObject obj = Instantiate(tile , new Vector3((w * size) - middle , (h * size) - middle , 1) + parent.transform.position, Quaternion.identity);
                 obj.transform.SetParent(parent.transform);
                 obj.transform.localScale *= size;
 
+                //Add Floor
                 obj.AddComponent<FloorTile>();
                 grid[w , h] = obj.GetComponent<FloorTile>();
-                grid[w , h].floorCord = new int[2];
-                grid[w , h].floorCord[0] = w;
-                grid[w , h].floorCord[1] = h;
-                grid[w , h].floorGrid = this;
-                grid[w , h].gridPos = new Vector2Int(w, h);
+                grid[w , h].set(w, h, this);
             }
         }
 
         return parent;
     }
 
+    //Links two doors tiles
     public void addDoor(int direction , Material doorMat , FloorGrid adjRoomFloor) {
+        //Get the tiles connecting the foors
         FloorTile doorTile = addDoor(direction, doorMat);
         FloorTile adjDoor = adjRoomFloor.getdoorTile((direction + 2)%4);
 
+        //Set each tile to refrence the other
         doorTile.doorRefrence = adjDoor;
         doorTile.doorRefrenceDir = direction;
 
@@ -76,6 +53,7 @@ public class FloorGrid : MonoBehaviour{
         adjDoor.doorRefrenceDir = (direction + 2) % 4;
     }
 
+    //Adds door to tile and returns that tile
     public FloorTile addDoor(int direction, Material doorMat) {
 
         FloorTile doorTile = getdoorTile(direction);
@@ -87,6 +65,7 @@ public class FloorGrid : MonoBehaviour{
         return doorTile;
     }
 
+    //Get tile connected to a door based of direction
     public FloorTile getdoorTile(int direction) {
         FloorTile doorTile;
         int middle = Mathf.FloorToInt(width / 2f);
@@ -103,6 +82,7 @@ public class FloorGrid : MonoBehaviour{
         return doorTile;
     }
 
+    //Spawn player in bottom left of a room
     public void addPlayer() {
         grid[0, 0].hasPlayer = true;
         grid[0,0].transform.GetChild(1).gameObject.SetActive(true);
@@ -110,18 +90,27 @@ public class FloorGrid : MonoBehaviour{
         FindObjectOfType<PlayerMovement>().setCamera();
     }
 
+    //Spawn Oswald in top right of room
     public void addOswald() {
         grid[width - 1 , height - 1].hasOswald = true;
         grid[width - 1 , height - 1].transform.GetChild(6).gameObject.SetActive(true);
     }
 
+    //Get Random tile in this room that is not in front of a door
     public FloorTile GetRandTile()
     {
+        //Get Random Tile
         FloorTile temp = grid[Random.Range(0, width), Random.Range(0, height)];
-        //Debug.Log(temp.floorCord[0] + " " + temp.floorCord[1]);
+
+        //If on a potential door tile, pick another
+        if(temp.doorRefrenceDir != -1) {
+            temp = GetRandTile();
+        }
+
         return temp;
     }
 
+    //Hide All tiles
     public void hide(bool hide) {
         for(int w = 0; w < width; w++) {
             for(int h = 0; h < height; h++) {
