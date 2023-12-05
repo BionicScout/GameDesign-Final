@@ -103,6 +103,8 @@ public class PlayerMovement : MonoBehaviour
             playerHasHeal = false;
             healTxt.gameObject.SetActive(false);
 
+            playerTile.InstrumentSound(playerInstrument);
+
         }
         if((Input.GetKeyDown(KeyCode.Q)) && playerHasCrank)
         {
@@ -155,15 +157,18 @@ public class PlayerMovement : MonoBehaviour
 
             playerTile.floorGrid.GetComponent<Room>().hide(false);
             playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Move Sound
 
             //Check for enemy
             bool hasEnemy = floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.enemy != -1; 
 
             if (playerInstrument != -1 && hasEnemy) {
                 floor.grid[playerTile.gridPos.x, playerTile.gridPos.y].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
+                playerTile.InstrumentSound(playerInstrument);
             }
             if(playerInstrument == -1 && hasEnemy) {
                 MainManager.instance.takeDamage(damage);
+                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
             }
 
         }
@@ -174,12 +179,11 @@ public class PlayerMovement : MonoBehaviour
             //Return instrument to oswald
             if (floor.grid[potentialX, potentialY].hasOswald && playerInstrument != -1)
             {
+                playerTile.InstrumentSound(playerInstrument);
                 playerInstrument = -1;
 
                 instruTxt.gameObject.SetActive(false);
                 MainManager.instance.addScore(1);
-
-                AudioManager.instance.Play("Flute");
             }
             //If no enemy, move player
             if (floor.grid[potentialX, potentialY].enemy == -1)
@@ -192,15 +196,19 @@ public class PlayerMovement : MonoBehaviour
 
                 //Update New Tile
                 playerTile.addPlayer(playerDirection);
+
+                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Move Sound
             }
             //Player Attack Enemy
             if (playerInstrument != -1 && floor.grid[potentialX, potentialY].enemy != -1)
             {
                 floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
+                playerTile.InstrumentSound(playerInstrument);
             }
             if (playerInstrument == -1 && floor.grid[potentialX , potentialY].enemy != -1)
             {
                 MainManager.instance.takeDamage(damage);
+                AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
             }
 
         }
@@ -210,13 +218,16 @@ public class PlayerMovement : MonoBehaviour
         //Pick up instrument
         if(playerTile.instrument != -1) {
             playerInstrument = playerTile.instrument;
+            playerTile.InstrumentSound(playerInstrument);
             playerTile.removeInstrument();
 
             instruTxt.gameObject.SetActive(true);
+            playerTile.InstrumentSound(playerInstrument);
         }
         //Pick Up Item
         if(playerTile.item != -1) {
             pickUpItem();
+            playerTile.InstrumentSound(playerInstrument); //Pick Up Noise
         }
 
         //gets the camera and set it position to the players
@@ -234,6 +245,8 @@ public class PlayerMovement : MonoBehaviour
 
             Debug.Log("Player got a health potion");
             healTxt.gameObject.SetActive(true);
+
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Pick Up
         }
         if(playerTile.item == 1 && playerHasCrank == false) {
             playerTile.removeItem();
@@ -241,13 +254,17 @@ public class PlayerMovement : MonoBehaviour
 
             Debug.Log("Player got a crank potion");
             crankTxt.gameObject.SetActive(true);
+
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Pick Up
         }
         if(playerTile.item == 2 && playerHasTeleport == false) {
             playerTile.removeItem();
             playerHasTeleport = true;
-
+            
             Debug.Log("Player got a Teleport item");
             teleportTxt.gameObject.SetActive(true);
+
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Pick Up
         }
     }
 

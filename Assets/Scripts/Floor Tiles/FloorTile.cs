@@ -88,4 +88,38 @@ public class FloorTile : MonoBehaviour {
 
         hasItem = false;
     }
+
+    //PLay Sounds
+    public void InstrumentSound(int id) {
+        if(id == 0) { //Guitar
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 1) { //Wind Pipes
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 2) { //Harp
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 3) { //Flute
+            AudioManager.instance.Play("Flute");
+        }
+    }
+
+    public void EnemySound(int id) {
+        if(id == 0) { //Snake
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+    }
+
+    public void ItemSound(int id) {
+        if(id == 0) { //Heal Potion
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 1) { //Crank Potion
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 2) { //Hourglass
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+    }
 }

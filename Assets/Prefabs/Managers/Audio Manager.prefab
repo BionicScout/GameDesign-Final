@@ -66,5 +66,12 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
+  - name: SOUND_EFFECT_NEEDED
+    clip: {fileID: 8300000, guid: 750a7d2deadedf54aa40125e3037abfb, type: 3}
+    volume: 0.58
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
