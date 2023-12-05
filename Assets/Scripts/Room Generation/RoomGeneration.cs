@@ -115,8 +115,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(10).gameObject.SetActive(true);
-            Tile.HasInstru = true;
+            Tile.addInstrument(0);
         }
         int pipeNeedSpawn = 3;
         for (int i = 0; i < pipeNeedSpawn; i++)
@@ -124,24 +123,21 @@ public class RoomGeneration : MonoBehaviour {
 
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(11).gameObject.SetActive(true);
-            Tile.HasInstru = true;
+            Tile.addInstrument(1);
         }
         int harpNeedSpawn = 3;
         for (int i = 0; i < harpNeedSpawn; i++)
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(12).gameObject.SetActive(true);
-            Tile.HasInstru = true;
+            Tile.addInstrument(2);
         }
         int fluteNeedSpawn = 3;
         for (int i = 0; i < fluteNeedSpawn; i++)
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(13).gameObject.SetActive(true);
-            Tile.HasInstru = true;
+            Tile.addInstrument(3);
         }
         //spawns an enimies
         int enimiesNeedSpawn = 15;
@@ -149,8 +145,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(5).gameObject.SetActive(true);
-            Tile.HasEnemy = true;
+            Tile.addEnemy(0);
             FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
         }
         //spawns health potions
@@ -159,8 +154,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(7).gameObject.SetActive(true);
-            Tile.hasHealPotion= true;
+            Tile.addItem(0);
         }
         //spawns Crank reduce potions
         int crankPotionNeedSpawn = 5;
@@ -168,8 +162,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(8).gameObject.SetActive(true);
-            Tile.hasCrankPotion = true;
+            Tile.addItem(1);
         }
         //spawns teleport 
         int teleportNeedSpawn = 3;
@@ -177,8 +170,7 @@ public class RoomGeneration : MonoBehaviour {
         {
             int roomRan = Random.Range(0, rooms.Count);
             FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.transform.GetChild(9).gameObject.SetActive(true);
-            Tile.hasTeleport = true;
+            Tile.addItem(2);
         }
 
 
