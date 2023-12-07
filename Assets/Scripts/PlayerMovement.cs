@@ -129,20 +129,20 @@ public class PlayerMovement : MonoBehaviour
             playerHasHeal = false;
             healTxt.gameObject.SetActive(false);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
+            AudioManager.instance.Play("PlayerHeal"); // Use Item
         }
         if((Input.GetKeyDown(KeyCode.Q)) && playerHasCrank) {
             MainManager.instance.removeCrank(crankReduceAmt);
             playerHasCrank = false;
             crankTxt.gameObject.SetActive(false);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
+            AudioManager.instance.Play("Crank"); // Use Item
         }
         if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport) {
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Use Item
+            AudioManager.instance.Play("Teleport"); // Use Item
         }
     }
 
@@ -214,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
             MainManager.instance.takeDamage(damage);
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+            AudioManager.instance.Play("PlayerHurt"); // Hurt Sound
             Debug.Log("Instumentert " + playerInstrument);
         }
 
@@ -253,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player got a health potion");
             healTxt.gameObject.SetActive(true);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Pick Up
+            AudioManager.instance.Play("Item"); //Pick Up
         }
         else if(playerTile.item == 1 && playerHasCrank == false) {
             playerTile.removeItem();
@@ -262,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player got a crank potion");
             crankTxt.gameObject.SetActive(true);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Pick Up
+            AudioManager.instance.Play("Item"); // Pick Up
         }
         else if(playerTile.item == 2 && playerHasTeleport == false) {
             playerTile.removeItem();
@@ -271,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player got a Teleport item");
             teleportTxt.gameObject.SetActive(true);
 
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); //Pick Up
+            AudioManager.instance.Play("Item"); //Pick Up
         }
     }
 
