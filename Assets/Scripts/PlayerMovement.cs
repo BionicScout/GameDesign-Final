@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         crankTxt.gameObject.SetActive(false);
         teleportTxt.gameObject.SetActive(false);
         timeSinceMove = timeDelay;
+
+        playerInstrument = -1;
     }
 
     /***** User Input *****/
@@ -53,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
         //If time is built up, move charcter and reset time
         if(timeSinceMove > timeDelay) {
+            timeSinceMove = 0;
+
             if(Input.GetKey(KeyCode.W)) {
                 MoveIfAvialable(0 , 1 , 0);
             }
@@ -65,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
             else if(Input.GetKey(KeyCode.D)) {
                 MoveIfAvialable(1 , 0 , 3);
             }
-
-            timeSinceMove = 0;
         }
 
         //If key goes up, set move time to time Delay
@@ -193,18 +195,6 @@ public class PlayerMovement : MonoBehaviour
         playerTile.floorGrid.GetComponent<Room>().hide(false);
         playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
         AudioManager.instance.Play("Move"); //Move Sound
-
-        //Check for enemy
-        bool hasEnemy = floor.grid[playerTile.gridPos.x , playerTile.gridPos.y].doorRefrence.enemy != -1;
-
-        if(playerInstrument != -1 && hasEnemy) {
-            floor.grid[playerTile.gridPos.x , playerTile.gridPos.y].doorRefrence.transform.GetChild(5).gameObject.SetActive(false);
-            playerTile.InstrumentSound(playerInstrument);
-        }
-        if(playerInstrument == -1 && hasEnemy) {
-            MainManager.instance.takeDamage(damage);
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
-        }
     }
 
     public void inRoomMovement(int playerDirection, Vector2Int potentialCoord) {
@@ -220,10 +210,12 @@ public class PlayerMovement : MonoBehaviour
         if(playerInstrument != -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
             playerTile.InstrumentSound(playerInstrument);
             floor.grid[potentialCoord.x , potentialCoord.y].removeEnemy();
+            Debug.Log("Instumentert " + playerInstrument);
         }
         if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
             MainManager.instance.takeDamage(damage);
             AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+            Debug.Log("Instumentert " + playerInstrument);
         }
 
         //If no enemy, move player
@@ -298,18 +290,20 @@ public class PlayerMovement : MonoBehaviour
                 continue;
             }
 
-            Debug.Log("Snake Moves");
+            Debug.Log("Enemy Moves");
 
             //Get Direction of snake
-            Vector2Int vec; //= DijkstraSnakeMovement(enemyTiles[i].floorGrid , enemyTiles[i].gridPos);
-            //Debug.Log("Snake: " + enemyTiles[i].gridPos + "\nMove To: " + vec);
-
+            Vector2Int vec; 
 
             Vector2Int playerVec = playerTile.gridPos;
 
             Vector2Int distanceVec = playerVec - enemyTiles[i].gridPos;
 
-            if(Mathf.Abs(distanceVec.x) > Mathf.Abs(distanceVec.y)) {
+
+            if(0 == distanceVec.y) {
+                vec = pickDirection();
+            }
+            else if(Mathf.Abs(distanceVec.x) > Mathf.Abs(distanceVec.y)) {
                 vec = new Vector2Int(distanceVec.x / Mathf.Abs(distanceVec.x),0);
             }
             else {
@@ -390,176 +384,4 @@ public class PlayerMovement : MonoBehaviour
 
         return offBoard;
     }
-
-    /***** OTHER *****/
-
-    /*struct DijkstraTile {
-        public int x;
-        public int y;
-
-        public bool visted;
-        public bool hasPlayer;
-
-        public int distance;
-
-        public int previousX;
-        public int previousY;
-    }
-
-    public Vector2Int DijkstraSnakeMovement(FloorGrid floorGrid , Vector2Int snakePos) {
-        Vector2Int[] baseDirections = { new Vector2Int( -1 , 0) , new Vector2Int ( 0 , -1 ) , new Vector2Int ( 1 , 0 ) , new Vector2Int ( 0 , 1 ) };
-        DijkstraTile[,] tiles = new DijkstraTile[floorGrid.grid.GetLength(0) , floorGrid.grid.GetLength(1)];
-        Vector2Int playCord = new Vector2Int();
-
-        //Set all tiles to -1 and snake tile to 0
-        for(int x = 0; x < tiles.GetLength(0); x++) {
-            for(int y = 0; y < tiles.GetLength(1); y++) {
-                DijkstraTile tile = new DijkstraTile();
-
-                tile.x = x;
-                tile.y = y;
-
-                tile.visted = false;
-                tile.hasPlayer = floorGrid.grid[x , y].hasPlayer;
-                if(tile.hasPlayer) { playCord = new Vector2Int(); }
-
-                tile.distance = -1;
-
-                tile.previousX = -1;
-                tile.previousY = -1;
-
-                tiles[x , y] = tile;
-            }
-        }
-
-        tiles[snakePos.x , snakePos.y].distance = 0;
-
-        //Loop through all unvisted nodes
-        Queue<DijkstraTile> unvistedTiles = new Queue<DijkstraTile>();
-        unvistedTiles.Enqueue(tiles[snakePos.x , snakePos.y]);
-
-        int failSafe = 150;
-
-        while(unvistedTiles.Count > 0) {
-            //Get Observed Tile
-            DijkstraTile temp2 = unvistedTiles.Dequeue();
-            DijkstraTile currentTile = tiles[temp2.x , temp2.y];
-
-            //Check all adjasint tiles
-            Debug.Log("Current Tile: " + currentTile.x + "    " + currentTile.y + "    " + currentTile.visted);
-            for(int i = 0; i < baseDirections.GetLength(0); i++) {
-                //Debug.Log("Dir: " + baseDirections[i]);
-                Vector2Int direction = new Vector2Int(baseDirections[i].x + currentTile.x , baseDirections[i].y + currentTile.y);
-
-                //If Wall, no Tile to check
-                if(direction.x < 0 || direction.x >= tiles.GetLength(0) || direction.y < 0 || direction.y >= tiles.GetLength(1))
-                    continue;
-
-                //If Unvisted, update and add to list, if visted, skip
-                DijkstraTile adjTile = tiles[direction.x , direction.y];
-
-                if(adjTile.visted)
-                    continue;
-
-                //Update Tile Distance if Needed
-                int distanceUsingCurrent = currentTile.distance + 1;
-
-                if(distanceUsingCurrent > adjTile.distance || adjTile.distance == -1) {
-                    adjTile.distance = distanceUsingCurrent;
-                    adjTile.previousX = currentTile.x;
-                    adjTile.previousY = currentTile.y;
-
-                    //Debug.Log("AdjTile: " + adjTile.x + "    " + adjTile.y);
-                }
-                //else if(distanceUsingCurrent == adjTile.distance) { //Distances are the same, so pick a random tile to be prvious
-                //    int prevTile = Random.Range(0 , 100);
-
-                //    if(prevTile >= 50) { //50% chace to switch previous tile to the current 
-                //        adjTile.previousX = currentTile.x;
-                //        adjTile.previousY = currentTile.y;
-                //    }
-                //}
-
-                tiles[adjTile.x, adjTile.y] = adjTile;
-
-                bool check = true;
-                foreach(DijkstraTile t in unvistedTiles) {
-                    if((t.x == adjTile.x && t.y == adjTile.y)) {
-                        check = false; break;
-                    }
-                        
-                }
-
-                if(!check && !adjTile.visted)
-                    unvistedTiles.Enqueue(adjTile);
-            }
-
-            Debug.Log("Current Tile Previous: " + currentTile.previousX + "   " + currentTile.previousY);
-
-            currentTile.visted = true;
-            tiles[currentTile.x, currentTile.y] = currentTile;
-
-            if(currentTile.hasPlayer) {
-                Debug.Log("This tile is player");
-                break;
-            }
-
-            failSafe--;
-
-            if(failSafe <= 0) {
-                Debug.Log("Fail safe!!!!!!");
-                break;
-            }
-        }
-
-        //Get PLayer Route
-        DijkstraTile temp = tiles[playCord.x , playCord.y];
-        Stack<DijkstraTile> path = new Stack<DijkstraTile>();
-
-        Debug.Log("SNAKE -----------------------------------------------------");
-
-        Debug.Log("PLayer: " + temp.previousX + "   " + temp.previousY);
-
-
-        Debug.Log("Path: " + path.Count);
-
-        for(int i = 0; i < 20; i++) {
-            path.Push(temp);
-            Debug.Log("next Tile: " + temp.previousX + "   " + temp.previousY);
-            temp = tiles[temp.previousX , temp.previousY];
-
-
-
-        }
-
-        //while(temp.previousX != -1) { //Pushes tiles until snake tile
-        //    path.Push(temp);
-        //    temp = tiles[temp.previousX , temp.previousY];
-        //    Debug.Log("Path: " + path.Count);
-        //}
-
-
-        //Debug.Log("Path: " + path.Count);
-        ////path.Pop();
-        //temp = path.Pop();
-        return new Vector2Int(temp.x , temp.y);
-
-        /*
-        function dijkstra(G, S)
-            for each vertex V in G
-                distance[V] <- infinite
-                previous[V] <- NULL
-                If V != S, add V to Priority Queue Q
-            distance[S] <- 0
-
-            while Q IS NOT EMPTY
-                U <- Extract MIN from Q
-                for each unvisited neighbour V of U
-                    tempDistance <- distance[U] + edge_weight(U, V)
-                    if tempDistance < distance[V]
-                        distance[V] <- tempDistance
-                        previous[V] <- U
-            return distance[], previous[]
-         * /
-    }*/
 }

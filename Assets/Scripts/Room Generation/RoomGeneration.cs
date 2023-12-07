@@ -349,11 +349,14 @@ public class RoomGeneration : MonoBehaviour {
                 tile = spawnRoom.floor.GetRandTile();
             }
             tile.addEnemy(id);
+            FindObjectOfType<PlayerMovement>().enemyTiles.Add(tile);
 
             //Update Room Info
             RoomInfo room = rooms[roomIndex];
             room.enemies++;
             rooms[roomIndex] = room;
+
+
 
             //Update Spawn
             spawns++;
