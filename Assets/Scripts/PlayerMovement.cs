@@ -210,12 +210,10 @@ public class PlayerMovement : MonoBehaviour
         if(playerInstrument != -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
             playerTile.InstrumentSound(playerInstrument);
             floor.grid[potentialCoord.x , potentialCoord.y].removeEnemy();
-            Debug.Log("Instumentert " + playerInstrument);
         }
         if(playerInstrument == -1 && floor.grid[potentialCoord.x , potentialCoord.y].enemy != -1) {
             MainManager.instance.takeDamage(damage);
             AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
-            Debug.Log("Instumentert " + playerInstrument);
         }
 
         //If no enemy, move player
@@ -341,18 +339,20 @@ public class PlayerMovement : MonoBehaviour
                     enemyTiles[i].removeEnemy();
                     enemyTiles[i] = floor.grid[potentialX , potentialY];
                     enemyTiles[i].addEnemy(enemyType);
+
+                    for(int j = 0; j < 4; j++ ) {
+                        Vector2Int dir = getDirection(j);
+                        offBoard = movingOffBoard(dir);
+
+                        if(offBoard)
+                            continue;
+
+                        if(floor.grid[potentialX + dir.x , potentialY + dir.y].playerDir != -1) {
+                            MainManager.instance.takeDamage(damage);
+                            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+                        }
+                    }
                 }
-
-                //if (playerHasInstru == true && floor.grid[potentialX, potentialY].HasEnemy == true)
-                //{
-                //   floor.grid[potentialX, potentialY].transform.GetChild(5).gameObject.SetActive(false);
-                //}
-
-                //if (floor.grid[potentialX, potentialY].HasEnemy == true && playerHasInstru == false)
-                //{
-                //    MainManager.instance.takeDamage(1);
-                //    //SceneSwitcher.instance.A_LoadScene("Fail-Death");
-                //}
             }
 
         }
