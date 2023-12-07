@@ -16,10 +16,10 @@ public class PlayerMovement : MonoBehaviour
     public bool playerHasTeleport;
     public float crankPerMove;
     public List<FloorTile> enemyTiles = new List<FloorTile>();
-    public TextMeshProUGUI instruTxt;
-    public TextMeshProUGUI healTxt;
-    public TextMeshProUGUI crankTxt;
-    public TextMeshProUGUI teleportTxt;
+    public GameObject instrumentUI;
+    public GameObject healTxt;
+    public GameObject crankTxt;
+    public GameObject teleportTxt;
     public float timeSinceMove;
     public float timeDelay;
     public int damage;
@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Awake()
     {
-        instruTxt.gameObject.SetActive(false);
         healTxt.gameObject.SetActive(false);
         crankTxt.gameObject.SetActive(false);
         teleportTxt.gameObject.SetActive(false);
@@ -232,10 +231,10 @@ public class PlayerMovement : MonoBehaviour
     public void inRoomMovement(int playerDirection, Vector2Int potentialCoord) {
         //Return instrument to oswald
         if(floor.grid[potentialCoord.x , potentialCoord.y].hasOswald && playerInstrument != -1) {
+            instrumentUI.transform.GetChild(playerInstrument).gameObject.SetActive(false);
             playerTile.InstrumentSound(playerInstrument);
             playerInstrument = -1;
 
-            instruTxt.gameObject.SetActive(false);
             MainManager.instance.addScore(1);
         }
         //Player Attack Enemy
@@ -268,12 +267,13 @@ public class PlayerMovement : MonoBehaviour
     /***** PLAYER MOVEMENT UTILITY *****/
 
     public void pickUpTile() {
-        if(playerTile.instrument != -1) {
+        if(playerTile.instrument != -1 && playerInstrument == -1) {
+
             playerInstrument = playerTile.instrument;
             playerTile.InstrumentSound(playerInstrument);
             playerTile.removeInstrument();
 
-            instruTxt.gameObject.SetActive(true);
+            instrumentUI.transform.GetChild(playerInstrument).gameObject.SetActive(true);
             playerTile.InstrumentSound(playerInstrument);
         }
 
@@ -322,6 +322,10 @@ public class PlayerMovement : MonoBehaviour
         for(int i = 0; i < enemyTiles.Count; i++) {
             //if enemey is in a room that is not discover, don't move
             if(enemyTiles[i].floorGrid.GetComponent<Room>().isHidden || !enemyTiles[i].floorGrid.GetComponent<Room>().hasPlayer) {
+                continue;
+            }
+
+            if(enemyTiles[i].enemy == -1) {
                 continue;
             }
 

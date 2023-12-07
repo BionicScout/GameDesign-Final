@@ -136,7 +136,7 @@ public class RoomGeneration : MonoBehaviour {
 
 
 
-        roomManager.hide(true);
+        //roomManager.hide(true);
 
     }
 
@@ -388,18 +388,6 @@ public class RoomGeneration : MonoBehaviour {
 
                 int roomRan = Random.Range(1 , rooms.Count);
                 RoomInfo selectedRoom = rooms[roomRan];
-
-                //Check if room is at least 3 rooms away, if not low chance to spawn
-                if(selectedRoom.distanceFromStart > 5 && selectedRoom.distanceFromStart != 0) {
-                    int chance = Random.Range(0 , 100);
-
-                    if(chance >= aboveLimitChance) {//Does not pass
-                        validRoom = false;
-                        Debug.Log("DID NOT PASS LOW CHANCE");
-                        continue;
-                    }
-                    Debug.Log("PASSED LOW CHANCE");
-                }
 
                 //Check if there is an instrument in room
                 if(selectedRoom.roomHasItem) {

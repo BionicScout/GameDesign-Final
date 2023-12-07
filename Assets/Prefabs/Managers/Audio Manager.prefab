@@ -143,5 +143,12 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
+  - name: Music 2
+    clip: {fileID: 8300000, guid: 5919d42eaf9743d4cb9b5edf38de60b5, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    soundTrack: 1
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
