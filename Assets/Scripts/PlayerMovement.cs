@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public int damage;
     public int healAmt;
     public int crankReduceAmt;
+    public Room spawnRoom;
 
 
     public void Awake()
@@ -138,9 +139,40 @@ public class PlayerMovement : MonoBehaviour
 
             AudioManager.instance.Play("Crank"); // Use Item
         }
-        if((Input.GetKeyDown(KeyCode.F)) && playerHasTeleport) {
+        if((Input.GetKeyDown(KeyCode.F)) /*&& playerHasTeleport*/) {
             playerHasTeleport = false;
             teleportTxt.gameObject.SetActive(false);
+
+
+
+
+
+            //Update Current Tile
+            playerTile.removePlayer();
+
+            playerTile.floorGrid.GetComponent<Room>().hasPlayer = false;
+            playerTile.floorGrid.GetComponent<Room>().hide(true);
+
+            //Swap Tiles
+            playerTile = spawnRoom.floor.grid[1, 1];
+
+            //Update New Tile
+            playerTile.addPlayer(2);
+
+            playerTile.floorGrid.GetComponent<Room>().hide(false);
+            playerTile.floorGrid.GetComponent<Room>().hasPlayer = true;
+            AudioManager.instance.Play("Move"); //Move Sound
+
+
+
+            setCamera();
+
+
+
+
+
+
+
 
             AudioManager.instance.Play("Teleport"); // Use Item
         }
@@ -270,6 +302,9 @@ public class PlayerMovement : MonoBehaviour
             
             Debug.Log("Player got a Teleport item");
             teleportTxt.gameObject.SetActive(true);
+
+
+
 
             AudioManager.instance.Play("Item"); //Pick Up
         }

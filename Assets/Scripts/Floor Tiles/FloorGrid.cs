@@ -83,10 +83,11 @@ public class FloorGrid : MonoBehaviour{
     }
 
     //Spawn player in bottom left of a room
-    public void addPlayer() {
+    public void addPlayer(Room spawnroom) {
         grid[1 , 1].addPlayer(2);
         FindObjectOfType<PlayerMovement>().playerTile = grid[1, 1];
         FindObjectOfType<PlayerMovement>().setCamera();
+        FindObjectOfType<PlayerMovement>().spawnRoom = spawnroom;
     }
 
     //Spawn Oswald in top right of room
