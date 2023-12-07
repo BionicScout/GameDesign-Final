@@ -3265,6 +3265,12 @@ MonoBehaviour:
   roomTilePrefab: {fileID: 5866771556132973551, guid: 76572eb4161952644957ee9b60c56900, type: 3}
   floorTilePrefab: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
   doorMat: {fileID: 2100000, guid: 862c5e0a31051c248b83d59190c141bb, type: 2}
+  instrumentSpawns: 15
+  instrumentsSpawnWeigths: 19000000320000000a0000000f000000
+  enemySpawns: 20
+  enemySpawnWeigths: 01000000
+  itemsSpawns: 10
+  itemsSpawnWeigths: 280000002800000014000000
 --- !u!1 &1815316982
 GameObject:
   m_ObjectHideFlags: 0

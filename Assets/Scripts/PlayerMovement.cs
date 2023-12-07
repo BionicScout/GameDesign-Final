@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public FloorTile playerTile;
     public RoomGeneration roomGen;
     public FloorGrid floor;
-    public int playerInstrument; //-1 no instrument, 0 Guitar, 2 Wind Pipes, 3 Harp, 4 Flute
+    public int playerInstrument; //-1 no instrument, 0 Guitar, 1 Wind Pipes, 2 Harp, 3 Flute
     public bool playerHasHeal;
     public bool playerHasCrank;
     public bool playerHasTeleport;

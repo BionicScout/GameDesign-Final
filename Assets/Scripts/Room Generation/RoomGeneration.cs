@@ -19,6 +19,15 @@ public class RoomGeneration : MonoBehaviour {
 
     RoomManager roomManager;
 
+    public int instrumentSpawns;
+    public int[] instrumentsSpawnWeigths = new int[4];
+
+    public int enemySpawns;
+    public int[] enemySpawnWeigths = new int[1];
+
+    public int itemsSpawns;
+    public int[] itemsSpawnWeigths = new int[3];
+
     /***** RoomInfo Object *****/
     public struct RoomInfo {
         public int x, y;
@@ -26,6 +35,9 @@ public class RoomGeneration : MonoBehaviour {
         public int doorsLeft;
         public int previousRoom; //The id of the room used to generate this one. This determines door ways
         public bool[] doorDirections; //True when door is in direction
+
+        public int distanceFromStart;
+
         public bool roomHasInstru;
         public bool roomHasHealPotion;
         public bool roomHasCrankPotion;
@@ -52,6 +64,8 @@ public class RoomGeneration : MonoBehaviour {
             doorDirections[3] = false;
 
             roomHasInstru = false;
+
+            distanceFromStart = -1;
         }
 
         public string print() {
@@ -87,6 +101,7 @@ public class RoomGeneration : MonoBehaviour {
         middleRoom.set(middle , middle);
         roomLayout[middle , middle] = 0;
         rooms.Add(middleRoom);
+        middleRoom.distanceFromStart = 0;
 
         //Generate Rooms
         int roomsToGen = howManyRooms;
@@ -120,7 +135,7 @@ public class RoomGeneration : MonoBehaviour {
 
 
 
-        roomManager.hide(true);
+        //roomManager.hide(true);
 
     }
 
@@ -133,6 +148,7 @@ public class RoomGeneration : MonoBehaviour {
         newRoom.doorDirections[(newRoomDir + 2) % 4] = true;
         rooms.Add(newRoom);
         roomLayout[newRoom.x , newRoom.y] = rooms.Count - 1;
+        newRoom.distanceFromStart = rooms[baseRoomIndex].distanceFromStart + 1;
 
         //Check The new room for near by rooms
         for(int i = 0; i < baseDirections.GetLength(0); i++) {
@@ -228,32 +244,69 @@ public class RoomGeneration : MonoBehaviour {
 
     /***** SPAWNING *****/
     public List<RoomInfo> spawnInstruments(List<RoomInfo> rooms) {
-        //generates one instrument in a room
-        int guitarNeedSpawn = 3;
-        for(int i = 0; i < guitarNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(0);
-        }
-        int pipeNeedSpawn = 3;
-        for(int i = 0; i < pipeNeedSpawn; i++) {
+        int maxWeight = getTotalWeight(instrumentsSpawnWeigths);
 
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(1);
+        int spawns = 0;
+        while(spawns < instrumentSpawns) {
+            //Select Instrument to Spawn
+            int instrumentSelection = Random.Range(0 , maxWeight);
+
+            int id = -1;
+            int minWeight = 0;
+            for(int i = 0; i < instrumentsSpawnWeigths.Length; i++) {
+                //Debug.Log("Min Weight: " + minWeight + "\nValue: " + instrumentSelection + "\nMax Weight: " + (minWeight + instrumentsSpawnWeigths[i]));
+                if(instrumentSelection >= minWeight && instrumentSelection < minWeight + instrumentsSpawnWeigths[i]) {
+                    id = i;
+                    break;
+                }
+
+                minWeight += instrumentsSpawnWeigths[i];
+            }
+
+            Debug.Log("ID: " + id);
+
+            //Pick room to Spawn
+            int roomIndex = -1;
+            bool validRoom = false;
+
+            int underLimitChance = 25;
+            while(!validRoom) {
+                validRoom = true;
+
+                int roomRan = Random.Range(1 , rooms.Count);
+                RoomInfo selectedRoom = rooms[roomRan];
+
+                //Check if room is at least 3 rooms away, if not low chance to spawn
+                if(selectedRoom.distanceFromStart <= 2 && selectedRoom.distanceFromStart != 0) {
+                    int chance = Random.Range(0 , 100);
+
+                    if(chance >= underLimitChance) {//Does not pass
+                        validRoom = false;
+                        Debug.Log("DID NOT PASS LOW CHANCE");
+                        continue;
+                    }
+                    Debug.Log("PASSED LOW CHANCE");
+                }
+
+                if(selectedRoom.roomHasInstru) {
+                    validRoom = false;
+                    Debug.Log("HAS INSTRUMENT");
+                    continue;
+                }
+
+                roomIndex = roomRan;
+            }
+            FloorTile Tile = roomManager.roomList[roomIndex].GetComponent<Room>().floor.GetRandTile();
+            Tile.addInstrument(id);
+
+            RoomInfo room = rooms[roomIndex];
+            room.roomHasInstru = true;
+            rooms[roomIndex] = room;
+
+            spawns++;
+            Debug.Log("------------------------------");
         }
-        int harpNeedSpawn = 3;
-        for(int i = 0; i < harpNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(2);
-        }
-        int fluteNeedSpawn = 3;
-        for(int i = 0; i < fluteNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(3);
-        }
+
 
         return rooms;
     }
@@ -414,6 +467,16 @@ public class RoomGeneration : MonoBehaviour {
         }
 
         return direction;
+    }
+
+    public int getTotalWeight(int[] weights) {
+        int totalWeight = 0;
+
+        foreach(int weight in weights){
+            totalWeight += weight;
+        }
+
+        return totalWeight;
     }
 
     /***** DEBUGGING *****/
