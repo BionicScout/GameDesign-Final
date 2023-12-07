@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void Start() {
-        currentSoundTrack = UnityEngine.Random.Range(0, soundTrackIndexes.Count-1);
+        currentSoundTrack = 0; //UnityEngine.Random.Range(0, soundTrackIndexes.Count-1);
 		currentTrack = sounds[soundTrackIndexes[currentSoundTrack]];
 		Play(currentTrack.name);
     }
