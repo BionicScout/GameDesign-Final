@@ -15,11 +15,11 @@ public class RoomGeneration : MonoBehaviour {
 
     public GameObject roomTilePrefab;
     public GameObject floorTilePrefab;
-    //public FloorGrid grid;
     public Material doorMat;
 
     RoomManager roomManager;
 
+    /***** RoomInfo Object *****/
     public struct RoomInfo {
         public int x, y;
         public bool[] directions; //0 Up, 1 Left, 2 Down, 3 Right. //True means room is in that direction
@@ -70,6 +70,10 @@ public class RoomGeneration : MonoBehaviour {
         }
     }
 
+
+
+
+    /***** GENERAATE MAP LAYOUT *****/
     public void generate() {
         //Set Grid values to -1. This represents no room there
         roomLayout = new int[gridSize , gridSize];
@@ -80,18 +84,18 @@ public class RoomGeneration : MonoBehaviour {
 
         int middle = Mathf.FloorToInt(gridSize / 2f);
         RoomInfo middleRoom = new RoomInfo();
-        middleRoom.set(middle, middle);
+        middleRoom.set(middle , middle);
         roomLayout[middle , middle] = 0;
         rooms.Add(middleRoom);
 
         //Generate Rooms
         int roomsToGen = howManyRooms;
-        
 
 
-        while (roomsToGen > 0) {
-        //Get Room with doors
-            int roomIndex = Random.Range(0, rooms.Count);
+
+        while(roomsToGen > 0) {
+            //Get Room with doors
+            int roomIndex = Random.Range(0 , rooms.Count);
 
             if(rooms[roomIndex].doorsLeft == 0)
                 continue;
@@ -101,7 +105,7 @@ public class RoomGeneration : MonoBehaviour {
             rooms[roomIndex].doorDirections[newRoomDirection] = true;
 
             //Place Room
-            rooms = createRoom(rooms, roomIndex, newRoomDirection);
+            rooms = createRoom(rooms , roomIndex , newRoomDirection);
 
             roomsToGen--;
         }
@@ -109,73 +113,10 @@ public class RoomGeneration : MonoBehaviour {
         rooms = reduceGrid(rooms);
         generatetiles(rooms);
 
-        //generates one instrument in a room
-        int guitarNeedSpawn = 3;
-        for(int i = 0; i < guitarNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(0);
-        }
-        int pipeNeedSpawn = 3;
-        for (int i = 0; i < pipeNeedSpawn; i++)
-        {
-
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(1);
-        }
-        int harpNeedSpawn = 3;
-        for (int i = 0; i < harpNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(2);
-        }
-        int fluteNeedSpawn = 3;
-        for (int i = 0; i < fluteNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(3);
-        }
-        //spawns an enimies
-        int enimiesNeedSpawn = 15;
-        for (int i = 0; i < enimiesNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addEnemy(0);
-            FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
-        }
-        //spawns health potions
-        int healPotionNeedSpawn = 5;
-        for (int i = 0; i < healPotionNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(0);
-        }
-        //spawns Crank reduce potions
-        int crankPotionNeedSpawn = 5;
-        for (int i = 0; i < crankPotionNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(1);
-        }
-        //spawns teleport 
-        int teleportNeedSpawn = 3;
-        for (int i = 0; i < teleportNeedSpawn; i++)
-        {
-            int roomRan = Random.Range(0, rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(2);
-        }
-
-
-
-
+        //Spawn Things
+        rooms = spawnInstruments(rooms);
+        rooms = spawnEnemies(rooms);
+        rooms = spawnItems(rooms);
 
 
 
@@ -183,27 +124,7 @@ public class RoomGeneration : MonoBehaviour {
 
     }
 
-    public void setToNegative1() {
-        for(int x = 0; x < gridSize; x++) {
-            for(int y = 0; y < gridSize; y++) {
-                roomLayout[x , y] = -1;
-            }
-        }
-    }
-
-    public int pickDirection(RoomInfo room) {
-        int direction = Random.Range(0 , 4) % 4;
-        bool openDirection = room.directions[direction];
-
-        while(!openDirection) {
-            direction = (direction + 1) % 4;
-            openDirection = room.directions[direction];
-        }
-
-        return direction;
-    }
-
-    public List<RoomInfo> createRoom(List<RoomInfo> rooms, int baseRoomIndex, int newRoomDir) {
+    public List<RoomInfo> createRoom(List<RoomInfo> rooms , int baseRoomIndex , int newRoomDir) {
         //Create the new room
         RoomInfo newRoom = new RoomInfo();
 
@@ -244,6 +165,147 @@ public class RoomGeneration : MonoBehaviour {
         return rooms;
     }
 
+
+    public void generatetiles(List<RoomInfo> rooms) {
+        GameObject parent = new GameObject("Room Manager");
+        parent.transform.AddComponent<RoomManager>();
+        roomManager = parent.GetComponent<RoomManager>();
+
+
+        //Define Grid to generate rooms
+        Room[,] roomGrid = new Room[roomLayout.GetLength(0) , roomLayout.GetLength(1)];
+
+        for(int i = 0; i < rooms.Count; i++) {
+            RoomInfo roomInfo = rooms[i];
+
+            //Gerate object of Room, set the parent, and add Room Component
+            float middle = Mathf.FloorToInt(gridSize / 2f);
+            GameObject obj = Instantiate(roomTilePrefab , new Vector3((roomInfo.x - middle) * floorSize ,
+                (roomInfo.y - middle) * floorSize , -1) , Quaternion.identity);
+            obj.transform.localScale *= floorSize;
+
+            obj.transform.SetParent(parent.transform);
+
+            obj.transform.AddComponent<Room>();
+            Room room = obj.transform.GetComponent<Room>();
+
+            //Generate Floor
+            obj.AddComponent<FloorGrid>();
+
+            FloorGrid floor = obj.GetComponent<FloorGrid>();
+            floor.set(floorSize , floorSize , 1);
+            floor.tile = floorTilePrefab;
+
+            floor.generateEmpty(obj);
+
+            room.floor = floor;
+
+            //Define Doors
+            for(int dirIndex = 0; dirIndex < baseDirections.GetLength(0); dirIndex++) {
+                //Debug.Log(dirIndex + " " + roomInfo.doorDirections[dirIndex] + "++++++++++++++++++++++++++++++++=");
+                if(roomInfo.doorDirections[dirIndex]) {
+                    int adjRoomIndex = roomLayout[roomInfo.x + baseDirections[dirIndex , 0] , roomInfo.y + baseDirections[dirIndex , 1]];
+
+                    if(adjRoomIndex < i && adjRoomIndex != -1) {
+                        floor.addDoor((dirIndex + 1) % 4 , doorMat , roomManager.roomList[adjRoomIndex].GetComponent<Room>().floor);
+                    }
+                    else {
+                        floor.addDoor((dirIndex + 1) % 4 , doorMat);
+                    }
+
+                }
+            }
+
+            //Add Player to first room
+            if(i == 0) {
+                floor.addPlayer();
+                floor.addOswald();
+            }
+
+            roomManager.roomList.Add(room.gameObject);
+        }
+    }
+
+    /***** SPAWNING *****/
+    public List<RoomInfo> spawnInstruments(List<RoomInfo> rooms) {
+        //generates one instrument in a room
+        int guitarNeedSpawn = 3;
+        for(int i = 0; i < guitarNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addInstrument(0);
+        }
+        int pipeNeedSpawn = 3;
+        for(int i = 0; i < pipeNeedSpawn; i++) {
+
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addInstrument(1);
+        }
+        int harpNeedSpawn = 3;
+        for(int i = 0; i < harpNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addInstrument(2);
+        }
+        int fluteNeedSpawn = 3;
+        for(int i = 0; i < fluteNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addInstrument(3);
+        }
+
+        return rooms;
+    }
+
+    public List<RoomInfo> spawnEnemies(List<RoomInfo> rooms) {
+        //spawns an enimies
+        int enimiesNeedSpawn = 15;
+        for(int i = 0; i < enimiesNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addEnemy(0);
+            FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
+        }
+
+        return rooms;
+    }
+
+    public List<RoomInfo> spawnItems(List<RoomInfo> rooms) {
+        //spawns health potions
+        int healPotionNeedSpawn = 5;
+        for(int i = 0; i < healPotionNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addItem(0);
+        }
+        //spawns Crank reduce potions
+        int crankPotionNeedSpawn = 5;
+        for(int i = 0; i < crankPotionNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addItem(1);
+        }
+        //spawns teleport 
+        int teleportNeedSpawn = 3;
+        for(int i = 0; i < teleportNeedSpawn; i++) {
+            int roomRan = Random.Range(0 , rooms.Count);
+            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
+            Tile.addItem(2);
+        }
+
+        return rooms;
+    }
+
+    /***** GRID UTILITY *****/
+    public void setToNegative1() {
+        for(int x = 0; x < gridSize; x++) {
+            for(int y = 0; y < gridSize; y++) {
+                roomLayout[x , y] = -1;
+            }
+        }
+    }
+
     public List<RoomInfo> reduceGrid(List<RoomInfo> rooms) {
         //
         int minWidth = 0, maxWidth = gridSize;
@@ -254,7 +316,7 @@ public class RoomGeneration : MonoBehaviour {
             bool trigger = false;
 
             for(int y = 0; y < gridSize; y++) {
-                if(roomLayout[x, y] != -1) {
+                if(roomLayout[x , y] != -1) {
                     trigger = true;
                     break;
                 }
@@ -318,12 +380,12 @@ public class RoomGeneration : MonoBehaviour {
         }
 
         //Reduce
-        int[,] reduced = new int[maxWidth - minWidth, maxHeight - minHeight];
+        int[,] reduced = new int[maxWidth - minWidth , maxHeight - minHeight];
 
         for(int x = 0; x < reduced.GetLength(0); x++) {
             for(int y = 0; y < reduced.GetLength(1); y++) {
                 //Debug.Log(x + " " + y + "\n" + (x + minWidth) + " " + (y + minHeight));
-                reduced[x, y] = roomLayout[x + minWidth, y + minHeight];
+                reduced[x , y] = roomLayout[x + minWidth , y + minHeight];
 
                 int roomId = reduced[x , y];
 
@@ -340,67 +402,22 @@ public class RoomGeneration : MonoBehaviour {
         return rooms;
     }
 
-    public void generatetiles(List<RoomInfo> rooms) {
-        GameObject parent = new GameObject("Room Manager");
-        parent.transform.AddComponent<RoomManager>();
-        roomManager = parent.GetComponent<RoomManager>();
 
+    /***** UTILITY *****/
+    public int pickDirection(RoomInfo room) {
+        int direction = Random.Range(0 , 4) % 4;
+        bool openDirection = room.directions[direction];
 
-        //Define Grid to generate rooms
-        Room[,] roomGrid = new Room[roomLayout.GetLength(0) , roomLayout.GetLength(1)];
-
-        for(int i = 0; i < rooms.Count; i++) {
-            RoomInfo roomInfo = rooms[i];
-
-            //Gerate object of Room, set the parent, and add Room Component
-            float middle = Mathf.FloorToInt(gridSize / 2f);
-            GameObject obj = Instantiate(roomTilePrefab , new Vector3((roomInfo.x - middle) * floorSize, 
-                (roomInfo.y - middle) * floorSize , -1) , Quaternion.identity);
-            obj.transform.localScale *= floorSize;
-
-            obj.transform.SetParent(parent.transform);
-
-            obj.transform.AddComponent<Room>();
-            Room room = obj.transform.GetComponent<Room>();
-
-            //Generate Floor
-            obj.AddComponent<FloorGrid>();
-
-            FloorGrid floor = obj.GetComponent<FloorGrid>();
-            floor.set(floorSize , floorSize , 1);
-            floor.tile = floorTilePrefab;
-
-            floor.generateEmpty(obj);
-
-            room.floor = floor;
-
-            //Define Doors
-            for(int dirIndex = 0; dirIndex < baseDirections.GetLength(0); dirIndex++) {
-                //Debug.Log(dirIndex + " " + roomInfo.doorDirections[dirIndex] + "++++++++++++++++++++++++++++++++=");
-                if(roomInfo.doorDirections[dirIndex]) {
-                    int adjRoomIndex = roomLayout[roomInfo.x + baseDirections[dirIndex , 0] , roomInfo.y + baseDirections[dirIndex , 1]];
-
-                    if(adjRoomIndex < i && adjRoomIndex != -1) {
-                        floor.addDoor((dirIndex + 1) % 4 , doorMat , roomManager.roomList[adjRoomIndex].GetComponent<Room>().floor);
-                    }
-                    else {
-                        floor.addDoor((dirIndex + 1) % 4 , doorMat);
-                    }
-
-                }
-            }
-
-            //Add Player to first room
-            if(i == 0) {
-                floor.addPlayer();
-                floor.addOswald();
-            }
-
-            roomManager.roomList.Add(room.gameObject);
+        while(!openDirection) {
+            direction = (direction + 1) % 4;
+            openDirection = room.directions[direction];
         }
+
+        return direction;
     }
 
-    public void print(string fileName, List<RoomInfo> rooms) {
+    /***** DEBUGGING *****/
+    public void print(string fileName , List<RoomInfo> rooms) {
         string text = "";
 
         for(int x = 0; x < roomLayout.GetLength(0); x++) {
@@ -414,7 +431,7 @@ public class RoomGeneration : MonoBehaviour {
 
         for(int x = 0; x < roomLayout.GetLength(0); x++) {
             for(int y = 0; y < roomLayout.GetLength(1); y++) {
-                if(roomLayout[x, y] != -1)
+                if(roomLayout[x , y] != -1)
                     text += rooms[roomLayout[x , y]].doorsLeft.ToString() + "\t";
                 else
                     text += "-1" + "\t";
@@ -435,4 +452,6 @@ public class RoomGeneration : MonoBehaviour {
         writer.Write(text);
         writer.Close();
     }
+
+
 }
