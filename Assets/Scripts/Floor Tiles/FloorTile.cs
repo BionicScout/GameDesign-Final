@@ -112,10 +112,10 @@ public class FloorTile : MonoBehaviour {
             AudioManager.instance.Play("Snake");
         }
         if(id == 1) { //Ghost
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+            AudioManager.instance.Play("Ghost");
         }
         if(id == 2) { //Imp
-            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+            AudioManager.instance.Play("Imp");
         }
     }
 
