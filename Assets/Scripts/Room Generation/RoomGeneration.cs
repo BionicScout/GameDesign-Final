@@ -136,7 +136,7 @@ public class RoomGeneration : MonoBehaviour {
 
 
 
-        //roomManager.hide(true);
+        roomManager.hide(true);
 
     }
 

@@ -4366,9 +4366,9 @@ MonoBehaviour:
   floorTilePrefab: {fileID: 5866771556132973551, guid: 447acdd6c1b87044db26b35ad890dcc0, type: 3}
   doorMat: {fileID: 2100000, guid: 862c5e0a31051c248b83d59190c141bb, type: 2}
   instrumentSpawns: 8
-  instrumentsSpawnWeigths: 19000000320000000a0000000f000000
+  instrumentsSpawnWeigths: 19000000190000001900000019000000
   enemySpawns: 20
-  enemySpawnWeigths: 01000000
+  enemySpawnWeigths: 190000001900000032000000
   itemsSpawns: 15
   itemsSpawnWeigths: 280000002800000014000000
 --- !u!1 &1808792120
@@ -4873,7 +4873,7 @@ MonoBehaviour:
   playerHasHeal: 0
   playerHasCrank: 0
   playerHasTeleport: 0
-  crankPerMove: 0.35
+  crankPerMove: 0.25
   enemyTiles: []
   instrumentUI: {fileID: 823110370}
   healTxt: {fileID: 1686631634}

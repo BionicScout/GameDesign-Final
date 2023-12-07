@@ -180,14 +180,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Goal: Gather instruments and bring them to Oswald.\nMove into instruments
-    to pick up. Move into enemies with an instrument to attack it. \nIf you attack
-    an enemy without an instrument or they attack you, you take damage. \nIf you
-    move into Oswald with an Instrument, you play it and score a point. \nIf you
-    score enough points, you win.\nAs you move, the cranky meter goes up. If it gets
-    too high, you lose. \nYou can move through doors (yellow dashes) to explore a
-    new room. \n\nMovement: WASD\nUse Health potion: E\nUse Crankyness reducer: Q\nUse
-    teleport: F"
+  m_text: "Goal: Bring Instruments to Oswald without dying or taking too long.\n\nMove
+    between rooms to gather instruments and bring them back to oswald. To pick up
+    items, walk into them. To play music for Oswald, walk in to him. To attack, walk
+    into an enemy. You can only attack with an instrument. As you move, the cranky
+    meter goes up. If it gets to high you lose. \r\nGoal: Bring Instruments to Oswald
+    without dying or taking too long.\r\n\r\nControls\r\nWASD - Move\r\nE - Use Health
+    potion\r\nQ - Use Reduce Crank Potion\r\nf - Use Teleport"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4f47720d0e2a904f91d211b84d0470d, type: 2}
   m_sharedMaterial: {fileID: 136177968996019467, guid: e4f47720d0e2a904f91d211b84d0470d, type: 2}
