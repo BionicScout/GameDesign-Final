@@ -39,9 +39,8 @@ public class RoomGeneration : MonoBehaviour {
         public int distanceFromStart;
 
         public bool roomHasInstru;
-        public bool roomHasHealPotion;
-        public bool roomHasCrankPotion;
-        public bool roomHasTeleport;
+        public bool roomHasItem;
+        public int enemies; 
 
         public void set(int xCoord, int yCoord) {
             x = xCoord; 
@@ -64,6 +63,8 @@ public class RoomGeneration : MonoBehaviour {
             doorDirections[3] = false;
 
             roomHasInstru = false;
+            roomHasItem = false;
+            enemies = 0;
 
             distanceFromStart = -1;
         }
@@ -249,19 +250,7 @@ public class RoomGeneration : MonoBehaviour {
         int spawns = 0;
         while(spawns < instrumentSpawns) {
             //Select Instrument to Spawn
-            int instrumentSelection = Random.Range(0 , maxWeight);
-
-            int id = -1;
-            int minWeight = 0;
-            for(int i = 0; i < instrumentsSpawnWeigths.Length; i++) {
-                //Debug.Log("Min Weight: " + minWeight + "\nValue: " + instrumentSelection + "\nMax Weight: " + (minWeight + instrumentsSpawnWeigths[i]));
-                if(instrumentSelection >= minWeight && instrumentSelection < minWeight + instrumentsSpawnWeigths[i]) {
-                    id = i;
-                    break;
-                }
-
-                minWeight += instrumentsSpawnWeigths[i];
-            }
+            int id = getIdOfWeighted(maxWeight, instrumentsSpawnWeigths);
 
             Debug.Log("ID: " + id);
 
@@ -269,7 +258,7 @@ public class RoomGeneration : MonoBehaviour {
             int roomIndex = -1;
             bool validRoom = false;
 
-            int underLimitChance = 25;
+            int underLimitChance = 10;
             while(!validRoom) {
                 validRoom = true;
 
@@ -288,6 +277,7 @@ public class RoomGeneration : MonoBehaviour {
                     Debug.Log("PASSED LOW CHANCE");
                 }
 
+                //Check if there is an instrument in room
                 if(selectedRoom.roomHasInstru) {
                     validRoom = false;
                     Debug.Log("HAS INSTRUMENT");
@@ -296,13 +286,22 @@ public class RoomGeneration : MonoBehaviour {
 
                 roomIndex = roomRan;
             }
-            FloorTile Tile = roomManager.roomList[roomIndex].GetComponent<Room>().floor.GetRandTile();
-            Tile.addInstrument(id);
 
+            //Get Random tile and add if there is nothing on the title
+            Room spawnRoom = roomManager.roomList[roomIndex].GetComponent<Room>();
+            FloorTile tile = spawnRoom.floor.GetRandTile();
+
+            while(tile.hasItem) {
+                tile = spawnRoom.floor.GetRandTile();
+            }            
+            tile.addInstrument(id);
+
+            //Update Room Info
             RoomInfo room = rooms[roomIndex];
             room.roomHasInstru = true;
             rooms[roomIndex] = room;
 
+            //Update Spawn
             spawns++;
             Debug.Log("------------------------------");
         }
@@ -312,40 +311,121 @@ public class RoomGeneration : MonoBehaviour {
     }
 
     public List<RoomInfo> spawnEnemies(List<RoomInfo> rooms) {
-        //spawns an enimies
-        int enimiesNeedSpawn = 15;
-        for(int i = 0; i < enimiesNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addEnemy(0);
-            FindObjectOfType<PlayerMovement>().enemyTiles.Add(Tile);
+        int maxWeight = getTotalWeight(enemySpawnWeigths);
+
+        int spawns = 0;
+        while(spawns < enemySpawns) {
+            //Select Instrument to Spawn
+            int id = getIdOfWeighted(maxWeight , enemySpawnWeigths);
+
+            Debug.Log("ID: " + id);
+
+            //Pick room to Spawn
+            int roomIndex = -1;
+            bool validRoom = false;
+
+            while(!validRoom) {
+                validRoom = true;
+
+                int roomRan = Random.Range(1 , rooms.Count);
+                RoomInfo selectedRoom = rooms[roomRan];
+
+                //Check if there are snakes in room
+                if(selectedRoom.enemies >= 2) {
+                    validRoom = false;
+                    Debug.Log("HAS INSTRUMENT");
+                    continue;
+                }
+
+                roomIndex = roomRan;
+            }
+
+
+            //Get Random tile and add if there is nothing on the title
+            Room spawnRoom = roomManager.roomList[roomIndex].GetComponent<Room>();
+            FloorTile tile = spawnRoom.floor.GetRandTile();
+
+            while(tile.hasItem) {
+                tile = spawnRoom.floor.GetRandTile();
+            }
+            tile.addEnemy(id);
+
+            //Update Room Info
+            RoomInfo room = rooms[roomIndex];
+            room.enemies++;
+            rooms[roomIndex] = room;
+
+            //Update Spawn
+            spawns++;
+            Debug.Log("------------------------------");
         }
+
 
         return rooms;
     }
 
     public List<RoomInfo> spawnItems(List<RoomInfo> rooms) {
-        //spawns health potions
-        int healPotionNeedSpawn = 5;
-        for(int i = 0; i < healPotionNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(0);
+        int maxWeight = getTotalWeight(itemsSpawnWeigths);
+
+        int spawns = 0;
+        while(spawns < itemsSpawns) {
+            //Select Instrument to Spawn
+            int id = getIdOfWeighted(maxWeight , itemsSpawnWeigths);
+
+            Debug.Log("ID: " + id);
+
+            //Pick room to Spawn
+            int roomIndex = -1;
+            bool validRoom = false;
+
+            int aboveLimitChance = 40;
+            while(!validRoom) {
+                validRoom = true;
+
+                int roomRan = Random.Range(1 , rooms.Count);
+                RoomInfo selectedRoom = rooms[roomRan];
+
+                //Check if room is at least 3 rooms away, if not low chance to spawn
+                if(selectedRoom.distanceFromStart > 5 && selectedRoom.distanceFromStart != 0) {
+                    int chance = Random.Range(0 , 100);
+
+                    if(chance >= aboveLimitChance) {//Does not pass
+                        validRoom = false;
+                        Debug.Log("DID NOT PASS LOW CHANCE");
+                        continue;
+                    }
+                    Debug.Log("PASSED LOW CHANCE");
+                }
+
+                //Check if there is an instrument in room
+                if(selectedRoom.roomHasItem) {
+                    validRoom = false;
+                    Debug.Log("HAS Item");
+                    continue;
+                }
+
+                roomIndex = roomRan;
+            }
+
+            //Get Random tile and add if there is nothing on the title
+            Room spawnRoom = roomManager.roomList[roomIndex].GetComponent<Room>();
+            FloorTile tile = spawnRoom.floor.GetRandTile();
+
+            while(tile.hasItem) {
+                tile = spawnRoom.floor.GetRandTile();
+            }
+            tile.addItem(id);
+
+            //Update Room Info
+            RoomInfo room = rooms[roomIndex];
+            room.roomHasInstru = true;
+            rooms[roomIndex] = room;
+
+            //Update Spawn
+            spawns++;
+            Debug.Log("------------------------------");
         }
-        //spawns Crank reduce potions
-        int crankPotionNeedSpawn = 5;
-        for(int i = 0; i < crankPotionNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(1);
-        }
-        //spawns teleport 
-        int teleportNeedSpawn = 3;
-        for(int i = 0; i < teleportNeedSpawn; i++) {
-            int roomRan = Random.Range(0 , rooms.Count);
-            FloorTile Tile = roomManager.roomList[roomRan].GetComponent<Room>().floor.GetRandTile();
-            Tile.addItem(2);
-        }
+
 
         return rooms;
     }
@@ -477,6 +557,24 @@ public class RoomGeneration : MonoBehaviour {
         }
 
         return totalWeight;
+    }
+
+    public int getIdOfWeighted(int maxWeight,int[] objectWeights) {
+        int selection = Random.Range(0 , maxWeight);
+
+        int id = -1;
+        int minWeight = 0;
+        for(int i = 0; i < objectWeights.Length; i++) {
+            //Debug.Log("Min Weight: " + minWeight + "\nValue: " + instrumentSelection + "\nMax Weight: " + (minWeight + instrumentsSpawnWeigths[i]));
+            if(selection >= minWeight && selection < minWeight + objectWeights[i]) {
+                id = i;
+                break;
+            }
+
+            minWeight += objectWeights[i];
+        }
+
+        return id;
     }
 
     /***** DEBUGGING *****/
