@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class FloorTile : MonoBehaviour {
     public int playerDir = -1; //-1 no player, 0 Up, 1 Left, 2 Down, 3 Right 
     public int instrument = -1; //-1 no instrument, 0 Guitar, 1 Wind Pipes, 2 Harp, 3 Flute
-    public int enemy = -1; //-1 no enemy, 0 snake
+    public int enemy = -1; //-1 no enemy, 0 snake, 1 Ghost, 2 Imp
     public int item = -1; //-1 no item, 0 Heal Potion, 1 Crank Potion, 2 Hourglass
     public bool hasOswald = false;
     public bool hasItem = false; // True if any of the above are true or > -1
@@ -109,6 +110,12 @@ public class FloorTile : MonoBehaviour {
     public void EnemySound(int id) {
         if(id == 0) { //Snake
             AudioManager.instance.Play("Snake");
+        }
+        if(id == 1) { //Ghost
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
+        }
+        if(id == 2) { //Imp
+            AudioManager.instance.Play("SOUND_EFFECT_NEEDED");
         }
     }
 
