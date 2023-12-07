@@ -52,13 +52,6 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
-  - name: Knife
-    clip: {fileID: 8300000, guid: 1e52a981f43078a499e9f2a1f8ef0dfc, type: 3}
-    volume: 0.762
-    pitch: 1
-    loop: 0
-    soundTrack: 0
-    source: {fileID: 0}
   - name: Flute
     clip: {fileID: 8300000, guid: 2a4f4a8c24970c049b9565974a2d092a, type: 3}
     volume: 0.23
@@ -69,6 +62,83 @@ MonoBehaviour:
   - name: SOUND_EFFECT_NEEDED
     clip: {fileID: 8300000, guid: 750a7d2deadedf54aa40125e3037abfb, type: 3}
     volume: 0.58
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Guitar
+    clip: {fileID: 8300000, guid: f0095e3166f6fa64b86292459c2aa185, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Harp
+    clip: {fileID: 8300000, guid: a4296421635a1b34da5da4ce9f4de0c5, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: WindPipes
+    clip: {fileID: 8300000, guid: 28cd1f27f1cede14eb6ee46094bd0c5f, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: e9e858cf173aa2843884dc8b7d7d6ed2, type: 3}
+    volume: 0.31
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: EnemyHurt
+    clip: {fileID: 8300000, guid: 3780533011d2e664a852ae1a9e8bb9e9, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: PlayerHeal
+    clip: {fileID: 8300000, guid: 74d64d81e2998cb429fc8116c9e18ebb, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Snake
+    clip: {fileID: 8300000, guid: 37c090b4e02cb83479af7274831fc534, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 864e8dd54eb875a43a30f60def5f09c1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Crank
+    clip: {fileID: 8300000, guid: eefc757c57213eb4a99f63f75ad52fac, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Item
+    clip: {fileID: 8300000, guid: 6c70bf4c5b5ca304a8341e44dde6a890, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Ghost
+    clip: {fileID: 8300000, guid: 12d32ff725ebe8246948c35d6dbc60e9, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     soundTrack: 0

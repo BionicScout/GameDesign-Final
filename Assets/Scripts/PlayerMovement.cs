@@ -351,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if(floor.grid[potentialX + dir.x , potentialY + dir.y].playerDir != -1) {
                             MainManager.instance.takeDamage(damage);
-                            AudioManager.instance.Play("SOUND_EFFECT_NEEDED"); // Hurt Sound
+                            AudioManager.instance.Play("PlayerHurt"); // Hurt Sound
                         }
                     }
                 }
